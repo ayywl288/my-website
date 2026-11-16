@@ -41,27 +41,29 @@
 <section id="games" class="container personal-section games" aria-labelledby="gallery-label">
 <div class="personal-heading" data-reveal="0"><h2 id="gallery-label">游戏</h2><span class="chapter-cue">写代码之外</span></div>
 <div class="game-board">
-<div class="game-menu" data-reveal="1">
-<div class="gallery-games" role="group" aria-label="选择游戏" hidden>
-<button type="button" data-game="绝区零" data-images="./images/zzz-1.png ./images/zzz-2.png" aria-pressed="true">绝区零</button>
-<button type="button" data-game="守望先锋" data-images="./images/ow-1.png" aria-pressed="false">守望先锋</button>
-<button type="button" data-game="以撒的结合：重生" data-images="./images/isc-1.jpg ./images/isc-2.jpg" aria-pressed="false">以撒的结合：重生</button>
-<button type="button" data-game="最终幻想 XV" data-images="./images/ff15-1.jpg ./images/ff15-2.jpg" aria-pressed="false">最终幻想 XV</button>
-<button type="button" data-game="荒野大镖客" data-images="./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-1.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-2.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-3.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-4.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-5.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-6.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-7.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5%3D9.jpg" aria-pressed="false">荒野大镖客</button>
-</div>
-</div>
+<script type="application/json" id="game-shots">
+[
+  {"name":"守望先锋","src":"./images/ow-1.png"},
+  {"name":"绝区零","src":"./images/zzz-1.png"},
+  {"name":"以撒的结合：重生","src":"./images/isc-1.jpg"},
+  {"name":"最终幻想 XV","src":"./images/ff15-1.jpg"},
+  {"name":"荒野大镖客","src":"./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-1.jpg"},
+  {"name":"博德之门 3","src":"./images/bd3-1.jpg"},
+  {"name":"Stray","src":"./images/stray-1.jpg"}
+]
+</script>
 <figure class="game-viewer" aria-labelledby="gallery-label">
-<div class="game-stage" data-reveal="2">
-<div class="game-track"><span class="game-panel" data-slot="-2" aria-hidden="true" hidden><img src="./images/zzz-1.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="-1" aria-hidden="true" hidden><img src="./images/zzz-2.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="0"><img id="game-photo" src="./images/zzz-1.png" width="2560" height="1600" alt="《绝区零》游戏截图 1" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="1" aria-hidden="true" hidden><img src="./images/zzz-2.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="2" aria-hidden="true" hidden><img src="./images/zzz-1.png" alt="" loading="lazy" decoding="async"></span></div>
+<div class="game-stage" data-reveal="1">
+<div class="game-track"><span class="game-panel" data-slot="-2" aria-hidden="true" hidden><img src="./images/bd3-1.jpg" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="-1" aria-hidden="true" hidden><img src="./images/stray-1.jpg" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="0"><img id="game-photo" src="./images/ow-1.png" width="2560" height="1440" alt="《守望先锋》游戏截图" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="1" aria-hidden="true" hidden><img src="./images/zzz-1.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="2" aria-hidden="true" hidden><img src="./images/isc-1.jpg" alt="" loading="lazy" decoding="async"></span></div>
 <p id="game-error" hidden>这张截图未能加载，可以切换到另一张。</p>
 <div class="gallery-arrows" role="group" aria-label="切换截图" hidden>
 <button type="button" id="game-prev" aria-label="上一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
 <button type="button" id="game-next" aria-label="下一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
 </div>
 </div>
-<figcaption class="game-caption" data-reveal="3">
-<strong id="game-title">绝区零</strong>
-<div class="gallery-count" id="gallery-count">1 / 2</div>
+<figcaption class="game-caption" data-reveal="2">
+<strong id="game-title">守望先锋</strong>
+<div class="gallery-count" id="gallery-count">1 / 7</div>
 <div class="gallery-dots" aria-hidden="true" hidden></div>
 
 <span id="game-status" class="sr-only" aria-live="polite" aria-atomic="true"></span></figcaption>
@@ -110,7 +112,7 @@
 <script>
 (() => {
   const gallery = document.getElementById('games');
-  const buttons = [...gallery.querySelectorAll('[data-images]')];
+  const items = JSON.parse(document.getElementById('game-shots').textContent);
   let photo = document.getElementById('game-photo');
   const title = document.getElementById('game-title');
   const count = document.getElementById('gallery-count');
@@ -126,8 +128,8 @@
   const slots = [...track.querySelectorAll('.game-panel')];
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const rotationInterval = 6500;
-  let game = 0, shot = 0, items = [], inView = false, stopped = false;
-  let allowedFocus = null, timer, moving, queued;
+  let shot = 0, inView = false, stopped = false;
+  let timer, moving, queued;
   const wrap = i => (i % items.length + items.length) % items.length;
 
   let measured;
@@ -137,7 +139,7 @@
   const arrowObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(measureArrows) : null;
 
   function render(announce = false) {
-    const name = buttons[game].dataset.game;
+    const {name} = items[shot];
     const multiple = items.length > 1;
     stage.classList.toggle('has-neighbors', multiple);
     for (const slot of slots) {
@@ -148,17 +150,16 @@
       if (slot.hidden) continue;
       const image = slot.querySelector('img');
       if (offset !== 0) image.alt = '';
-      const src = items[wrap(shot + offset)];
+      const {src} = items[wrap(shot + offset)];
       if (image === photo && image.getAttribute('src') !== src) {
         error.hidden = true;
         photo.hidden = false;
       }
       if (image.getAttribute('src') !== src) image.src = src;
     }
-    const frame = decodeURIComponent(items[shot]).match(/[-=](\d+)\./)?.[1] ?? shot + 1;
     error.hidden = !photo.complete || photo.naturalWidth > 0;
     photo.hidden = !error.hidden;
-    photo.alt = '《' + name + '》游戏截图 ' + frame;
+    photo.alt = '《' + name + '》游戏截图';
     title.textContent = name;
     count.textContent = (shot + 1) + ' / ' + items.length;
     [...dots.children].forEach((dot, i) => dot.classList.toggle('current', i === shot));
@@ -174,8 +175,7 @@
   }
 
   function canRotate() {
-    const active = document.activeElement;
-    if (viewer.contains(active) && active !== allowedFocus) stopped = true;
+    if (viewer.contains(document.activeElement)) stopped = true;
     return !stopped && !motion.matches && inView && !document.hidden && items.length > 1;
   }
 
@@ -206,21 +206,6 @@
     else schedule();
   }
 
-  function select(index, announce = true) {
-    if (moving) { moving.animation.cancel(); moving.effects.forEach(effect => effect.cancel()); moving = null; }
-    queued = null;
-    game = index;
-    shot = 0;
-    stopped = false;
-    allowedFocus = document.activeElement;
-    items = buttons[game].dataset.images.split(' ');
-    dots.replaceChildren(...items.map(() => document.createElement('span')));
-    dots.hidden = items.length < 2;
-    buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === game)));
-    render(announce);
-    schedule();
-  }
-
   function step(delta, manual) {
     if (items.length < 2) return;
     if (manual) stopped = true;
@@ -248,10 +233,9 @@
     animation.finished.then(() => finish(move), () => {});
   }
 
-  buttons.forEach((button, i) => button.addEventListener('click', () => select(i)));
   prev.addEventListener('click', () => step(-1, true));
   next.addEventListener('click', () => step(1, true));
-  viewer.addEventListener('focusin', () => { allowedFocus = null; stopped = true; schedule(); });
+  viewer.addEventListener('focusin', () => { stopped = true; schedule(); });
   viewer.addEventListener('keydown', event => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
@@ -272,10 +256,11 @@
     if (inView) for (const slot of slots) slot.querySelector('img').loading = 'eager';
     schedule();
   }, {threshold:[.35]}).observe(stage);
-  gallery.querySelector('.gallery-games').hidden = false;
-  gallery.querySelector('.gallery-arrows').hidden = false;
+  dots.replaceChildren(...items.map(() => document.createElement('span')));
+  dots.hidden = items.length < 2;
   viewer.tabIndex = 0;
-  select(0, false);
+  render();
+  schedule();
 })();
 
 
