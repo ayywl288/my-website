@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="啊咿呀哇嘞的个人主页。关注 Java 后端与 Coding Agent。">
-<meta name="theme-color" content="#f5efe5">
+<meta name="theme-color" content="#f5f7fb">
 <title>啊咿呀哇嘞｜个人作品集</title>
 <style>
 :root{--bg:#f5efe5;--paper:#fff9ef;--ink:#2c2034;--muted:#625565;--plum:#473159;--accent:#f4ca84;--line:#d9cbba;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;--sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;--serif:Georgia,"Songti SC","SimSun",serif}
@@ -66,6 +66,61 @@
 .video-list{gap:15px}
 }
 @media(max-width:600px){.video-list{grid-template-columns:1fr;gap:12px}.video-title{padding-bottom:10px}}
+
+/* Matte materials for navigation and gallery controls */
+:root{color-scheme:light;--bg:#f5f7fb;--paper:#fff;--ink:#252438;--muted:#545267;--plum:#41375c;--line:#d9dbe6}
+body{background:radial-gradient(ellipse 72% 620px at 80% 0%,#e8eaf7 0%,transparent 90%),var(--bg)}
+.sitehead{position:sticky;top:0;z-index:10;background:#f9faff}
+.sitehead .nav{min-height:66px}
+.sitehead a:focus-visible,.gallery-arrows button:focus-visible{outline-offset:3px}
+.specimen{background:#e5e4f1;border-color:#d7d6e6}
+.project:not(.featured){background:#fdfdff}
+.project.featured{background:#342b49;border-color:#342b49}
+.personal-section,.work{scroll-margin-top:84px}
+.gallery-games button:not([aria-pressed="true"]):hover,.gallery-arrows button:not(:disabled):hover{background:#e8e8f4}
+.gallery-games button[aria-pressed="true"]:hover{background:#352b50;color:#fff}
+.game-stage{border-radius:12px 12px 0 0;background:#222131}
+.game-caption{background:#edf0f7;border:1px solid #dce0ed;border-top:0;border-radius:0 0 12px 12px;padding:5px 10px;color:#38304d;flex-wrap:wrap}
+.game-caption strong{min-width:0}
+.gallery-arrows{display:flex;align-items:center;gap:4px}
+.gallery-arrows .game-rotation{display:inline-flex;align-items:center;justify-content:center;gap:5px;width:auto;padding-inline:9px;white-space:nowrap}
+.gallery-arrows .game-rotation svg{flex:none}
+.gallery-count{margin-left:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@supports ((backdrop-filter:blur(14px)) or (-webkit-backdrop-filter:blur(14px))){
+.sitehead{background:rgb(249 250 255 / .83);-webkit-backdrop-filter:blur(17px) saturate(119%);backdrop-filter:blur(17px) saturate(119%)}
+.game-caption{background:rgb(244 247 255 / .76);-webkit-backdrop-filter:blur(13px) saturate(112%);backdrop-filter:blur(13px) saturate(112%)}
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more){
+.sitehead,.game-caption{background:#f8f9fe;-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+@media(max-width:760px){
+.sitehead .nav{min-height:60px}
+.personal-section,.work{scroll-margin-top:73px}
+.game-caption{gap:3px 8px;padding:4px 7px}
+.gallery-arrows{gap:1px}
+.gallery-arrows button{width:44px}
+.gallery-arrows .game-rotation{padding-inline:6px}
+}
+@media(max-width:355px){.game-caption strong{flex:1 0 100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+.music-feature{max-width:none}
+.music-shelf{display:grid;grid-template-columns:minmax(128px,.7fr) minmax(0,1.65fr);gap:14px;margin-top:24px;padding-top:17px;border-top:1px solid var(--line)}
+.music-shelf h4{margin:0 0 7px;color:var(--muted);font-size:13px;font-weight:650}
+.music-shelf ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.track-card{display:flex;align-items:center;gap:8px;min-height:52px;padding:4px 7px 4px 4px;border:1px solid #e1e3ef;border-radius:8px;background:#fafbff;color:var(--plum)}
+a.track-card:hover{background:#e9ebf6;text-decoration:none}
+.track-art{width:42px;height:42px;object-fit:cover;border-radius:5px;overflow:hidden;flex:0 0 42px;display:grid;place-items:center}
+.track-text{display:flex;flex:1;min-width:0;flex-direction:column;gap:2px}
+.track-title{color:var(--plum);font-size:13px;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
+.track-artist{color:var(--muted);font-size:11px;line-height:1.2;overflow-wrap:anywhere}
+.track-play{width:21px;height:21px;border-radius:50%;background:#ece9f8;display:grid;place-items:center;flex:none}
+@media(min-width:1040px){.music-shelf>div:last-child ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.music-shelf{margin-top:17px;padding-top:12px;gap:12px}}
+@media(max-width:540px){.music-shelf{grid-template-columns:1fr}.music-shelf ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.music-shelf ul{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -100,12 +155,16 @@
 </div>
 <figcaption class="game-caption">
 <strong id="game-title">绝区零</strong>
-<div class="gallery-count" aria-live="polite" aria-atomic="true" id="gallery-count">1 / 2</div>
+<div class="gallery-count" id="gallery-count">1 / 2</div>
 <div class="gallery-arrows" role="group" aria-label="切换截图" hidden>
+<button type="button" id="game-play" class="game-rotation">
+<svg data-play aria-hidden="true" width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M6 4.6a.8.8 0 0 1 1.2-.7l8.6 5.4a.8.8 0 0 1 0 1.4l-8.6 5.4a.8.8 0 0 1-1.2-.7z"/></svg>
+<svg data-pause aria-hidden="true" width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" hidden><path d="M7 5v10m6-10v10"/></svg>
+<span>播放</span></button>
 <button type="button" id="game-prev" aria-label="上一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
 <button type="button" id="game-next" aria-label="下一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
 </div>
-</figcaption>
+<span id="game-status" class="sr-only" aria-live="polite" aria-atomic="true"></span></figcaption>
 </figure>
 </div>
 </section>
@@ -113,7 +172,17 @@
 <section id="music" class="container personal-section music" aria-labelledby="music-title">
 <div class="personal-heading"><h2 id="music-title">K-pop / 音乐</h2></div>
 <div class="music-feature">
-<div class="music-copy"><h3>歌单常客：YENA</h3><p>喜欢听 K-pop，喜欢的爱豆是<strong>崔叡娜（YENA）</strong>。</p></div>
+<div class="music-copy"><h3>歌单常客：YENA</h3><p>喜欢听 K-pop，喜欢的爱豆是<strong>崔叡娜（YENA）</strong>。</p>
+<div class="music-shelf" aria-label="歌单片段">
+<div><h4>英文</h4>
+<ul role="list"><li><a class="track-card" href="https://music.apple.com/us/song/1673603129"><img class="track-art" src="./images/music/brain-dead.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Brain Dead</span><span class="track-artist">Vin Jay</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
+<li><a class="track-card" href="https://music.apple.com/us/song/6771598356"><img class="track-art" src="./images/music/the-cure.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">the cure</span><span class="track-artist">Olivia Rodrigo（娅娅）</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li></ul></div>
+<div><h4>韩文 / K-pop</h4>
+<ul role="list"><li><a class="track-card" href="https://music.apple.com/us/song/1750576834"><img class="track-art" src="./images/music/supernatural.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Supernatural</span><span class="track-artist">NewJeans</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
+<li><a class="track-card" href="https://music.apple.com/us/song/1799674117"><img class="track-art" src="./images/music/know-about-me.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">KNOW ABOUT ME</span><span class="track-artist">NMIXX</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
+<li><a class="track-card" href="https://music.apple.com/us/song/1569286889"><img class="track-art" src="./images/music/panorama.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Panorama</span><span class="track-artist">IZ*ONE</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
+<li><a class="track-card" href="https://music.apple.com/us/song/1698640827"><img class="track-art" src="./images/music/jewelry.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Jewelry (Prod. imase)</span><span class="track-artist">LE SSERAFIM</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li></ul></div>
+</div></div>
 <figure class="music-photo">
 <img src="./images/yena-kpopit-2026.jpg" width="1529" height="2039" alt="崔叡娜（YENA）出席 2026 Brand of the Year Awards" loading="lazy" decoding="async">
 <figcaption><a href="https://commons.wikimedia.org/wiki/File:083126_Yena_at_the_2026_Brand_of_the_Year_Awards_03.jpg">K-POPIT</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · 展示时裁切</figcaption>
@@ -139,54 +208,118 @@
 <footer class="foot"><div class="container"><span class="kicker">啊咿呀哇嘞 / LOCAL PORTFOLIO</span><a class="kicker" href="#main">返回顶部 ↑</a></div></footer>
 <script>
 (() => {
-  const gallery = document.querySelector('.games');
-  const selectors = [...gallery.querySelectorAll('[data-images]')];
+  const gallery = document.getElementById('games');
+  const buttons = [...gallery.querySelectorAll('[data-images]')];
   const photo = document.getElementById('game-photo');
   const title = document.getElementById('game-title');
   const count = document.getElementById('gallery-count');
   const prev = document.getElementById('game-prev');
   const next = document.getElementById('game-next');
+  const toggle = document.getElementById('game-play');
+  const status = document.getElementById('game-status');
   const error = document.getElementById('game-error');
   const viewer = gallery.querySelector('.game-viewer');
+  const stage = gallery.querySelector('.game-stage');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const playEvery = 6500;
   let game = 0;
   let shot = 0;
   let items = [];
+  let playing = !motion.matches;
+  let inView = false;
+  let hovering = false;
+  let ignoredFocus = null;
+  let timer;
+  let imageRevision = 0;
+  let fade;
 
-  function render() {
-    const name = selectors[game].dataset.game;
+  function refreshControls() {
+    const multiple = items.length > 1;
+    prev.disabled = next.disabled = toggle.disabled = !multiple;
+    const showPause = multiple && playing;
+    toggle.querySelector('span').textContent = showPause ? '暂停' : '播放';
+    toggle.querySelector('[data-play]').hidden = showPause;
+    toggle.querySelector('[data-pause]').hidden = !showPause;
+    toggle.setAttribute('aria-label', !multiple ? '只有一张游戏截图' : showPause ? '暂停自动轮播' : '开始自动轮播');
+  }
+
+  function render(announce = false) {
+    const name = buttons[game].dataset.game;
     const src = items[shot];
     const file = decodeURIComponent(src.split('/').pop());
     const frame = file.match(/[-=](\d+)\./)?.[1] ?? shot + 1;
     if (photo.getAttribute('src') !== src) {
+      const revision = ++imageRevision;
+      fade?.cancel();
       error.hidden = true;
       photo.hidden = false;
       photo.src = src;
+      if (!motion.matches && typeof photo.animate === 'function') {
+        photo.decode().then(() => {
+          if (revision === imageRevision && !motion.matches) {
+            fade = photo.animate([{opacity:.68},{opacity:1}], {duration:260,easing:'ease-out'});
+          }
+        }).catch(() => {});
+      }
     }
     photo.alt = '《' + name + '》游戏截图 ' + frame;
     title.textContent = name;
     count.textContent = (shot + 1) + ' / ' + items.length;
-    count.setAttribute('aria-label', name + '，第 ' + (shot + 1) + ' 张，共 ' + items.length + ' 张');
-    prev.disabled = next.disabled = items.length < 2;
+    if (announce) status.textContent = name + '，第 ' + (shot + 1) + ' 张，共 ' + items.length + ' 张';
+    refreshControls();
   }
 
-  function select(index) {
+  function pauseForFocus() {
+    const active = document.activeElement;
+    if (playing && active !== toggle && active !== ignoredFocus && viewer.contains(active)) {
+      playing = false;
+      refreshControls();
+    }
+  }
+  function schedule() {
+    window.clearTimeout(timer);
+    pauseForFocus();
+    if (!playing || !inView || hovering || document.hidden || items.length < 2) return;
+    timer = window.setTimeout(() => {
+      pauseForFocus();
+      if (playing && inView && !hovering && !document.hidden) step(1, false);
+    }, playEvery);
+  }
+
+  function select(index, announce = true) {
     game = index;
     shot = 0;
-    items = selectors[game].dataset.images.split(' ');
-    selectors.forEach((button, i) => button.setAttribute('aria-pressed', String(i === game)));
-    render();
+    items = buttons[game].dataset.images.split(' ');
+    buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === game)));
+    render(announce);
+    schedule();
   }
 
-  function step(delta) {
+  function step(delta, announce = true) {
     if (items.length < 2) return;
     shot = (shot + delta + items.length) % items.length;
-    render();
+    render(announce);
+    schedule();
   }
 
-  selectors.forEach((button, i) => button.addEventListener('click', () => select(i)));
+  buttons.forEach((button, i) => button.addEventListener('click', () => select(i)));
   prev.addEventListener('click', () => step(-1));
   next.addEventListener('click', () => step(1));
-  viewer.addEventListener('keydown', (event) => {
+  toggle.addEventListener('click', () => {
+    playing = !playing;
+    ignoredFocus = playing ? document.activeElement : null;
+    refreshControls();
+    schedule();
+  });
+  viewer.addEventListener('focusin', event => {
+    ignoredFocus = null;
+    if (event.target !== toggle && playing) {
+      playing = false;
+      refreshControls();
+      schedule();
+    }
+  });
+  viewer.addEventListener('keydown', event => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
     step(event.key === 'ArrowLeft' ? -1 : 1);
@@ -195,11 +328,31 @@
     photo.hidden = true;
     error.hidden = false;
   });
+  stage.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') { hovering = true; schedule(); } });
+  stage.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') { hovering = false; schedule(); } });
+  document.addEventListener('visibilitychange', schedule);
+  motion.addEventListener('change', () => {
+    if (motion.matches) {
+      playing = false;
+      fade?.cancel();
+      refreshControls();
+      schedule();
+    }
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      inView = entries[0].isIntersecting && entries[0].intersectionRatio >= .35;
+      schedule();
+    }, {threshold:[.35]}).observe(stage);
+  } else {
+    playing = false;
+    toggle.hidden = true;
+  }
 
   gallery.querySelector('.gallery-games').hidden = false;
   gallery.querySelector('.gallery-arrows').hidden = false;
   viewer.tabIndex = 0;
-  select(0);
+  select(0, false);
 })();
 </script>
 </body>
