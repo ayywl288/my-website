@@ -642,7 +642,6 @@ section[id],main { scroll-margin-top:85px; }
     radial-gradient(ellipse at 88% 47%,rgb(252 253 254 / .58),transparent 29%),
     linear-gradient(156deg,#efeff5 6%,#e6ebf3 19%,#d7e0ec 30%,
       #edf2f7 38%,#f5f6f8 45%,#e1e8f1 55%,#eff1f5 73%,var(--paper) 96%);
-  --ribbon-matte:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2229%22%20height%3D%2223%22%20viewBox%3D%220%200%2029%2023%22%3E%3Cpath%20fill%3D%22%23fff%22%20fill-opacity%3D%22.15%22%20d%3D%22M3%201h1v1H3zM19%203h1v1h-1zM9%208h1v1H9zM26%2012h1v1h-1zM3%2017h1v1H3zM15%2020h1v1h-1z%22%2F%3E%3Cpath%20fill%3D%22%231d2d3d%22%20fill-opacity%3D%22.08%22%20d%3D%22M13%202h1v1h-1zM4%206h1v1H4zM22%209h1v1h-1zM11%2014h1v1h-1zM25%2018h1v1h-1zM7%2021h1v1H7z%22%2F%3E%3C%2Fsvg%3E");
   /* One centerline; more of the glass edge is visible when a photo is underneath. */
   --glass-rear:polygon(0 10.25%,100% 70.25%,100% 89.75%,0 29.75%);
   --glass-front:polygon(0 7.75%,100% 67.75%,100% 92.25%,0 32.25%);
@@ -680,38 +679,38 @@ section[id],main { scroll-margin-top:85px; }
   content:""; position:absolute; inset:0;
   opacity:calc(1 - .63 * var(--glass-settled));
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22edge%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.12%22%2F%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.65%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23eaf3f8%22%20stop-opacity%3D%22.24%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M0%2010.25%20L100%2070.25%22%20fill%3D%22none%22%20stroke%3D%22url(%23edge)%22%20stroke-width%3D%221.5%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%2029.75%20L100%2089.75%22%20fill%3D%22none%22%20stroke%3D%22%23364351%22%20stroke-opacity%3D%22.20%22%20stroke-width%3D%221.5%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E") center/100% 100% no-repeat,
-    var(--ribbon-matte) 0 0/29px 23px repeat,var(--ribbon-sheen);
+    var(--ribbon-sheen);
 }
 @media(max-width:760px) {
   .chapter-glass {
     height:clamp(116px,19.5vh,154px);
     inset-block-start:clamp(116px,22vh,190px);
   }
-  .chapter-photo-lens { --pane-frost:4.5px; }
+  .chapter-photo-lens { --pane-frost:1.35px; }
 }
 
 /* The film planes sample the same painted game image in each visible carousel slot. */
 .chapter-photo-lens {
   position:absolute; z-index:2; pointer-events:none;
   clip-path:var(--glass-front);
-  --ribbon-tint:.20;
+  --ribbon-tint:.09;
 }
 .chapter-lens-fragment {
   position:absolute; overflow:hidden; pointer-events:none;
   border-radius:clamp(8px,1.65vw,22px);
-  opacity:calc(var(--source-alpha,1) * .92 * (1 - .58 * var(--glass-settled,0)));
+  opacity:calc(var(--source-alpha,1) * .98 * (1 - .58 * var(--glass-settled,0)));
 }
 .games .chapter-lens-fragment img {
   position:absolute; inset:0; width:100%; height:100%; max-width:none;
-  object-fit:fill; transform:scale(1.046);
-  filter:blur(var(--pane-frost,6px)) brightness(1.065) saturate(.97);
+  object-fit:fill; transform:var(--refraction); transform-origin:var(--refraction-origin);
+  filter:blur(var(--pane-frost,1.85px)) brightness(1.035);
 }
 .chapter-lens-fragment::after {
   content:""; position:absolute; pointer-events:none;
   width:var(--pane-width); height:var(--pane-height);
   left:calc(-1 * var(--fragment-x)); top:calc(-1 * var(--fragment-y));
   background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22edge%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.15%22%2F%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.65%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23eaf3f8%22%20stop-opacity%3D%22.28%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M0%207.75%20L100%2067.75%22%20fill%3D%22none%22%20stroke%3D%22url(%23edge)%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%2032.25%20L100%2092.25%22%20fill%3D%22none%22%20stroke%3D%22%23364351%22%20stroke-opacity%3D%22.24%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E") center/100% 100% no-repeat,
-    var(--ribbon-matte) 0 0/29px 23px repeat, var(--ribbon-sheen);
+    var(--ribbon-sheen);
 }
 .games .game-stage #game-error { z-index:4; }
 @media (prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active) {

@@ -601,9 +601,19 @@
         if (!box) continue;
         if (m.image.src !== src) m.image.src = src;
         const x = box.left-glass.left, y = box.top-glass.top;
+        // Stretch along the pane, and shift slightly across its normal, around the actual overlap.
+        const slope = .60 * glass.height / glass.width;
+        const angle = Math.atan(slope);
+        const band = .1225 * glass.height;
+        const y0 = .20 * glass.height;
+        const left = Math.max(bounds.left-glass.left,x,(y-y0-band)/slope);
+        const right = Math.min(bounds.right-glass.left,x+box.width,(y+box.height-y0+band)/slope);
+        const u = right > left ? (left+right)/2 : x+box.width/2;
+        const v = Math.max(0,Math.min(box.height,y0+slope*u-y));
+        const drift = Math.min(8,band*.19);
         m.frame.style.cssText = 'left:'+x+'px;top:'+y+
           'px;width:'+box.width+'px;height:'+box.height+'px;--source-alpha:'+opacity+
-          ';--fragment-x:'+x+'px;--fragment-y:'+y+'px';
+          ';--fragment-x:'+x+'px;--fragment-y:'+y+'px;--refraction-origin:'+(u-x)+'px '+v+'px;--refraction:rotate('+angle+'rad) translateY('+drift+'px) scale(1.22,1.10) rotate('+(-angle)+'rad)';
       }
     }
     if ([...track.getAnimations(),...stage.getAnimations()].some(a => a.playState === 'running')) queue();
