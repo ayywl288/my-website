@@ -81,8 +81,6 @@ body{background:radial-gradient(ellipse 72% 620px at 80% 0%,#e8eaf7 0%,transpare
 .game-caption{background:#edf0f7;border:1px solid #dce0ed;border-top:0;border-radius:0 0 12px 12px;padding:5px 10px;color:#38304d;flex-wrap:wrap}
 .game-caption strong{min-width:0}
 .gallery-arrows{display:flex;align-items:center;gap:4px}
-.gallery-arrows .game-rotation{display:inline-flex;align-items:center;justify-content:center;gap:5px;width:auto;padding-inline:9px;white-space:nowrap}
-.gallery-arrows .game-rotation svg{flex:none}
 .gallery-count{margin-left:auto}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 @supports ((backdrop-filter:blur(14px)) or (-webkit-backdrop-filter:blur(14px))){
@@ -98,7 +96,6 @@ body{background:radial-gradient(ellipse 72% 620px at 80% 0%,#e8eaf7 0%,transpare
 .game-caption{gap:3px 8px;padding:4px 7px}
 .gallery-arrows{gap:1px}
 .gallery-arrows button{width:44px}
-.gallery-arrows .game-rotation{padding-inline:6px}
 }
 @media(max-width:355px){.game-caption strong{flex:1 0 100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -119,6 +116,26 @@ a.track-card:hover{background:#e9ebf6;text-decoration:none}
 @media(max-width:760px){.music-shelf{margin-top:17px;padding-top:12px;gap:12px}}
 @media(max-width:540px){.music-shelf{grid-template-columns:1fr}.music-shelf ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.music-shelf ul{grid-template-columns:1fr}}
+
+/* Tinted glass, kept to the navigation and gallery control rail */
+:root{--glass-outline:#d6d2ea;--glass-highlight:rgb(255 255 255 / .86);--glass-shadow:rgb(61 49 94 / .10)}
+body{background:radial-gradient(ellipse 90% 640px at 12% 0%,#e5ddfa 0%,transparent 76%),radial-gradient(ellipse 77% 630px at 94% 0%,#dcebf9 0%,transparent 80%),var(--bg)}
+.sitehead{border-bottom-color:var(--glass-outline);background:#f3f1fb}
+.game-caption{position:relative;isolation:isolate;overflow:hidden;border-color:var(--glass-outline);background:#eeedf7}
+.game-tip{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
+.gallery-arrows button{border:1px solid rgb(83 70 111 / .16);background:rgb(255 255 255 / .47);box-shadow:inset 0 1px 0 rgb(255 255 255 / .69)}
+.gallery-arrows button:hover:not(:disabled){background:#f8f7fd}
+@supports ((backdrop-filter:blur(14px)) or (-webkit-backdrop-filter:blur(14px))){
+.sitehead{background:linear-gradient(105deg,rgb(234 221 252 / .68),rgb(218 237 251 / .58) 72%,rgb(247 249 255 / .57));-webkit-backdrop-filter:blur(20px) saturate(156%);backdrop-filter:blur(20px) saturate(156%);box-shadow:inset 0 1px 0 var(--glass-highlight),0 8px 30px -17px var(--glass-shadow)}
+.game-caption{background:#eeedf7;box-shadow:inset 0 1px 0 var(--glass-highlight)}
+.game-caption::before{content:"";position:absolute;inset:-25px;z-index:-2;pointer-events:none;background:var(--game-tint) center 62% / cover no-repeat;filter:blur(20px) saturate(148%);opacity:.66}
+.game-caption::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(115deg,rgb(249 247 255 / .79),rgb(236 241 254 / .66));box-shadow:inset 0 1px 0 var(--glass-highlight)}
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more){
+.sitehead,.game-caption{background:#f3f2fa;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.game-caption::before,.game-caption::after{content:none}
+.gallery-arrows button{background:#faf9ff}
+}
 </style>
 </head>
 <body>
@@ -145,6 +162,7 @@ a.track-card:hover{background:#e9ebf6;text-decoration:none}
 <button type="button" data-game="荒野大镖客" data-images="./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-1.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-2.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-3.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-4.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-5.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-6.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-7.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5%3D9.jpg" aria-pressed="false">荒野大镖客</button>
 </div>
 <p class="game-other">也喜欢：只狼 · 尼尔：机械纪元</p>
+<p class="game-tip" id="game-tip">手动翻图后暂停轮播。</p>
 </div>
 <figure class="game-viewer" aria-labelledby="gallery-label">
 <div class="game-stage">
@@ -154,11 +172,7 @@ a.track-card:hover{background:#e9ebf6;text-decoration:none}
 <figcaption class="game-caption">
 <strong id="game-title">绝区零</strong>
 <div class="gallery-count" id="gallery-count">1 / 2</div>
-<div class="gallery-arrows" role="group" aria-label="切换截图" hidden>
-<button type="button" id="game-play" class="game-rotation">
-<svg data-play aria-hidden="true" width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M6 4.6a.8.8 0 0 1 1.2-.7l8.6 5.4a.8.8 0 0 1 0 1.4l-8.6 5.4a.8.8 0 0 1-1.2-.7z"/></svg>
-<svg data-pause aria-hidden="true" width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" hidden><path d="M7 5v10m6-10v10"/></svg>
-<span>播放</span></button>
+<div class="gallery-arrows" role="group" aria-describedby="game-tip" aria-label="切换截图" hidden>
 <button type="button" id="game-prev" aria-label="上一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
 <button type="button" id="game-next" aria-label="下一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
 </div>
@@ -212,33 +226,22 @@ a.track-card:hover{background:#e9ebf6;text-decoration:none}
   const count = document.getElementById('gallery-count');
   const prev = document.getElementById('game-prev');
   const next = document.getElementById('game-next');
-  const toggle = document.getElementById('game-play');
   const status = document.getElementById('game-status');
   const error = document.getElementById('game-error');
   const viewer = gallery.querySelector('.game-viewer');
   const stage = gallery.querySelector('.game-stage');
+  const caption = gallery.querySelector('.game-caption');
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const playEvery = 6500;
+  const rotationInterval = 6500;
   let game = 0;
   let shot = 0;
   let items = [];
-  let playing = !motion.matches;
   let inView = false;
-  let hovering = false;
-  let ignoredFocus = null;
+  let stopped = false;
+  let allowedFocus = null;
   let timer;
   let imageRevision = 0;
   let fade;
-
-  function refreshControls() {
-    const multiple = items.length > 1;
-    prev.disabled = next.disabled = toggle.disabled = !multiple;
-    const showPause = multiple && playing;
-    toggle.querySelector('span').textContent = showPause ? '暂停' : '播放';
-    toggle.querySelector('[data-play]').hidden = showPause;
-    toggle.querySelector('[data-pause]').hidden = !showPause;
-    toggle.setAttribute('aria-label', !multiple ? '只有一张游戏截图' : showPause ? '暂停自动轮播' : '开始自动轮播');
-  }
 
   function render(announce = false) {
     const name = buttons[game].dataset.game;
@@ -254,98 +257,81 @@ a.track-card:hover{background:#e9ebf6;text-decoration:none}
       if (!motion.matches && typeof photo.animate === 'function') {
         photo.decode().then(() => {
           if (revision === imageRevision && !motion.matches) {
-            fade = photo.animate([{opacity:.68},{opacity:1}], {duration:260,easing:'ease-out'});
+            fade = photo.animate([{opacity:.72},{opacity:1}], {duration:260,easing:'ease-out'});
           }
         }).catch(() => {});
       }
     }
+    caption.style.setProperty('--game-tint', 'url("' + src + '")');
     photo.alt = '《' + name + '》游戏截图 ' + frame;
     title.textContent = name;
     count.textContent = (shot + 1) + ' / ' + items.length;
     if (announce) status.textContent = name + '，第 ' + (shot + 1) + ' 张，共 ' + items.length + ' 张';
-    refreshControls();
+    prev.disabled = next.disabled = items.length < 2;
   }
 
-  function pauseForFocus() {
+  function canRotate() {
     const active = document.activeElement;
-    if (playing && active !== toggle && active !== ignoredFocus && viewer.contains(active)) {
-      playing = false;
-      refreshControls();
-    }
+    if (viewer.contains(active) && active !== allowedFocus) stopped = true;
+    return !stopped && !motion.matches && inView && !document.hidden && items.length > 1;
   }
+
   function schedule() {
     window.clearTimeout(timer);
-    pauseForFocus();
-    if (!playing || !inView || hovering || document.hidden || items.length < 2) return;
-    timer = window.setTimeout(() => {
-      pauseForFocus();
-      if (playing && inView && !hovering && !document.hidden) step(1, false);
-    }, playEvery);
+    if (canRotate()) {
+      timer = window.setTimeout(() => {
+        if (canRotate()) step(1, false);
+      }, rotationInterval);
+    }
   }
 
   function select(index, announce = true) {
     game = index;
     shot = 0;
+    stopped = false;
+    allowedFocus = document.activeElement;
     items = buttons[game].dataset.images.split(' ');
     buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === game)));
     render(announce);
     schedule();
   }
 
-  function step(delta, announce = true) {
+  function step(delta, manual) {
     if (items.length < 2) return;
+    if (manual) stopped = true;
     shot = (shot + delta + items.length) % items.length;
-    render(announce);
+    render(manual);
     schedule();
   }
 
   buttons.forEach((button, i) => button.addEventListener('click', () => select(i)));
-  prev.addEventListener('click', () => step(-1));
-  next.addEventListener('click', () => step(1));
-  toggle.addEventListener('click', () => {
-    playing = !playing;
-    ignoredFocus = playing ? document.activeElement : null;
-    refreshControls();
+  prev.addEventListener('click', () => step(-1, true));
+  next.addEventListener('click', () => step(1, true));
+  viewer.addEventListener('focusin', () => {
+    allowedFocus = null;
+    stopped = true;
     schedule();
-  });
-  viewer.addEventListener('focusin', event => {
-    ignoredFocus = null;
-    if (event.target !== toggle && playing) {
-      playing = false;
-      refreshControls();
-      schedule();
-    }
   });
   viewer.addEventListener('keydown', event => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
-    step(event.key === 'ArrowLeft' ? -1 : 1);
+    step(event.key === 'ArrowLeft' ? -1 : 1, true);
   });
   photo.addEventListener('error', () => {
     photo.hidden = true;
     error.hidden = false;
   });
-  stage.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') { hovering = true; schedule(); } });
-  stage.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') { hovering = false; schedule(); } });
   document.addEventListener('visibilitychange', schedule);
   motion.addEventListener('change', () => {
-    if (motion.matches) {
-      playing = false;
-      fade?.cancel();
-      refreshControls();
-      schedule();
-    }
+    if (motion.matches) fade?.cancel();
+    schedule();
   });
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(entries => {
-      inView = entries[0].isIntersecting && entries[0].intersectionRatio >= .35;
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting && entry.intersectionRatio >= .35;
       schedule();
     }, {threshold:[.35]}).observe(stage);
-  } else {
-    playing = false;
-    toggle.hidden = true;
   }
-
   gallery.querySelector('.gallery-games').hidden = false;
   gallery.querySelector('.gallery-arrows').hidden = false;
   viewer.tabIndex = 0;
