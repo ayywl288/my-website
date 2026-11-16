@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="DelveForge 是 Windows 上的本地 Coding Agent 工作台。在项目工作副本里读代码、改文件、跑测试，再查看日志和结果。">
-<meta name="theme-color" content="#f7f6f2">
+<meta name="theme-color" content="#f8f5ee">
 <title>DelveForge · 本地 Coding Agent 工作台</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234d408e'/%3E%3Cpath d='m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5' stroke='%23ffffff' fill='none' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%235b4b8a'/%3E%3Cpath d='m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5' stroke='%23ffffff' fill='none' stroke-width='1.5'/%3E%3C/svg%3E">
 <style>
-:root{color-scheme:light;--paper:#f7f6f2;--ink:#211e26;--muted:#57515e;--purple:#4d408e;--line:#d9d5de;--soft:#eeeaf6;--console:#242032;--console-rule:#494157;--console-muted:#d4c9e1;--sans:"PingFang SC","Microsoft YaHei UI","Microsoft YaHei","Noto Sans CJK SC",sans-serif;--mono:"Cascadia Code",Consolas,monospace}
+:root{color-scheme:light;--paper:#f8f5ee;--ink:#231f28;--muted:#645c6e;--purple:#5b4b8a;--line:#ded7d4;--soft:#eee8f6;--panel:#fffefb;--console:#302440;--console-rule:#5a4769;--console-muted:#e4d7ef;--sans:"PingFang SC","Microsoft YaHei UI","Microsoft YaHei","Noto Sans CJK SC",sans-serif;--mono:"Cascadia Code",Consolas,monospace}
 *{box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);margin:0;font:16px/1.65 var(--sans)}
 ::selection{background:#dcd1f2;color:var(--ink)}
@@ -19,11 +19,13 @@ h1,h2{letter-spacing:-.035em;line-height:1.13;font-weight:730;text-wrap:balance}
 svg{display:block}
 img{display:block;max-width:100%;height:auto}
 .wrap{width:min(100% - 96px,1096px);margin-inline:auto}
-[id]{scroll-margin-top:20px}
+[id]{scroll-margin-top:85px}
 .skip{position:absolute;inset:12px auto auto 12px;transform:translateY(-200%);z-index:2;padding:10px 14px;background:#fff}
 .skip:focus{transform:none}
-.navbar{border-bottom:1px solid var(--line)}
-.nav{min-height:66px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.navbar{position:sticky;top:0;z-index:1;border-bottom:1px solid var(--line);background:var(--paper)}
+@supports(backdrop-filter:blur(12px)){.navbar{background:#f8f5eef0;backdrop-filter:blur(12px)}}
+@media(prefers-reduced-transparency:reduce){.navbar{background:var(--paper);backdrop-filter:none}}
+.nav{min-height:60px;display:flex;justify-content:space-between;align-items:center;gap:18px}
 .wordmark{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:760;letter-spacing:-.025em;font-size:20px}
 .wordmark svg{width:29px;height:29px;flex:none}
 .nav-links{display:flex;align-items:center;gap:clamp(14px,2.8vw,34px);font-size:14px}
@@ -34,13 +36,14 @@ h1{font-size:clamp(37px,5.9vw,75px);max-width:15em}
 .hero-copy{max-width:53ch;color:var(--muted);font-size:clamp(16px,1.65vw,20px);margin-top:19px}
 .hero-actions{display:flex;align-items:center;gap:10px 20px;flex-wrap:wrap;margin-top:24px}
 .primary,.quiet-action{min-height:44px;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:650}
-.primary{background:var(--purple);color:white;padding:10px 16px;border-radius:6px;text-decoration:none}
-.primary:hover{background:#392b72}
-.quiet-action{color:var(--purple)}
+.primary{background:var(--purple);color:white;padding:10px 18px;border-radius:999px;text-decoration:none}
+.primary:hover{background:#483771}
+.quiet-action{color:var(--purple);background:#eee8f5;border-radius:999px;padding:10px 15px;text-decoration:none}
+.quiet-action:hover{background:#e6ddee}
 .icon{width:15px;height:15px;flex:none}
 .preview{margin-top:clamp(27px,3.8vw,46px)}
-.window{background:#fff;border:1px solid #c9c2d5;border-radius:14px;overflow:hidden}
-.window-head{color:#4d4260;background:#ede9f4;border-bottom:1px solid #d7cfe3;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 15px;min-height:42px;font-size:12px}
+.window{background:var(--panel);border:1px solid #d4c8da;border-radius:28px;overflow:hidden}
+.window-head{color:#574561;background:#f0eaf5;border-bottom:1px solid #dcd0e2;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 19px;min-height:43px;font-size:12px}
 .window-head strong{font-weight:700}
 .window-tag{display:inline-flex;align-items:center;gap:7px}
 .window-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#6650a3}
@@ -49,23 +52,24 @@ h1{font-size:clamp(37px,5.9vw,75px);max-width:15em}
 .section{margin-top:clamp(56px,8.2vw,104px);border-top:1px solid var(--line);padding-top:clamp(34px,5.3vw,66px)}
 .section h2{font-size:clamp(30px,4.5vw,52px);max-width:18em}
 .section-intro{max-width:58ch;color:var(--muted);margin-top:13px}
-.workflow{list-style:none;padding:0;margin:29px 0 0;border-top:1px solid var(--line)}
-.workflow li{display:grid;grid-template-columns:48px minmax(130px,.7fr) 1.7fr;gap:14px;align-items:baseline;border-bottom:1px solid var(--line);padding-block:18px}
-.step-no{font:13px var(--mono);color:var(--purple)}
-.workflow h3{font-size:17px;font-weight:720;line-height:1.4}
-.workflow p{font-size:14px;color:var(--muted);max-width:56ch}
+.workflow{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:0;margin:27px 0 0}
+.workflow li{min-width:0;padding:20px 19px 23px;border:1px solid var(--line);background:var(--panel);border-radius:15px}
+.step-no{display:inline-grid;place-items:center;min-width:33px;height:27px;padding-inline:7px;border-radius:7px;background:var(--soft);font:12px var(--mono);color:var(--purple)}
+.workflow h3{margin-top:14px;font-size:18px;font-weight:720;line-height:1.4}
+.workflow p{margin-top:6px;font-size:14px;color:var(--muted);max-width:38ch}
 .proof-layout{display:grid;grid-template-columns:1fr .9fr;gap:clamp(26px,6vw,86px);align-items:center}
 .proof-copy p{margin-top:15px;color:var(--muted);max-width:49ch}
-.case{min-width:0;background:var(--console);color:#fff;border-radius:13px;overflow:hidden}
-.case-head{display:flex;gap:12px;justify-content:space-between;align-items:center;padding:10px 15px;border-bottom:1px solid var(--console-rule);color:var(--console-muted);font-size:12px}
+.case{min-width:0;background:var(--console);color:#fffdfb;border-radius:18px;overflow:hidden}
+.case-head{display:flex;gap:12px;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid var(--console-rule);color:var(--console-muted);font-size:12px}
 .case-head code{font:12px var(--mono)}
-.case-body{margin:0;padding:3px 15px 8px}
+.case-body{margin:0;padding:3px 18px 10px}
 .case-body div{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding-block:12px}
 .case-body div+div{border-top:1px solid var(--console-rule)}
 .case-body dt{font-size:14px;color:var(--console-muted)}
 .case-body dd{font-size:14px;font-weight:700;text-align:right}
-.next{padding-bottom:clamp(42px,6vw,76px)}
-.next-actions{display:flex;gap:10px 20px;flex-wrap:wrap;margin-top:22px}
+.next{text-align:center;padding-bottom:clamp(48px,7vw,90px)}
+.next h2,.next .section-intro{margin-inline:auto}
+.next-actions{display:flex;justify-content:center;gap:10px 20px;flex-wrap:wrap;margin-top:24px}
 footer{border-top:1px solid var(--line)}
 .foot{min-height:64px;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:13px}
 @media(max-width:720px){
@@ -73,7 +77,9 @@ footer{border-top:1px solid var(--line)}
 .nav{min-height:58px;gap:10px}.wordmark{font-size:18px;gap:7px}.wordmark svg{width:25px;height:25px}
 .nav-links{gap:14px;font-size:13px}.nav-workflow{display:none!important}
 .hero{padding-top:41px}.hero-copy{margin-top:16px}.hero-actions{margin-top:19px}
-.workflow li{grid-template-columns:28px 1fr;column-gap:11px;row-gap:4px}.workflow li p{grid-column:2}
+.window{border-radius:20px}
+.workflow{grid-template-columns:1fr;gap:9px}
+.workflow li{display:grid;grid-template-columns:33px minmax(0,1fr);align-items:start;column-gap:12px;row-gap:4px;padding:14px 16px 16px}.workflow h3,.workflow p{margin-top:0}.workflow li p{grid-column:2}
 .proof-layout{grid-template-columns:1fr}
 }
 @media(max-width:360px){.wrap{width:calc(100% - 34px)}.nav-links{gap:10px}.hero-actions,.next-actions{gap:8px 15px}.window-head{padding-inline:10px}.window-head span:last-child{font-size:11px}.case-head{gap:7px}}
@@ -84,7 +90,7 @@ footer{border-top:1px solid var(--line)}
 <header class="navbar">
 <nav class="wrap nav" aria-label="产品导航">
 <a class="wordmark" href="#main">
-<svg width="29" height="29" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#4d408e"/><path fill="none" stroke="#fff" stroke-width="1.5" d="m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5"/></svg>
+<svg width="29" height="29" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#5b4b8a"/><path fill="none" stroke="#fff" stroke-width="1.5" d="m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5"/></svg>
 DelveForge
 </a>
 <div class="nav-links"><a href="../index.html">个人主页</a><a class="nav-workflow" href="#workflow">工作流程</a><a href="https://github.com/ayywl288/DelveForge" target="_blank" rel="noopener noreferrer">GitHub</a></div>
