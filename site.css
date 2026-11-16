@@ -465,3 +465,18 @@ section[id],main { scroll-margin-top:85px; }
   font:750 clamp(19px,2.45vw,28px)/1.22 var(--serif); margin:0 0 12px; letter-spacing:-.025em;
 }
 .music-copy .music-shelf { margin-top:0; }
+
+
+/* Short project-to-hobbies chapter turn, using the existing game scene. */
+#projects.work { padding-bottom:clamp(26px,3.75vw,52px); }
+#games.games { padding-top:clamp(24px,3.3vw,47px); }
+#games .personal-heading { margin-bottom:clamp(12px,1.65vw,22px); }
+#games .game-menu { margin-bottom:clamp(12px,1.55vw,20px); }
+.chapter-cue { color:var(--signal); font-size:13px; font-weight:700; white-space:nowrap; }
+.game-stage[data-chapter-turn="opening"] {
+  clip-path:inset(0 var(--chapter-sides,11.5%) var(--chapter-base,19%) round var(--chapter-radius,14px));
+}
+.game-viewer:focus-within .game-stage[data-chapter-turn="opening"] { clip-path:none; }
+@media(prefers-reduced-motion:reduce) {
+  .game-stage[data-chapter-turn="opening"] { clip-path:none; }
+}

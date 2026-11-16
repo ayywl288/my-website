@@ -47,7 +47,7 @@
 </div>
 </section>
 <section id="games" class="container personal-section games" aria-labelledby="gallery-label">
-<div class="personal-heading"><h2 id="gallery-label">游戏</h2></div>
+<div class="personal-heading"><h2 id="gallery-label">游戏</h2><span class="chapter-cue">写代码之外</span></div>
 <div class="game-board">
 <div class="game-menu">
 <div class="gallery-games" role="group" aria-label="选择游戏" hidden>
@@ -58,7 +58,7 @@
 <button type="button" data-game="荒野大镖客" data-images="./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-1.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-2.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-3.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-4.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-5.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-6.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-7.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5%3D9.jpg" aria-pressed="false">荒野大镖客</button>
 </div>
 </div>
-<figure class="game-viewer" data-reveal aria-labelledby="gallery-label">
+<figure class="game-viewer" aria-labelledby="gallery-label">
 <div class="game-stage">
 <div class="game-track"><span class="game-panel" data-slot="-2" aria-hidden="true" hidden><img src="./images/zzz-1.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="-1" aria-hidden="true" hidden><img src="./images/zzz-2.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="0"><img id="game-photo" src="./images/zzz-1.png" width="2560" height="1600" alt="《绝区零》游戏截图 1" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="1" aria-hidden="true" hidden><img src="./images/zzz-2.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="2" aria-hidden="true" hidden><img src="./images/zzz-1.png" alt="" loading="lazy" decoding="async"></span></div>
 <p id="game-error" hidden>这张截图未能加载，可以切换到另一张。</p>
@@ -67,7 +67,7 @@
 <button type="button" id="game-next" aria-label="下一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
 </div>
 </div>
-<figcaption class="game-caption">
+<figcaption class="game-caption" data-reveal>
 <strong id="game-title">绝区零</strong>
 <div class="gallery-count" id="gallery-count">1 / 2</div>
 <div class="gallery-dots" aria-hidden="true" hidden></div>
@@ -471,6 +471,60 @@
   window.addEventListener('resize', lazyUpdate, {passive:true});
   controls.hidden = false;
   update();
+})();
+
+(() => {
+  const chapter = document.getElementById('games');
+  const scene = chapter.querySelector('.game-stage');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const linked = () => {
+    const destination = document.getElementById(location.hash.slice(1));
+    return !!destination && chapter.contains(destination);
+  };
+  if (reduced.matches || linked() || scene.getBoundingClientRect().top < innerHeight - 12) return;
+  let raf = 0;
+  let complete = false;
+  scene.dataset.chapterTurn = 'opening';
+
+  function release() {
+    if (complete) return;
+    complete = true;
+    if (raf) cancelAnimationFrame(raf);
+    delete scene.dataset.chapterTurn;
+    scene.style.removeProperty('--chapter-sides');
+    scene.style.removeProperty('--chapter-base');
+    scene.style.removeProperty('--chapter-radius');
+    window.removeEventListener('scroll', queue);
+    window.removeEventListener('resize', queue);
+    window.removeEventListener('hashchange', onLink);
+    chapter.removeEventListener('focus', release, true);
+    chapter.removeEventListener('click', intent);
+    reduced.removeEventListener('change', onMotion);
+  }
+
+  function draw() {
+    raf = 0;
+    if (reduced.matches || linked()) { release(); return; }
+    const bounds = scene.getBoundingClientRect();
+    const length = Math.min(390, Math.max(166, bounds.height * .62));
+    const progress = Math.max(0, Math.min(1, (innerHeight - bounds.top - 14) / length));
+    if (progress >= 1) { release(); return; }
+    const closed = (1 - progress) ** 1.65;
+    scene.style.setProperty('--chapter-sides', (closed * 11.5).toFixed(2) + '%');
+    scene.style.setProperty('--chapter-base', (closed * 19).toFixed(2) + '%');
+    scene.style.setProperty('--chapter-radius', (closed * 14).toFixed(1) + 'px');
+  }
+  function queue() { if (!raf && !complete) raf = requestAnimationFrame(draw); }
+  function onLink() { if (linked()) release(); }
+  function onMotion() { if (reduced.matches) release(); }
+  function intent(event) { if (event.target.closest?.('.gallery-games button')) release(); }
+  window.addEventListener('scroll', queue, {passive:true});
+  window.addEventListener('resize', queue, {passive:true});
+  window.addEventListener('hashchange', onLink);
+  chapter.addEventListener('focus', release, true);
+  chapter.addEventListener('click', intent);
+  reduced.addEventListener('change', onMotion);
+  queue();
 })();
 </script>
 </body>
