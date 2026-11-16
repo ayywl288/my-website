@@ -634,8 +634,11 @@ section[id],main { scroll-margin-top:85px; }
   #music::before { display:none; }
 }
 
-/* A single frosted sheet follows the transition, below all chapter content. */
-.chapter-pair { position:relative; isolation:isolate; }
+/* The single slanted pane has the same geometry behind the section and through its photographs. */
+.chapter-pair {
+  position:relative; isolation:isolate;
+  --glass-outline:polygon(0 4%,100% 34%,100% 100%,0 70%);
+}
 .chapter-pair #music { isolation:auto; }
 .chapter-pair :is(#games,#music)>:is(.personal-heading,.game-board,.music-feature) { position:relative; z-index:2; }
 .chapter-glass-run {
@@ -643,39 +646,39 @@ section[id],main { scroll-margin-top:85px; }
   pointer-events:none;
 }
 .chapter-glass {
-  position:sticky; inset-block-start:clamp(119px,24vh,270px);
-  margin-inline-start:auto; margin-inline-end:clamp(20px,5vw,72px);
-  width:min(56%,660px);
-  height:clamp(122px,25.5vh,248px);
-  border-radius:clamp(18px,2.1vw,32px);
+  position:sticky; inset-block-start:clamp(110px,21vh,240px);
+  width:100%; height:clamp(175px,34vh,315px);
+  clip-path:var(--glass-outline);
   --glass-settled:0;
-  border:1px solid rgb(211 205 221 / calc(.58 - .52 * var(--glass-settled)));
-  border-block-start-color:rgb(255 255 255 / calc(.92 - .78 * var(--glass-settled)));
   background:
-    radial-gradient(ellipse at 84% 22%,rgb(219 222 246 / calc(.48 - .4 * var(--glass-settled))),transparent 72%),
-    linear-gradient(116deg,rgb(255 255 255 / calc(.58 - .44 * var(--glass-settled))),rgb(244 229 231 / calc(.37 + .06 * var(--glass-settled))));
-  box-shadow:0 15px 38px rgb(91 73 110 / calc(.075 - .066 * var(--glass-settled))),
-    inset 0 1px 0 rgb(255 255 255 / calc(.68 - .59 * var(--glass-settled)));
-  backdrop-filter:blur(22px) saturate(138%);
+    linear-gradient(106deg,rgb(224 222 243 / calc(.64 - .52 * var(--glass-settled))),
+      rgb(255 255 255 / calc(.63 - .36 * var(--glass-settled))) 48%,
+      rgb(241 222 231 / calc(.54 - .23 * var(--glass-settled))));
+  backdrop-filter:blur(20px) saturate(130%);
 }
 @media(max-width:760px) {
   .chapter-glass {
-    width:min(60%,430px);
-    height:clamp(82px,13.4vh,118px);
-    inset-block-start:clamp(129px,27vh,224px);
+    height:clamp(128px,23vh,183px);
+    inset-block-start:clamp(116px,22vh,190px);
   }
 }
+
+/* The film planes sample the same painted game image in each visible carousel slot. */
+.chapter-photo-lens {
+  position:absolute; z-index:2; pointer-events:none;
+  clip-path:var(--glass-outline);
+}
+.chapter-lens-fragment {
+  position:absolute; overflow:hidden; pointer-events:none;
+  border-radius:clamp(8px,1.65vw,22px);
+  opacity:calc(var(--source-alpha,1) * .92 * (1 - .58 * var(--glass-settled,0)));
+}
+.games .chapter-lens-fragment img {
+  position:absolute; inset:0; width:100%; height:100%; max-width:none;
+  object-fit:fill; transform:scale(1.075);
+  filter:blur(2.5px) brightness(1.12) saturate(1.04);
+}
+.games .game-stage #game-error { z-index:4; }
 @media (prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active) {
   .chapter-glass-run,.chapter-photo-lens { display:none!important; }
 }
-
-/* The clear photo stays intact except where the decorative sheet crosses it. */
-.chapter-photo-lens {
-  position:absolute; z-index:2; pointer-events:none;
-  backdrop-filter:blur(4px) brightness(1.10) saturate(1.06);
-  background:rgb(246 238 251 / .035);
-  mask-image:linear-gradient(90deg,transparent,#000 14% 86%,transparent),
-    linear-gradient(180deg,transparent,#000 15% 85%,transparent);
-  mask-composite:intersect;
-}
-.games .game-stage #game-error { z-index:4; }
