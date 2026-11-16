@@ -14,32 +14,36 @@
 <main id="main">
 <section class="container hero" aria-labelledby="title">
 <div class="hero-copy">
-<h1 id="title">啊咿呀哇嘞</h1>
 <p class="hero-role">个人作品集</p>
+<h1 id="title">啊咿呀哇嘞</h1>
+</div>
+<div class="hero-context">
 <p class="lead">我在做 Java 后端，也在做 Coding Agent。</p>
 <p class="hint">贵州大学 · 软件工程 · 2028 届</p>
 <a class="btn" href="#projects">看我做过的项目 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m-5-5 5 5 5-5"/></svg></a>
 </div>
-<div class="hero-art" aria-hidden="true">
-<span class="hero-glyph">呀</span>
-</div>
 </section>
-<section id="projects" class="container work" aria-labelledby="project-title">
+<section id="projects" class="work" aria-labelledby="project-title">
+<div class="container">
 <div class="work-header" data-reveal="0"><h2 id="project-title">我的项目</h2><p>从一个开发工作台，到一条秒杀链路。</p></div>
 <div class="projects">
 <article class="project featured" data-reveal="1">
+<div class="project-feature-copy">
 <div class="project-id"><span class="project-number" aria-hidden="true">01</span><div><h3>DelveForge</h3><span class="project-kind">Coding Agent</span></div></div>
 <div class="project-detail"><p>Windows 上的本地开发工作台。让 Agent 在项目副本里读代码、改文件和跑测试，你可以边执行边补充要求，最后检查改动和日志。</p>
 <a class="link" href="./delveforge/index.html" target="_blank" rel="noopener noreferrer">进入 DelveForge 产品页 <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></a></div>
+</div>
+<figure class="project-preview"><img src="./delveforge/workbench.png" width="1280" height="820" decoding="async" alt="DelveForge 测试工作区，左侧是项目列表，右侧是 Agent 任务输入区"><figcaption>DelveForge 测试工作区</figcaption></figure>
 </article>
-<article class="project" data-reveal="2">
+<article class="project project-secondary" data-reveal="2">
 <div class="project-id"><span class="project-number" aria-hidden="true">02</span><div><h3>本地生活平台</h3><span class="project-kind">Java 后端</span></div></div>
 <div class="project-detail"><p>围绕优惠券秒杀和热点商铺查询，实践 Redis 库存预扣、RocketMQ 异步落库，以及消费幂等和库存对账补偿。</p></div>
 </article>
 </div>
+</div>
 </section>
 <section id="games" class="container personal-section games" aria-labelledby="gallery-label">
-<div class="personal-heading" data-reveal="0"><h2 id="gallery-label">游戏</h2><span class="chapter-cue">写代码之外</span></div>
+<div class="personal-heading" data-reveal="0"><h2 id="gallery-label">游戏</h2></div>
 <div class="game-board">
 <script type="application/json" id="game-shots">
 [
@@ -64,7 +68,7 @@
 <figcaption class="game-caption" data-reveal="2">
 <strong id="game-title">守望先锋</strong>
 <div class="gallery-count" id="gallery-count">1 / 7</div>
-<div class="gallery-dots" aria-hidden="true" hidden></div>
+<div class="gallery-dots" role="group" aria-label="选择截图" hidden></div>
 
 <span id="game-status" class="sr-only" aria-live="polite" aria-atomic="true"></span></figcaption>
 </figure>
@@ -162,7 +166,10 @@
     photo.alt = '《' + name + '》游戏截图';
     title.textContent = name;
     count.textContent = (shot + 1) + ' / ' + items.length;
-    [...dots.children].forEach((dot, i) => dot.classList.toggle('current', i === shot));
+    [...dots.children].forEach((dot, i) => {
+      if (i === shot) dot.setAttribute('aria-current','true');
+      else dot.removeAttribute('aria-current');
+    });
     if (announce) status.textContent = name + '，第 ' + (shot + 1) + ' 张，共 ' + items.length + ' 张';
     prev.disabled = next.disabled = !multiple;
     arrows.hidden = !multiple;
@@ -202,8 +209,23 @@
     move.effects.forEach(effect => effect.cancel());
     const nextMove = queued;
     queued = null;
-    if (nextMove) step(nextMove.delta, nextMove.manual);
+    if (nextMove?.index !== undefined) goTo(nextMove.index);
+    else if (nextMove) step(nextMove.delta, nextMove.manual);
     else schedule();
+  }
+
+  function goTo(index) {
+    stopped = true;
+    window.clearTimeout(timer);
+    if (moving) { queued = {index}; return; }
+    if (index === shot) return;
+    if (index === wrap(shot + 1)) { step(1, true); return; }
+    if (index === wrap(shot - 1)) { step(-1, true); return; }
+    shot = index;
+    render(true);
+    if (!motion.matches && typeof photo.animate === 'function') {
+      photo.animate([{opacity:.62},{opacity:1}],{duration:185,easing:'ease-out'});
+    }
   }
 
   function step(delta, manual) {
@@ -256,7 +278,13 @@
     if (inView) for (const slot of slots) slot.querySelector('img').loading = 'eager';
     schedule();
   }, {threshold:[.35]}).observe(stage);
-  dots.replaceChildren(...items.map(() => document.createElement('span')));
+  dots.replaceChildren(...items.map(({name}, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 张：' + name);
+    dot.addEventListener('click', () => goTo(i));
+    return dot;
+  }));
   dots.hidden = items.length < 2;
   viewer.tabIndex = 0;
   render();
@@ -417,9 +445,10 @@
   function reveal(element, delay) {
     observer.unobserve(element);
     element.dataset.revealed = 'true';
+    const project = element.closest('.work');
     const animation = element.animate(
-      [{opacity:.18,translate:'0 22px'},{opacity:1,translate:'0 0'}],
-      {duration:520,delay,easing:'cubic-bezier(.24,.61,.25,1)',fill:'both'}
+      [{opacity:project ? .68 : .18,translate:project ? '0 14px' : '0 22px'},{opacity:1,translate:'0 0'}],
+      {duration:project ? 360 : 520,delay:project ? Math.min(delay, 90) : delay,easing:'cubic-bezier(.24,.61,.25,1)',fill:'both'}
     );
     pending.set(element, animation);
     animation.finished.then(() => show(element), () => {});
