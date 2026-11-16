@@ -566,12 +566,12 @@
     const entered = scrollY + innerHeight - startAt;
     // The top edge cuts across the pane at 60% width, without reversing as it uncovers.
     const lift = paneHeight * .56;
-    const distance = Math.max(112,lift * 1.85);
+    const distance = Math.max(3.65 * lift,innerHeight * .58);
     const entry = Math.max(0,Math.min(1,entered/distance));
-    const glide = lift * (1-entry) ** 1.5;
+    const glide = lift * (1-entry) ** 2.35;
     // Blend from fast entry to a steady sweep instead of pinning at the guide.
-    const bend = scrollY - startAt + guide;
-    const radius = Math.min(80,innerHeight * .10);
+    const bend = scrollY - startAt + guide + Math.min(90,innerHeight * .105);
+    const radius = Math.min(140,innerHeight * .17);
     const easing = bend < -radius ? 0 : bend > radius ? bend : (bend+radius) ** 2/(4*radius);
     const exit = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/185));
     const presence = entered > 0 ? 1-exit : 0;
@@ -580,7 +580,7 @@
       lastPresence = presence;
     }
     if (presence === 0) { lens.hidden = true; return; }
-    panel.style.setProperty('--ribbon-travel',(.89*easing-guide-glide)+'px');
+    panel.style.setProperty('--ribbon-travel',(.66 * easing-guide-glide)+'px');
     const glass = panel.getBoundingClientRect();
     const offset = startAt - scrollY - glass.top;
     panel.style.setProperty('--field-offset',offset+'px');
