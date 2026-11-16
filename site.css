@@ -413,3 +413,55 @@ section[id],main { scroll-margin-top:85px; }
   .games .gallery-games button { padding:6px 9px; }
   .games .game-caption { padding-top:4px; }
 }
+
+
+/* Progressive scroll reveal: only offscreen elements opted in by the script. */
+[data-reveal-state="waiting"] { opacity:.27; transform:translateY(17px); }
+[data-reveal-state="waiting"]:focus-within { opacity:1!important; transform:none!important; }
+@media(prefers-reduced-motion:reduce) {
+  [data-reveal-state="waiting"] { opacity:1; transform:none; }
+}
+
+/* Airy game tabs and the two photo-edge controls. */
+.games .gallery-games {
+  background:transparent; border:none; box-shadow:none;
+  -webkit-backdrop-filter:none; backdrop-filter:none;
+}
+.games .gallery-games button { border:1px solid transparent; background:transparent; color:var(--ink); }
+.games .gallery-games button[aria-pressed="true"],
+.games .gallery-games button[aria-pressed="true"]:hover {
+  background:transparent; border-color:#a58c7a; color:#853824;
+}
+.games .gallery-games button:not([aria-pressed="true"]):hover { background:rgb(222 204 186 / .40); }
+.games .game-panel { opacity:.78; }
+.games .game-panel[data-slot="0"] { opacity:1; }
+.games .game-stage .gallery-arrows {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  z-index:3; width:min(100%,var(--active-photo-width,76%));
+  padding-inline:clamp(6px,1.25vw,16px);
+  display:flex; justify-content:space-between; gap:10px; pointer-events:none;
+}
+.games .game-stage .gallery-arrows button {
+  flex:0 0 44px; background:#f5ebe0; color:#35251f; border:1px solid #f5e5d9;
+  box-shadow:0 1px 9px rgb(37 30 25 / .22); pointer-events:auto;
+}
+.games .game-stage .gallery-arrows button:hover:not(:disabled) { background:#fff5e6; color:#35251f; }
+.games .game-stage .gallery-arrows button:focus-visible { outline:2px solid #fff7eb; outline-offset:3px; }
+@supports ((backdrop-filter:blur(10px)) or (-webkit-backdrop-filter:blur(10px))) {
+  .games .game-stage .gallery-arrows button {
+    background:rgb(253 242 229 / .80); -webkit-backdrop-filter:blur(11px) saturate(120%); backdrop-filter:blur(11px) saturate(120%);
+  }
+}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+  .games .game-stage .gallery-arrows button { background:#f5ebe0; -webkit-backdrop-filter:none; backdrop-filter:none; }
+}
+@media(max-width:760px) {
+  .games .game-stage .gallery-arrows { width:min(100%,var(--active-photo-width,80%)); }
+  .games .game-caption { grid-template-columns:minmax(0,1fr) auto; }
+}
+/* Plain heading labels beside the existing foil content. */
+.music-feature { align-items:start; }
+.music-copy h3,.music-portrait h3 {
+  font:750 clamp(19px,2.45vw,28px)/1.22 var(--serif); margin:0 0 12px; letter-spacing:-.025em;
+}
+.music-copy .music-shelf { margin-top:0; }
