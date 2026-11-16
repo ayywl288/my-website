@@ -68,6 +68,7 @@
 <figcaption class="game-caption">
 <strong id="game-title">绝区零</strong>
 <div class="gallery-count" id="gallery-count">1 / 2</div>
+<div class="gallery-dots" aria-hidden="true" hidden></div>
 <div class="gallery-arrows" role="group" aria-describedby="game-tip" aria-label="切换截图" hidden>
 <button type="button" id="game-prev" aria-label="上一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
 <button type="button" id="game-next" aria-label="下一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
@@ -86,13 +87,13 @@
 <div class="music-copy"><h3>歌单常客：YENA</h3><p>喜欢听 K-pop，喜欢的爱豆是<strong>崔叡娜（YENA）</strong>。</p>
 <div class="music-shelf" aria-label="歌单片段">
 <div><h4>英文</h4>
-<ul role="list"><li><a class="track-card" href="https://music.apple.com/us/song/1673603129" target="_blank" rel="noopener noreferrer"><img class="track-art" src="./images/music/brain-dead.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Brain Dead</span><span class="track-artist">Vin Jay</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
-<li><a class="track-card" href="https://music.apple.com/us/song/6771598356" target="_blank" rel="noopener noreferrer"><img class="track-art" src="./images/music/the-cure.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">the cure</span><span class="track-artist">Olivia Rodrigo（娅娅）</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li></ul></div>
+<ul role="list"><li><a class="track-card" href="https://music.apple.com/us/song/1673603129" target="_blank" rel="noopener noreferrer"><span class="track-print"><img class="track-art" src="./images/music/brain-dead.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-foil" aria-hidden="true"></span></span><span class="track-text"><span class="track-title">Brain Dead</span><span class="track-artist">Vin Jay</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
+<li><a class="track-card" href="https://music.apple.com/us/song/6771598356" target="_blank" rel="noopener noreferrer"><span class="track-print"><img class="track-art" src="./images/music/the-cure.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-foil" aria-hidden="true"></span></span><span class="track-text"><span class="track-title">the cure</span><span class="track-artist">Olivia Rodrigo（娅娅）</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li></ul></div>
 <div><h4>韩文 / K-pop</h4>
-<ul role="list"><li><a class="track-card" href="https://music.apple.com/us/song/1750576834" target="_blank" rel="noopener noreferrer"><img class="track-art" src="./images/music/supernatural.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Supernatural</span><span class="track-artist">NewJeans</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
-<li><a class="track-card" href="https://music.apple.com/us/song/1799674117" target="_blank" rel="noopener noreferrer"><img class="track-art" src="./images/music/know-about-me.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">KNOW ABOUT ME</span><span class="track-artist">NMIXX</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
-<li><a class="track-card" href="https://music.apple.com/us/song/1569286889" target="_blank" rel="noopener noreferrer"><img class="track-art" src="./images/music/panorama.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Panorama</span><span class="track-artist">IZ*ONE</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
-<li><a class="track-card" href="https://music.apple.com/us/song/1698640827" target="_blank" rel="noopener noreferrer"><img class="track-art" src="./images/music/jewelry.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Jewelry (Prod. imase)</span><span class="track-artist">LE SSERAFIM</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li></ul></div>
+<ul role="list"><li><a class="track-card" href="https://music.apple.com/us/song/1750576834" target="_blank" rel="noopener noreferrer"><span class="track-print"><img class="track-art" src="./images/music/supernatural.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-foil" aria-hidden="true"></span></span><span class="track-text"><span class="track-title">Supernatural</span><span class="track-artist">NewJeans</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
+<li><a class="track-card" href="https://music.apple.com/us/song/1799674117" target="_blank" rel="noopener noreferrer"><span class="track-print"><img class="track-art" src="./images/music/know-about-me.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-foil" aria-hidden="true"></span></span><span class="track-text"><span class="track-title">KNOW ABOUT ME</span><span class="track-artist">NMIXX</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
+<li><a class="track-card" href="https://music.apple.com/us/song/1569286889" target="_blank" rel="noopener noreferrer"><span class="track-print"><img class="track-art" src="./images/music/panorama.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-foil" aria-hidden="true"></span></span><span class="track-text"><span class="track-title">Panorama</span><span class="track-artist">IZ*ONE</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
+<li><a class="track-card" href="https://music.apple.com/us/song/1698640827" target="_blank" rel="noopener noreferrer"><span class="track-print"><img class="track-art" src="./images/music/jewelry.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-foil" aria-hidden="true"></span></span><span class="track-text"><span class="track-title">Jewelry (Prod. imase)</span><span class="track-artist">LE SSERAFIM</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li></ul></div>
 </div></div>
 
 </div>
@@ -121,6 +122,7 @@
   const photo = document.getElementById('game-photo');
   const title = document.getElementById('game-title');
   const count = document.getElementById('gallery-count');
+  const dots = gallery.querySelector('.gallery-dots');
   const prev = document.getElementById('game-prev');
   const next = document.getElementById('game-next');
   const status = document.getElementById('game-status');
@@ -161,6 +163,7 @@
     photo.alt = '《' + name + '》游戏截图 ' + frame;
     title.textContent = name;
     count.textContent = (shot + 1) + ' / ' + items.length;
+    [...dots.children].forEach((dot, i) => dot.classList.toggle('current', i === shot));
     if (announce) status.textContent = name + '，第 ' + (shot + 1) + ' 张，共 ' + items.length + ' 张';
     prev.disabled = next.disabled = items.length < 2;
   }
@@ -186,6 +189,8 @@
     stopped = false;
     allowedFocus = document.activeElement;
     items = buttons[game].dataset.images.split(' ');
+    dots.replaceChildren(...items.map(() => document.createElement('span')));
+    dots.hidden = items.length < 2;
     buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === game)));
     render(announce);
     schedule();
@@ -262,6 +267,109 @@
     observer.disconnect();
     running.forEach(animation => animation.finish());
   });
+})();
+
+(() => {
+  const shelf = document.querySelector('.music-shelf');
+  if (!shelf || !('IntersectionObserver' in window)) return;
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const strips = [...shelf.querySelectorAll('.track-foil')];
+  const visible = new Set();
+  let lamp = null;
+  let frame = 0;
+
+  const clamp = x => Math.max(0, Math.min(1, x));
+  const gauss = (x, mean, left, right) => Math.exp(-.5 * ((x - mean) / (x < mean ? left : right)) ** 2);
+  // Wyman-Sloan-Shirley approximations for CIE XYZ, desaturated into linear sRGB.
+  const spectrum = Array.from({length:401}, (_, i) => {
+    const nm = i + 380;
+    const x = 1.056*gauss(nm,599.8,37.9,31) + .362*gauss(nm,442,16,26.7) - .065*gauss(nm,501.1,20.4,26.2);
+    const y = .821*gauss(nm,568.8,46.9,40.5) + .286*gauss(nm,530.9,16.3,31.1);
+    const z = 1.217*gauss(nm,437,11.8,36) + .681*gauss(nm,459,26,13.8);
+    return [3.2406*x-1.5372*y-.4986*z, -.9689*x+1.8758*y+.0415*z, .0557*x-.204*y+1.057*z]
+      .map(v => .8*Math.max(0,.66*v+.34*y));
+  });
+
+  function grating(projection) {
+    const out = [0,0,0];
+    const weights = [1,.5,.3];
+    for (let m = 1; m <= 3; m++) {
+      const nm = 1500*Math.abs(projection)/m;
+      if (nm < 380 || nm > 780) continue;
+      const rgb = spectrum[Math.round(nm)-380];
+      for (let j=0; j<3; j++) out[j] += rgb[j]*weights[m-1]*1.6;
+    }
+    return out;
+  }
+
+  function encode(v) {
+    const a = clamp(v*(2.51*v+.03)/(v*(2.43*v+.59)+.14));
+    return Math.round(255*(a<=.0031308?12.92*a:1.055*a**(1/2.4)-.055));
+  }
+
+  function opticalGradient(rect, light, index) {
+    const x = rect.left + rect.width/2;
+    const y = rect.top + rect.height/2;
+    const theta = Math.atan2(light.y-y+1e-6, light.x-x+1e-6);
+    const a = Math.cos(theta), b = Math.sin(theta);
+    const stretch = .5*(Math.abs(a)*rect.width+Math.abs(b)*rect.height);
+    const groove = -.7 + index*.19;
+    const gx = Math.cos(groove), gy = Math.sin(groove);
+    const colors = [];
+    for (let i = 0; i <= 12; i++) {
+      const t = (i/6-1)*stretch;
+      const dx = light.x - (x+a*t), dy = light.y - (y+b*t);
+      const distance = Math.hypot(dx,dy,300);
+      const first = grating((dx*gx+dy*gy)/distance);
+      const cross = grating((-dx*gy+dy*gx)/distance);
+      const glare = .14*Math.exp(-(dx*dx+dy*dy)/(2*155*155));
+      const rgb = [.29,.3,.325].map((silver,j) => encode(silver+glare+.56*(first[j]+cross[j])/2));
+      colors.push('rgb('+rgb.join(' ')+')');
+    }
+    return 'linear-gradient('+((theta*180/Math.PI)+90).toFixed(1)+'deg,'+colors.join(',')+')';
+  }
+
+  function draw() {
+    frame = 0;
+    if (document.hidden || !visible.size) return;
+    const bounds = shelf.getBoundingClientRect();
+    const light = lamp || {x:bounds.left + .72*bounds.width, y:bounds.top + .22*bounds.height};
+    const geometry = strips.flatMap((strip,index) => visible.has(strip)
+      ? [[strip,strip.getBoundingClientRect(),index]] : []);
+    for (const [strip,rect,index] of geometry) {
+      strip.style.setProperty('--foil-optical', opticalGradient(rect,light,index));
+    }
+  }
+
+  function schedule() {
+    if (!frame && !document.hidden && visible.size) frame = requestAnimationFrame(draw);
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) visible.add(entry.target);
+      else visible.delete(entry.target);
+    }
+    schedule();
+  }, {rootMargin:'0px'});
+  strips.forEach(strip => observer.observe(strip));
+
+  shelf.addEventListener('pointermove', event => {
+    if (!fine.matches || motion.matches || event.pointerType !== 'mouse') return;
+    lamp = {x:event.clientX,y:event.clientY};
+    schedule();
+  }, {passive:true});
+  shelf.addEventListener('pointerleave', () => { lamp = null; schedule(); });
+  fine.addEventListener('change', () => { lamp = null; schedule(); });
+  motion.addEventListener('change', () => { lamp = null; schedule(); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && frame) {
+      cancelAnimationFrame(frame);
+      frame = 0;
+    } else schedule();
+  });
+  window.addEventListener('resize', schedule, {passive:true});
 })();
 </script>
 </body>
