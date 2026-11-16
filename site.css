@@ -637,7 +637,9 @@ section[id],main { scroll-margin-top:85px; }
 /* The single slanted pane has the same geometry behind the section and through its photographs. */
 .chapter-pair {
   position:relative; isolation:isolate;
-  --glass-outline:polygon(0 4%,100% 34%,100% 100%,0 70%);
+  /* One centerline; more of the glass edge is visible when a photo is underneath. */
+  --glass-rear:polygon(0 25%,100% 55%,100% 80%,0 50%);
+  --glass-front:polygon(0 16%,100% 46%,100% 89%,0 59%);
 }
 .chapter-pair #music { isolation:auto; }
 .chapter-pair :is(#games,#music)>:is(.personal-heading,.game-board,.music-feature) { position:relative; z-index:2; }
@@ -648,25 +650,26 @@ section[id],main { scroll-margin-top:85px; }
 .chapter-glass {
   position:sticky; inset-block-start:clamp(110px,21vh,240px);
   width:100%; height:clamp(175px,34vh,315px);
-  clip-path:var(--glass-outline);
+  clip-path:var(--glass-rear);
   --glass-settled:0;
   background:
-    linear-gradient(106deg,rgb(224 222 243 / calc(.64 - .52 * var(--glass-settled))),
-      rgb(255 255 255 / calc(.63 - .36 * var(--glass-settled))) 48%,
-      rgb(241 222 231 / calc(.54 - .23 * var(--glass-settled))));
-  backdrop-filter:blur(20px) saturate(130%);
+    linear-gradient(106deg,rgb(205 199 232 / calc(.68 - .53 * var(--glass-settled))),
+      rgb(244 240 250 / calc(.75 - .46 * var(--glass-settled))) 48%,
+      rgb(232 203 218 / calc(.58 - .27 * var(--glass-settled))));
+  backdrop-filter:blur(23px) saturate(122%);
 }
 @media(max-width:760px) {
   .chapter-glass {
     height:clamp(128px,23vh,183px);
     inset-block-start:clamp(116px,22vh,190px);
   }
+  .chapter-photo-lens { --pane-frost:4.5px; }
 }
 
 /* The film planes sample the same painted game image in each visible carousel slot. */
 .chapter-photo-lens {
   position:absolute; z-index:2; pointer-events:none;
-  clip-path:var(--glass-outline);
+  clip-path:var(--glass-front);
 }
 .chapter-lens-fragment {
   position:absolute; overflow:hidden; pointer-events:none;
@@ -675,8 +678,14 @@ section[id],main { scroll-margin-top:85px; }
 }
 .games .chapter-lens-fragment img {
   position:absolute; inset:0; width:100%; height:100%; max-width:none;
-  object-fit:fill; transform:scale(1.075);
-  filter:blur(2.5px) brightness(1.12) saturate(1.04);
+  object-fit:fill; transform:scale(1.063);
+  filter:blur(var(--pane-frost,6px)) brightness(1.14) saturate(.96);
+}
+.chapter-lens-fragment::after {
+  content:""; position:absolute; pointer-events:none;
+  width:var(--pane-width); height:var(--pane-height);
+  left:calc(-1 * var(--fragment-x)); top:calc(-1 * var(--fragment-y));
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22edge%22%3E%3Cstop%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.15%22%2F%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%22.73%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f9e3f5%22%20stop-opacity%3D%22.28%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M0%2016%20L100%2046%22%20fill%3D%22none%22%20stroke%3D%22url(%23edge)%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3Cpath%20d%3D%22M0%2059%20L100%2089%22%20fill%3D%22none%22%20stroke%3D%22%2339324e%22%20stroke-opacity%3D%22.38%22%20stroke-width%3D%222%22%20vector-effect%3D%22non-scaling-stroke%22%2F%3E%3C%2Fsvg%3E") center/100% 100% no-repeat;
 }
 .games .game-stage #game-error { z-index:4; }
 @media (prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active) {

@@ -584,13 +584,17 @@
       lens.style.top = (glass.top-bounds.top)+'px';
       lens.style.width = glass.width+'px';
       lens.style.height = glass.height+'px';
+      lens.style.setProperty('--pane-width',glass.width+'px');
+      lens.style.setProperty('--pane-height',glass.height+'px');
       lens.style.setProperty('--glass-settled',shade.toFixed(3));
       for (const {m,box,opacity,src} of visibleMirrors) {
         m.frame.hidden = !box;
         if (!box) continue;
         if (m.image.src !== src) m.image.src = src;
-        m.frame.style.cssText = 'left:'+(box.left-glass.left)+'px;top:'+(box.top-glass.top)+
-          'px;width:'+box.width+'px;height:'+box.height+'px;--source-alpha:'+opacity;
+        const x = box.left-glass.left, y = box.top-glass.top;
+        m.frame.style.cssText = 'left:'+x+'px;top:'+y+
+          'px;width:'+box.width+'px;height:'+box.height+'px;--source-alpha:'+opacity+
+          ';--fragment-x:'+x+'px;--fragment-y:'+y+'px';
       }
     }
     if ([...track.getAnimations(),...stage.getAnimations()].some(a => a.playState === 'running')) queue();
