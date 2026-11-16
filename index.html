@@ -41,9 +41,8 @@
 </div>
 </div>
 </section>
-<div class="chapter-pair">
-<div class="chapter-glass-run" aria-hidden="true" hidden><div class="chapter-glass"></div></div>
 <section id="games" class="container personal-section games" aria-labelledby="gallery-label">
+<div class="chapter-glass-run" aria-hidden="true" hidden><div class="chapter-glass"></div></div>
 <div class="personal-heading" data-reveal="0"><h2 id="gallery-label">游戏</h2></div>
 <div class="game-board">
 <script type="application/json" id="game-shots">
@@ -100,7 +99,6 @@
 </div>
 </section>
 
-</div>
 <section id="edits" class="container personal-section edits" aria-labelledby="edits-title">
 <div class="personal-heading" data-reveal="0"><h2 id="edits-title">剪辑作品</h2><a class="external-link" href="https://space.bilibili.com/297531329" target="_blank" rel="noopener noreferrer">我的 B 站主页 <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></a></div>
 <ol class="video-list" role="list">
@@ -529,12 +527,10 @@
   });
 })();
 (() => {
-  const pair = document.querySelector('.chapter-pair');
-  const path = pair.querySelector('.chapter-glass-run');
+  const games = document.getElementById('games');
+  const path = games.querySelector('.chapter-glass-run');
   const panel = path.querySelector('.chapter-glass');
-  const heading = pair.querySelector('#music-title');
-  const music = heading.closest('section');
-  const stage = pair.querySelector('.game-stage');
+  const stage = games.querySelector('.game-stage');
   const lens = stage.querySelector('.chapter-photo-lens');
   const track = stage.querySelector('.game-track');
   const mirrors = [...track.querySelectorAll('.game-panel img')].map(original => {
@@ -550,7 +546,9 @@
   });
   let frame = 0;
   let settleAt = 0;
+  let startAt = 0;
   let previousShade = -1;
+  let lastPresence = -1;
   let visible = typeof IntersectionObserver !== 'function';
   const prefs = matchMedia('(prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active)');
   if (!CSS.supports('backdrop-filter','blur(1px)')) return;
@@ -562,7 +560,14 @@
       panel.style.setProperty('--glass-settled',shade.toFixed(3));
       previousShade = shade;
     }
-    if (!visible) { lens.hidden = true; return; }
+    const enter = Math.max(0,Math.min(1,(scrollY + innerHeight - startAt)/100));
+    const exit = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/185));
+    const presence = Math.min(enter,1-exit);
+    if (presence !== lastPresence) {
+      games.style.setProperty('--ribbon-presence',presence.toFixed(3));
+      lastPresence = presence;
+    }
+    if (!visible || presence === 0) { lens.hidden = true; return; }
     const glass = panel.getBoundingClientRect();
     const bounds = stage.getBoundingClientRect();
     if (glass.bottom <= bounds.top || glass.top >= bounds.bottom) { lens.hidden = true; return; }
@@ -604,13 +609,13 @@
     path.hidden = prefs.matches;
     if (path.hidden) lens.hidden = true;
     if (path.hidden) return;
-    const titleTop = music.offsetTop + heading.parentElement.offsetTop + heading.offsetTop;
-    const pathHeight = Math.round(titleTop - path.offsetTop + (heading.offsetHeight + panel.offsetHeight)/2);
+    const pathHeight = Math.max(0,games.clientHeight - path.offsetTop - 1);
     path.style.height = pathHeight + 'px';
+    startAt = scrollY + games.getBoundingClientRect().top;
     settleAt = scrollY + path.getBoundingClientRect().top + pathHeight - panel.offsetHeight - parseFloat(getComputedStyle(panel).top);
     queue();
   };
-  if ('ResizeObserver' in window) new ResizeObserver(place).observe(pair);
+  if ('ResizeObserver' in window) new ResizeObserver(place).observe(games);
   if (typeof IntersectionObserver === 'function') new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting;
     queue();
