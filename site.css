@@ -310,13 +310,13 @@ section[id],main { scroll-margin-top:85px; }
   content:""; width:7px; height:7px; border-radius:1em; background:currentColor;
   transition:width 180ms ease-out,color 180ms ease-out;
 }
-.gallery-dots button[aria-current="true"] { color:#655369; }
-.gallery-dots button[aria-current="true"]::after { width:20px; }
+.gallery-dots button[aria-current="true"] { color:#4d315f; }
+.gallery-dots button[aria-current="true"]::after { width:15px; }
 .gallery-dots button:focus-visible { color:#655369; }
 @media(hover:hover) and (pointer:fine) {
-  .gallery-dots button:hover { color:#594438; }
-  .gallery-dots button:hover::after { width:15px; }
-  .gallery-dots button[aria-current="true"]:hover::after { width:27px; }
+  .gallery-dots button:not([aria-current]):hover { color:#594438; }
+  .gallery-dots button:hover::after { width:17px; }
+  .gallery-dots button[aria-current="true"]:hover::after { width:21px; }
 }
 @media(prefers-reduced-motion:reduce) { .gallery-dots button::after { transition:none; } }
 @media (max-width:760px) {
@@ -527,4 +527,54 @@ section[id],main { scroll-margin-top:85px; }
   .project-preview img {
     aspect-ratio:16/9; object-fit:cover; object-position:center top;
   }
+}
+
+/* Hover changes the emphasis, not the order or the row's footprint. */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .gallery-dots:has(button:hover) button:not(:hover):not([aria-current])::after { width:5px; }
+  .gallery-dots:has(button:hover) button[aria-current]:not(:hover)::after { width:13px; }
+
+  .track-print { transition:scale 220ms cubic-bezier(.2,.7,.3,1); }
+  .music-shelf ul:has(.track-card:hover) .track-card:not(:hover) .track-print { scale:.973; }
+  .track-card:hover .track-print { scale:1.026; }
+  .track-play svg { transition:translate 200ms ease-out; }
+  .track-card:hover .track-play svg { translate:2px 0; }
+
+  .games .game-track img { transition:filter 220ms ease-out; }
+  .games .game-stage:has(.game-panel[data-slot="0"] img:hover) .game-panel[aria-hidden="true"] img {
+    filter:brightness(.89) saturate(.94);
+  }
+  .games .game-panel[data-slot="0"] img:hover { filter:brightness(1.05); }
+  .games .gallery-arrows button svg { transition:translate 200ms ease-out; }
+  #game-prev:hover svg { translate:-2px 0; }
+  #game-next:hover svg { translate:2px 0; }
+}
+
+@media (min-width:1000px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  #edits .video-list {
+    container-type:inline-size;
+    --card-gap:clamp(16px,2.4vw,30px);
+    --cover-inset:clamp(8px,1vw,12px);
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);
+    transition:grid-template-columns 230ms cubic-bezier(.2,.7,.3,1);
+  }
+  #edits .video-cover {
+    /* Keep the same cover height as the equal, resting desktop row. */
+    aspect-ratio:auto;
+    height:calc(((100cqi - 2 * var(--card-gap)) / 3 - 2 * var(--cover-inset) - 2px) * 9 / 16);
+  }
+  #edits .video-list:has(>li:nth-child(1):hover) {
+    grid-template-columns:minmax(0,1.105fr) minmax(0,.9475fr) minmax(0,.9475fr);
+  }
+  #edits .video-list:has(>li:nth-child(2):hover) {
+    grid-template-columns:minmax(0,.9475fr) minmax(0,1.105fr) minmax(0,.9475fr);
+  }
+  #edits .video-list:has(>li:nth-child(3):hover) {
+    grid-template-columns:minmax(0,.9475fr) minmax(0,.9475fr) minmax(0,1.105fr);
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .gallery-dots button:hover::after { width:7px; }
+  .gallery-dots button[aria-current="true"]:hover::after { width:15px; }
 }
