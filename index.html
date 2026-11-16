@@ -52,12 +52,14 @@
   {"name":"最终幻想 XV","src":"./images/ff15-1.jpg"},
   {"name":"荒野大镖客","src":"./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-1.jpg"},
   {"name":"博德之门 3","src":"./images/bd3-1.jpg"},
-  {"name":"Stray","src":"./images/stray-1.jpg"}
+  {"name":"Stray","src":"./images/stray-1.jpg"},
+  {"name":"超级变色龙","src":"./images/hide-1.jpg"},
+  {"name":"逃生：试炼","src":"./images/outlast-1.jpg"}
 ]
 </script>
 <figure class="game-viewer" aria-labelledby="gallery-label">
 <div class="game-stage" data-reveal="1">
-<div class="game-track"><span class="game-panel" data-slot="-2" aria-hidden="true" hidden><img src="./images/bd3-1.jpg" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="-1" aria-hidden="true" hidden><img src="./images/stray-1.jpg" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="0"><img id="game-photo" src="./images/ow-1.png" width="2560" height="1440" alt="《守望先锋》游戏截图" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="1" aria-hidden="true" hidden><img src="./images/zzz-1.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="2" aria-hidden="true" hidden><img src="./images/isc-1.jpg" alt="" loading="lazy" decoding="async"></span></div>
+<div class="game-track"><span class="game-panel" data-slot="-2" aria-hidden="true" hidden><img src="./images/hide-1.jpg" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="-1" aria-hidden="true" hidden><img src="./images/outlast-1.jpg" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="0"><img id="game-photo" src="./images/ow-1.png" width="2560" height="1440" alt="《守望先锋》游戏截图" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="1" aria-hidden="true" hidden><img src="./images/zzz-1.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="2" aria-hidden="true" hidden><img src="./images/isc-1.jpg" alt="" loading="lazy" decoding="async"></span></div>
 <p id="game-error" hidden>这张截图未能加载，可以切换到另一张。</p>
 <div class="gallery-arrows" role="group" aria-label="切换截图" hidden>
 <button type="button" id="game-prev" aria-label="上一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
@@ -66,7 +68,7 @@
 </div>
 <figcaption class="game-caption" data-reveal="2">
 <strong id="game-title">守望先锋</strong>
-<div class="gallery-count" id="gallery-count">1 / 7</div>
+<div class="gallery-count" id="gallery-count">1 / 9</div>
 <div class="gallery-dots" role="group" aria-label="选择截图" hidden></div>
 
 <span id="game-status" class="sr-only" aria-live="polite" aria-atomic="true"></span></figcaption>
@@ -245,7 +247,13 @@
     const incoming = slots[2 + delta], outgoing = slots[2];
     const timing = {duration:370,easing:'cubic-bezier(.22,.68,.17,1)',fill:'forwards'};
     const effects = [incoming.animate([{opacity:.78},{opacity:1}],timing),
-      outgoing.animate([{opacity:1},{opacity:.78}],timing)];
+      outgoing.animate([{opacity:1},{opacity:.78}],timing),
+      incoming.querySelector('img').animate([
+        {transform:'var(--photo-far)'},{transform:'var(--photo-near)'}
+      ],timing),
+      photo.animate([
+        {transform:'var(--photo-near)'},{transform:'var(--photo-far)'}
+      ],timing)];
     const newWidth = incoming.querySelector('img').offsetWidth;
     if (newWidth && photo.offsetWidth) effects.push(arrows.animate(
       [{width:photo.offsetWidth+'px'},{width:newWidth+'px'}],timing));
@@ -284,6 +292,7 @@
     dot.addEventListener('click', () => goTo(i));
     return dot;
   }));
+  dots.style.setProperty('--dot-count', items.length);
   dots.hidden = items.length < 2;
   viewer.tabIndex = 0;
   render();
