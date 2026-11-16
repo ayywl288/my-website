@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="啊咿呀哇嘞的个人主页。关注 Java 后端与 Coding Agent。">
+<meta name="theme-color" content="#f5efe5">
+<title>啊咿呀哇嘞｜个人作品集</title>
+<style>
+:root{--bg:#f5efe5;--paper:#fff9ef;--ink:#2c2034;--muted:#625565;--plum:#473159;--accent:#f4ca84;--line:#d9cbba;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;--sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;--serif:Georgia,"Songti SC","SimSun",serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 var(--sans)}a{color:inherit;text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:.3em}a:focus-visible{outline:3px solid #945bad;outline-offset:5px}.container{max-width:1130px;padding-inline:42px;margin:auto}.kicker{font:11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase}.nav{min-height:76px;display:flex;justify-content:space-between;align-items:center;gap:16px}.sitehead,.foot{border-color:var(--line);border-style:solid;border-width:0 0 1px}.brand{font-weight:750;display:inline-flex;align-items:center;gap:12px;white-space:nowrap}.brand span{display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--line);border-radius:4px;color:var(--plum);font:700 15px var(--mono)}.navlinks{display:flex;gap:22px;font-size:13px;font-weight:700}
+.hero{padding-block:98px 87px;display:grid;grid-template-columns:1fr .76fr;align-items:center;gap:38px}.signal{color:#6e5475;display:flex;align-items:center;gap:11px}.signal:before{content:"";width:25px;height:1px;background:#976c96}.hero h1{font:700 clamp(56px,9vw,116px)/1 var(--serif);letter-spacing:-.105em;margin:18px 0 20px}.lead{font-size:clamp(17px,2.4vw,24px);line-height:1.55;margin:0 0 9px;font-weight:650;letter-spacing:-.03em}.hint{color:var(--muted);margin:0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--plum);color:#fff9ef;border:1px solid var(--plum);border-radius:4px;padding:10px 15px;font-size:13px;font-weight:700}.btn:hover{background:#654978;text-decoration:none}.hero .btn{margin-top:25px}
+.specimen{min-height:300px;position:relative;isolation:isolate;overflow:hidden;padding:21px 23px;background:#e9ddd3;border:1px solid #d8c5c6;border-radius:6px;color:#604a66;display:grid;align-content:space-between}.specimen svg{position:absolute;inset:0;width:100%;height:100%;z-index:-1}.stamp{display:grid;justify-content:end;text-align:right;gap:6px}.stamp strong{font:700 clamp(30px,5vw,59px)/1 var(--serif);letter-spacing:-.055em;color:var(--plum)}.work{border-top:1px solid var(--line);padding-block:57px 74px}.work-header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:28px}.work-header h2{font:700 clamp(32px,6vw,57px)/1.1 var(--serif);letter-spacing:-.065em;margin:10px 0 0}.work-header p{color:var(--muted);margin:0;font-size:14px}.projects{display:grid;grid-template-columns:1.35fr 1fr;gap:16px}.project{border:1px solid var(--line);border-radius:6px;padding:27px;background:var(--paper)}.project h3{margin:16px 0 8px;font:700 33px/1.14 var(--serif);letter-spacing:-.045em}.project p{margin:0;color:var(--muted);max-width:34em}.project.featured{background:#352544;color:#fff1ec;border-color:#352544}.featured .kicker,.featured p{color:#e8d3eb}.project .link{display:inline-flex;gap:9px;color:var(--accent);margin-top:20px;font-size:14px;font-weight:700}.foot{border-width:1px 0 0}.foot .container{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:var(--muted)}.skip{position:absolute;left:10px;top:-90px;background:white;padding:8px;z-index:4}.skip:focus{top:10px}
+@media(max-width:760px){.container{padding-inline:20px}.nav{min-height:64px}.navlinks{gap:12px}.hero{padding-block:54px 44px;grid-template-columns:1fr;gap:27px}.hero h1{margin-block:15px}.specimen{min-height:210px;padding:16px 19px}.work{padding-block:42px 49px}.work-header{align-items:flex-start;flex-direction:column;margin-bottom:18px}.projects{grid-template-columns:1fr}.project{padding:20px}.foot .container{min-height:60px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.hero h1{font-size:clamp(43px,7.4vw,89px);letter-spacing:-.095em}.navlinks>a{white-space:nowrap}@media(max-width:760px){.navlinks{gap:10px}}@media(max-width:560px){.navlinks a[href="#projects"],.navlinks a[href="./delveforge/index.html"]{display:none}.nav .brand{gap:8px}.hero h1{font-size:clamp(36px,11vw,62px);letter-spacing:-.075em}}
+
+/* Personal sections */
+.personal-section{border-top:1px solid var(--line);padding-block:clamp(45px,6vw,76px);scroll-margin-top:18px}
+.personal-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px 22px;margin-bottom:24px}
+.personal-heading h2{font:700 clamp(32px,5vw,56px)/1.12 var(--serif);letter-spacing:-.04em;margin:0}
+.game-board{display:grid;grid-template-columns:minmax(165px,.26fr) minmax(0,1fr);gap:24px;align-items:start}
+.gallery-games{display:grid;gap:3px}
+.gallery-games button,.gallery-arrows button{min-height:42px;border:0;border-radius:4px;background:transparent;color:var(--plum);cursor:pointer;font:650 14px/1.35 var(--sans);padding:7px 12px}
+.gallery-games button{text-align:left}
+.gallery-games button:hover,.gallery-arrows button:not(:disabled):hover{background:#e8dbce}
+.gallery-games button[aria-pressed="true"]{background:var(--plum);color:var(--paper)}
+.game-other{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.game-viewer,.music-photo{margin:0}
+.game-stage{position:relative;display:grid;place-items:center;aspect-ratio:16/9;overflow:hidden;border-radius:5px;background:#2c2034;color:#fff9ef}
+.game-stage img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
+.game-stage p{margin:0;padding:12px;text-align:center}
+.game-caption{display:flex;align-items:center;gap:8px 15px;color:var(--plum);padding-block:7px}
+.game-caption strong{flex:1;font-size:14px;line-height:1.4}
+.gallery-count,.video-duration{font:12px var(--mono);white-space:nowrap;font-variant-numeric:tabular-nums}
+.gallery-arrows{display:flex;gap:3px}
+.gallery-arrows button{display:grid;place-items:center;width:42px;padding:0}
+.gallery-arrows button:disabled{opacity:.42;cursor:default}
+.gallery-games button:focus-visible,.gallery-arrows button:focus-visible,.game-viewer:focus-visible{outline:2px solid #80458c;outline-offset:2px}
+.games [hidden]{display:none}
+.music-feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,320px);gap:28px;align-items:center;max-width:820px}
+.music-copy h3{margin:0 0 9px;font:700 clamp(22px,3.2vw,36px)/1.25 var(--serif);letter-spacing:-.035em}
+.music-copy p{margin:0;color:var(--muted)}
+.music-photo img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center 25%;border-radius:5px;background:#ead8db}
+.music-photo figcaption{padding-top:6px;color:#57415e;font-size:12px;line-height:1.5}
+.music-photo figcaption a{text-decoration:underline;text-underline-offset:.2em}
+.external-link{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;color:var(--plum);font-size:14px;font-weight:650;padding-block:8px}
+.video-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
+.video-work{display:block}
+.video-cover{display:block;position:relative;overflow:hidden;border-radius:5px;aspect-ratio:16/9;background:#e7d9cc}
+.video-cover img{display:block;width:100%;height:100%;object-fit:contain;background:#2c2034}
+.video-duration{position:absolute;right:7px;bottom:7px;display:inline-flex;align-items:center;gap:4px;padding:4px 6px;border-radius:3px;background:#261c31;color:#fff9ef;font-size:11px}
+.video-title{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:9px 0;color:var(--plum);font-size:14px;line-height:1.45}
+.video-title strong{overflow-wrap:anywhere}
+.video-title svg{flex-shrink:0}
+.video-work:hover{text-decoration:none}
+.video-work:hover strong{text-decoration:underline;text-underline-offset:.24em}
+@media(max-width:760px){
+.personal-heading{margin-bottom:18px}
+.game-board{grid-template-columns:1fr;gap:14px}
+.gallery-games{display:flex;flex-wrap:wrap;gap:4px 6px}
+.gallery-games button,.gallery-arrows button{min-height:44px}
+.gallery-arrows button{width:44px}
+.game-other{margin-top:7px;padding-top:6px;border:0}
+.music-feature{gap:15px;grid-template-columns:1fr}
+.music-photo{width:min(100%,320px)}
+.video-list{gap:15px}
+}
+@media(max-width:600px){.video-list{grid-template-columns:1fr;gap:12px}.video-title{padding-bottom:10px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要内容</a>
+<header class="sitehead"><nav class="container nav" aria-label="主导航"><a class="brand" href="./index.html"><span aria-hidden="true">✦</span>啊咿呀哇嘞</a><div class="navlinks"><a href="#projects">项目</a><a href="#games">游戏</a><a href="#music">音乐</a><a href="#edits">剪辑</a><a href="./delveforge/index.html">DelveForge ↗</a></div></nav></header>
+<main id="main">
+<section class="container hero" aria-labelledby="title">
+<div><div class="signal kicker">PERSONAL PORTFOLIO</div><h1 id="title">啊咿呀哇嘞</h1><p class="lead">我在做 Java 后端，也在做 Coding Agent。</p><p class="hint">贵州大学 · 软件工程 · 2028 届</p><a class="btn" href="#projects">看我做过的项目 <span aria-hidden="true">↓</span></a></div>
+<div class="specimen" aria-hidden="true"><span class="kicker">FIELD NOTES / 01</span><svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid slice"><defs><pattern id="grid" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0v18" fill="none" stroke="#a380a0" stroke-opacity=".25"/></pattern></defs><rect width="480" height="320" fill="url(#grid)"/><g stroke="#795785" fill="none" stroke-width="1.4"><circle cx="234" cy="152" r="87" stroke-opacity=".35"/><circle cx="234" cy="152" r="72" stroke-opacity=".5"/><circle cx="234" cy="152" r="8"/><path d="M147 152h174m-87-87v174M173 213 295 91M173 91l122 122" stroke-opacity=".46"/><path d="M212 152h44m-22-22v44M45 260v16m-8-8h16m373-220v16m-8-8h16"/></g></svg><div class="stamp"><span class="kicker">BUILD / VERIFY</span><strong>Works<br>in progress.</strong></div></div>
+</section>
+<section id="projects" class="container work" aria-labelledby="project-title"><div class="work-header"><div><div class="signal kicker">SELECTED PROJECTS</div><h2 id="project-title">我的项目</h2></div><p>从一个开发工作台，到一条秒杀链路。</p></div><div class="projects">
+<article class="project featured"><div class="kicker">01 / CODING AGENT</div><h3>DelveForge</h3><p>Windows 上的本地开发工作台。让 Agent 在项目副本里读代码、改文件和跑测试，你可以边执行边补充要求，最后检查改动和日志。</p><a class="link" href="./delveforge/index.html">进入 DelveForge 产品页 <span aria-hidden="true">↗</span></a></article>
+<article class="project"><div class="kicker">02 / JAVA BACKEND</div><h3>本地生活平台</h3><p>围绕优惠券秒杀和热点商铺查询，实践 Redis 库存预扣、RocketMQ 异步落库，以及消费幂等和库存对账补偿。</p></article>
+</div></section>
+<section id="games" class="container personal-section games" aria-labelledby="gallery-label">
+<div class="personal-heading"><h2 id="gallery-label">游戏</h2></div>
+<div class="game-board">
+<div class="game-menu">
+<div class="gallery-games" role="group" aria-label="选择游戏" hidden>
+<button type="button" data-game="绝区零" data-images="./images/zzz-1.png ./images/zzz-2.png" aria-pressed="true">绝区零</button>
+<button type="button" data-game="守望先锋" data-images="./images/ow-1.png" aria-pressed="false">守望先锋</button>
+<button type="button" data-game="以撒的结合：重生" data-images="./images/isc-1.jpg ./images/isc-2.jpg" aria-pressed="false">以撒的结合：重生</button>
+<button type="button" data-game="最终幻想 XV" data-images="./images/ff15-1.jpg ./images/ff15-2.jpg" aria-pressed="false">最终幻想 XV</button>
+<button type="button" data-game="荒野大镖客" data-images="./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-1.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-2.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-3.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-4.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-5.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-6.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-7.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5%3D9.jpg" aria-pressed="false">荒野大镖客</button>
+</div>
+<p class="game-other">也喜欢：只狼 · 尼尔：机械纪元</p>
+</div>
+<figure class="game-viewer" aria-labelledby="gallery-label">
+<div class="game-stage">
+<img id="game-photo" src="./images/zzz-1.png" width="2560" height="1600" alt="《绝区零》游戏截图 1" loading="lazy" decoding="async">
+<p id="game-error" hidden>这张截图未能加载，可以切换到另一张。</p>
+</div>
+<figcaption class="game-caption">
+<strong id="game-title">绝区零</strong>
+<div class="gallery-count" aria-live="polite" aria-atomic="true" id="gallery-count">1 / 2</div>
+<div class="gallery-arrows" role="group" aria-label="切换截图" hidden>
+<button type="button" id="game-prev" aria-label="上一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+<button type="button" id="game-next" aria-label="下一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+</div>
+</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="music" class="container personal-section music" aria-labelledby="music-title">
+<div class="personal-heading"><h2 id="music-title">K-pop / 音乐</h2></div>
+<div class="music-feature">
+<div class="music-copy"><h3>歌单常客：YENA</h3><p>喜欢听 K-pop，喜欢的爱豆是<strong>崔叡娜（YENA）</strong>。</p></div>
+<figure class="music-photo">
+<img src="./images/yena-kpopit-2026.jpg" width="1529" height="2039" alt="崔叡娜（YENA）出席 2026 Brand of the Year Awards" loading="lazy" decoding="async">
+<figcaption><a href="https://commons.wikimedia.org/wiki/File:083126_Yena_at_the_2026_Brand_of_the_Year_Awards_03.jpg">K-POPIT</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · 展示时裁切</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="edits" class="container personal-section edits" aria-labelledby="edits-title">
+<div class="personal-heading"><h2 id="edits-title">剪辑作品</h2><a class="external-link" href="https://space.bilibili.com/297531329">我的 B 站主页 <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></a></div>
+<ol class="video-list" role="list">
+<li><a class="video-work" href="https://www.bilibili.com/video/BV1SFEg6ZE7E/">
+<span class="video-cover"><img src="./images/edits/BV1SFEg6ZE7E.jpg" width="1920" height="1080" alt="" loading="lazy" decoding="async"><span class="video-duration"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg><span>0:47</span></span></span>
+<span class="video-title"><strong>这 是 啥 博 弈</strong><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></span></a></li>
+<li><a class="video-work" href="https://www.bilibili.com/video/BV1uB4y1t712/">
+<span class="video-cover"><img src="./images/edits/BV1uB4y1t712.jpg" width="1024" height="576" alt="" loading="lazy" decoding="async"><span class="video-duration"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg><span>0:30</span></span></span>
+<span class="video-title"><strong>友利奈绪[What is love?]</strong><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></span></a></li>
+<li><a class="video-work" href="https://www.bilibili.com/video/BV12Q4y127Ay/">
+<span class="video-cover"><img src="./images/edits/BV12Q4y127Ay.jpg" width="1004" height="627" alt="" loading="lazy" decoding="async"><span class="video-duration"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg><span>0:21</span></span></span>
+<span class="video-title"><strong>SAY LESS</strong><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></span></a></li>
+</ol>
+</section>
+</main>
+<footer class="foot"><div class="container"><span class="kicker">啊咿呀哇嘞 / LOCAL PORTFOLIO</span><a class="kicker" href="#main">返回顶部 ↑</a></div></footer>
+<script>
+(() => {
+  const gallery = document.querySelector('.games');
+  const selectors = [...gallery.querySelectorAll('[data-images]')];
+  const photo = document.getElementById('game-photo');
+  const title = document.getElementById('game-title');
+  const count = document.getElementById('gallery-count');
+  const prev = document.getElementById('game-prev');
+  const next = document.getElementById('game-next');
+  const error = document.getElementById('game-error');
+  const viewer = gallery.querySelector('.game-viewer');
+  let game = 0;
+  let shot = 0;
+  let items = [];
+
+  function render() {
+    const name = selectors[game].dataset.game;
+    const src = items[shot];
+    const file = decodeURIComponent(src.split('/').pop());
+    const frame = file.match(/[-=](\d+)\./)?.[1] ?? shot + 1;
+    if (photo.getAttribute('src') !== src) {
+      error.hidden = true;
+      photo.hidden = false;
+      photo.src = src;
+    }
+    photo.alt = '《' + name + '》游戏截图 ' + frame;
+    title.textContent = name;
+    count.textContent = (shot + 1) + ' / ' + items.length;
+    count.setAttribute('aria-label', name + '，第 ' + (shot + 1) + ' 张，共 ' + items.length + ' 张');
+    prev.disabled = next.disabled = items.length < 2;
+  }
+
+  function select(index) {
+    game = index;
+    shot = 0;
+    items = selectors[game].dataset.images.split(' ');
+    selectors.forEach((button, i) => button.setAttribute('aria-pressed', String(i === game)));
+    render();
+  }
+
+  function step(delta) {
+    if (items.length < 2) return;
+    shot = (shot + delta + items.length) % items.length;
+    render();
+  }
+
+  selectors.forEach((button, i) => button.addEventListener('click', () => select(i)));
+  prev.addEventListener('click', () => step(-1));
+  next.addEventListener('click', () => step(1));
+  viewer.addEventListener('keydown', (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    step(event.key === 'ArrowLeft' ? -1 : 1);
+  });
+  photo.addEventListener('error', () => {
+    photo.hidden = true;
+    error.hidden = false;
+  });
+
+  gallery.querySelector('.gallery-games').hidden = false;
+  gallery.querySelector('.gallery-arrows').hidden = false;
+  viewer.tabIndex = 0;
+  select(0);
+})();
+</script>
+</body>
+</html>
