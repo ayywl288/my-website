@@ -17,7 +17,7 @@ py -m http.server 8080 --bind 127.0.0.1
 
 ## 以后部署
 
-将 `index.html`、`delveforge/` 和首页引用的 `images/` 图片按原相对路径复制到静态站点的文档根目录。当前只做本地开发，没有部署。
+将 `index.html`、`site.css`、`delveforge/` 和首页引用的 `images/` 图片按原相对路径复制到静态站点的文档根目录。当前只做本地开发，没有部署。
 
 ## 本地版本记录
 

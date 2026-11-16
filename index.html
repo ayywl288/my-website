@@ -4,152 +4,48 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="啊咿呀哇嘞的个人主页。关注 Java 后端与 Coding Agent。">
-<meta name="theme-color" content="#f5f7fb">
+<meta name="theme-color" content="#f6eee2">
 <title>啊咿呀哇嘞｜个人作品集</title>
-<style>
-:root{--bg:#f5efe5;--paper:#fff9ef;--ink:#2c2034;--muted:#625565;--plum:#473159;--accent:#f4ca84;--line:#d9cbba;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;--sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;--serif:Georgia,"Songti SC","SimSun",serif}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 var(--sans)}a{color:inherit;text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:.3em}a:focus-visible{outline:3px solid #945bad;outline-offset:5px}.container{max-width:1130px;padding-inline:42px;margin:auto}.kicker{font:11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase}.nav{min-height:76px;display:flex;justify-content:space-between;align-items:center;gap:16px}.sitehead,.foot{border-color:var(--line);border-style:solid;border-width:0 0 1px}.brand{font-weight:750;display:inline-flex;align-items:center;gap:12px;white-space:nowrap}.brand span{display:grid;place-items:center;width:36px;height:36px;border:1px solid var(--line);border-radius:4px;color:var(--plum);font:700 15px var(--mono)}.navlinks{display:flex;gap:22px;font-size:13px;font-weight:700}
-.hero{padding-block:98px 87px;display:grid;grid-template-columns:1fr .76fr;align-items:center;gap:38px}.signal{color:#6e5475;display:flex;align-items:center;gap:11px}.signal:before{content:"";width:25px;height:1px;background:#976c96}.hero h1{font:700 clamp(56px,9vw,116px)/1 var(--serif);letter-spacing:-.105em;margin:18px 0 20px}.lead{font-size:clamp(17px,2.4vw,24px);line-height:1.55;margin:0 0 9px;font-weight:650;letter-spacing:-.03em}.hint{color:var(--muted);margin:0}.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--plum);color:#fff9ef;border:1px solid var(--plum);border-radius:4px;padding:10px 15px;font-size:13px;font-weight:700}.btn:hover{background:#654978;text-decoration:none}.hero .btn{margin-top:25px}
-.specimen{min-height:300px;position:relative;isolation:isolate;overflow:hidden;padding:21px 23px;background:#e9ddd3;border:1px solid #d8c5c6;border-radius:6px;color:#604a66;display:grid;align-content:space-between}.specimen svg{position:absolute;inset:0;width:100%;height:100%;z-index:-1}.stamp{display:grid;justify-content:end;text-align:right;gap:6px}.stamp strong{font:700 clamp(30px,5vw,59px)/1 var(--serif);letter-spacing:-.055em;color:var(--plum)}.work{border-top:1px solid var(--line);padding-block:57px 74px}.work-header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:28px}.work-header h2{font:700 clamp(32px,6vw,57px)/1.1 var(--serif);letter-spacing:-.065em;margin:10px 0 0}.work-header p{color:var(--muted);margin:0;font-size:14px}.projects{display:grid;grid-template-columns:1.35fr 1fr;gap:16px}.project{border:1px solid var(--line);border-radius:6px;padding:27px;background:var(--paper)}.project h3{margin:16px 0 8px;font:700 33px/1.14 var(--serif);letter-spacing:-.045em}.project p{margin:0;color:var(--muted);max-width:34em}.project.featured{background:#352544;color:#fff1ec;border-color:#352544}.featured .kicker,.featured p{color:#e8d3eb}.project .link{display:inline-flex;gap:9px;color:var(--accent);margin-top:20px;font-size:14px;font-weight:700}.foot{border-width:1px 0 0}.foot .container{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:var(--muted)}.skip{position:absolute;left:10px;top:-90px;background:white;padding:8px;z-index:4}.skip:focus{top:10px}
-@media(max-width:760px){.container{padding-inline:20px}.nav{min-height:64px}.navlinks{gap:12px}.hero{padding-block:54px 44px;grid-template-columns:1fr;gap:27px}.hero h1{margin-block:15px}.specimen{min-height:210px;padding:16px 19px}.work{padding-block:42px 49px}.work-header{align-items:flex-start;flex-direction:column;margin-bottom:18px}.projects{grid-template-columns:1fr}.project{padding:20px}.foot .container{min-height:60px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.hero h1{font-size:clamp(43px,7.4vw,89px);letter-spacing:-.095em}.navlinks>a{white-space:nowrap}@media(max-width:760px){.navlinks{gap:10px}}@media(max-width:560px){.navlinks a[href="#projects"],.navlinks a[href="./delveforge/index.html"]{display:none}.nav .brand{gap:8px}.hero h1{font-size:clamp(36px,11vw,62px);letter-spacing:-.075em}}
-
-/* Personal sections */
-.personal-section{border-top:1px solid var(--line);padding-block:clamp(45px,6vw,76px);scroll-margin-top:18px}
-.personal-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px 22px;margin-bottom:24px}
-.personal-heading h2{font:700 clamp(32px,5vw,56px)/1.12 var(--serif);letter-spacing:-.04em;margin:0}
-.game-board{display:grid;grid-template-columns:minmax(165px,.26fr) minmax(0,1fr);gap:24px;align-items:start}
-.gallery-games{display:grid;gap:3px}
-.gallery-games button,.gallery-arrows button{min-height:42px;border:0;border-radius:4px;background:transparent;color:var(--plum);cursor:pointer;font:650 14px/1.35 var(--sans);padding:7px 12px}
-.gallery-games button{text-align:left}
-.gallery-games button:hover,.gallery-arrows button:not(:disabled):hover{background:#e8dbce}
-.gallery-games button[aria-pressed="true"]{background:var(--plum);color:var(--paper)}
-.game-other{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
-.game-viewer,.music-photo{margin:0}
-.game-stage{position:relative;display:grid;place-items:center;aspect-ratio:16/9;overflow:hidden;border-radius:5px;background:#2c2034;color:#fff9ef}
-.game-stage img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
-.game-stage p{margin:0;padding:12px;text-align:center}
-.game-caption{display:flex;align-items:center;gap:8px 15px;color:var(--plum);padding-block:7px}
-.game-caption strong{flex:1;font-size:14px;line-height:1.4}
-.gallery-count,.video-duration{font:12px var(--mono);white-space:nowrap;font-variant-numeric:tabular-nums}
-.gallery-arrows{display:flex;gap:3px}
-.gallery-arrows button{display:grid;place-items:center;width:42px;padding:0}
-.gallery-arrows button:disabled{opacity:.42;cursor:default}
-.gallery-games button:focus-visible,.gallery-arrows button:focus-visible,.game-viewer:focus-visible{outline:2px solid #80458c;outline-offset:2px}
-.games [hidden]{display:none}
-.music-feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,320px);gap:28px;align-items:center;max-width:820px}
-.music-copy h3{margin:0 0 9px;font:700 clamp(22px,3.2vw,36px)/1.25 var(--serif);letter-spacing:-.035em}
-.music-copy p{margin:0;color:var(--muted)}
-.music-photo img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;border-radius:5px;background:#ead8db}
-.external-link{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;color:var(--plum);font-size:14px;font-weight:650;padding-block:8px}
-.video-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}
-.video-work{display:block}
-.video-cover{display:block;position:relative;overflow:hidden;border-radius:5px;aspect-ratio:16/9;background:#e7d9cc}
-.video-cover img{display:block;width:100%;height:100%;object-fit:contain;background:#2c2034}
-.video-duration{position:absolute;right:7px;bottom:7px;display:inline-flex;align-items:center;gap:4px;padding:4px 6px;border-radius:3px;background:#261c31;color:#fff9ef;font-size:11px}
-.video-title{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:9px 0;color:var(--plum);font-size:14px;line-height:1.45}
-.video-title strong{overflow-wrap:anywhere}
-.video-title svg{flex-shrink:0}
-.video-work:hover{text-decoration:none}
-.video-work:hover strong{text-decoration:underline;text-underline-offset:.24em}
-@media(max-width:760px){
-.personal-heading{margin-bottom:18px}
-.game-board{grid-template-columns:1fr;gap:14px}
-.gallery-games{display:flex;flex-wrap:wrap;gap:4px 6px}
-.gallery-games button,.gallery-arrows button{min-height:44px}
-.gallery-arrows button{width:44px}
-.game-other{margin-top:7px;padding-top:6px;border:0}
-.music-feature{gap:15px;grid-template-columns:1fr}
-.music-photo{width:min(100%,320px)}
-.video-list{gap:15px}
-}
-@media(max-width:600px){.video-list{grid-template-columns:1fr;gap:12px}.video-title{padding-bottom:10px}}
-
-/* Matte materials for navigation and gallery controls */
-:root{color-scheme:light;--bg:#f5f7fb;--paper:#fff;--ink:#252438;--muted:#545267;--plum:#41375c;--line:#d9dbe6}
-body{background:radial-gradient(ellipse 72% 620px at 80% 0%,#e8eaf7 0%,transparent 90%),var(--bg)}
-.sitehead{position:sticky;top:0;z-index:10;background:#f9faff}
-.sitehead .nav{min-height:66px}
-.sitehead a:focus-visible,.gallery-arrows button:focus-visible{outline-offset:3px}
-.specimen{background:#e5e4f1;border-color:#d7d6e6}
-.project:not(.featured){background:#fdfdff}
-.project.featured{background:#342b49;border-color:#342b49}
-.personal-section,.work{scroll-margin-top:84px}
-.gallery-games button:not([aria-pressed="true"]):hover,.gallery-arrows button:not(:disabled):hover{background:#e8e8f4}
-.gallery-games button[aria-pressed="true"]:hover{background:#352b50;color:#fff}
-.game-stage{border-radius:12px 12px 0 0;background:#222131}
-.game-caption{background:#edf0f7;border:1px solid #dce0ed;border-top:0;border-radius:0 0 12px 12px;padding:5px 10px;color:#38304d;flex-wrap:wrap}
-.game-caption strong{min-width:0}
-.gallery-arrows{display:flex;align-items:center;gap:4px}
-.gallery-count{margin-left:auto}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
-@supports ((backdrop-filter:blur(14px)) or (-webkit-backdrop-filter:blur(14px))){
-.sitehead{background:rgb(249 250 255 / .83);-webkit-backdrop-filter:blur(17px) saturate(119%);backdrop-filter:blur(17px) saturate(119%)}
-.game-caption{background:rgb(244 247 255 / .76);-webkit-backdrop-filter:blur(13px) saturate(112%);backdrop-filter:blur(13px) saturate(112%)}
-}
-@media (prefers-reduced-transparency:reduce),(prefers-contrast:more){
-.sitehead,.game-caption{background:#f8f9fe;-webkit-backdrop-filter:none;backdrop-filter:none}
-}
-@media(max-width:760px){
-.sitehead .nav{min-height:60px}
-.personal-section,.work{scroll-margin-top:73px}
-.game-caption{gap:3px 8px;padding:4px 7px}
-.gallery-arrows{gap:1px}
-.gallery-arrows button{width:44px}
-}
-@media(max-width:355px){.game-caption strong{flex:1 0 100%}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-
-.music-feature{max-width:none}
-.music-shelf{display:grid;grid-template-columns:minmax(128px,.7fr) minmax(0,1.65fr);gap:14px;margin-top:24px;padding-top:17px;border-top:1px solid var(--line)}
-.music-shelf h4{margin:0 0 7px;color:var(--muted);font-size:13px;font-weight:650}
-.music-shelf ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.track-card{display:flex;align-items:center;gap:8px;min-height:52px;padding:4px 7px 4px 4px;border:1px solid #e1e3ef;border-radius:8px;background:#fafbff;color:var(--plum)}
-a.track-card:hover{background:#e9ebf6;text-decoration:none}
-.track-art{width:42px;height:42px;object-fit:cover;border-radius:5px;overflow:hidden;flex:0 0 42px;display:grid;place-items:center}
-.track-text{display:flex;flex:1;min-width:0;flex-direction:column;gap:2px}
-.track-title{color:var(--plum);font-size:13px;font-weight:700;line-height:1.2;overflow-wrap:anywhere}
-.track-artist{color:var(--muted);font-size:11px;line-height:1.2;overflow-wrap:anywhere}
-.track-play{width:21px;height:21px;border-radius:50%;background:#ece9f8;display:grid;place-items:center;flex:none}
-@media(min-width:1040px){.music-shelf>div:last-child ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.music-shelf{margin-top:17px;padding-top:12px;gap:12px}}
-@media(max-width:540px){.music-shelf{grid-template-columns:1fr}.music-shelf ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.music-shelf ul{grid-template-columns:1fr}}
-
-/* Tinted glass, kept to the navigation and gallery control rail */
-:root{--glass-outline:#d6d2ea;--glass-highlight:rgb(255 255 255 / .86);--glass-shadow:rgb(61 49 94 / .10)}
-body{background:radial-gradient(ellipse 90% 640px at 12% 0%,#e5ddfa 0%,transparent 76%),radial-gradient(ellipse 77% 630px at 94% 0%,#dcebf9 0%,transparent 80%),var(--bg)}
-.sitehead{border-bottom-color:var(--glass-outline);background:#f3f1fb}
-.game-caption{position:relative;isolation:isolate;overflow:hidden;border-color:var(--glass-outline);background:#eeedf7}
-.game-tip{margin:5px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
-.gallery-arrows button{border:1px solid rgb(83 70 111 / .16);background:rgb(255 255 255 / .47);box-shadow:inset 0 1px 0 rgb(255 255 255 / .69)}
-.gallery-arrows button:hover:not(:disabled){background:#f8f7fd}
-@supports ((backdrop-filter:blur(14px)) or (-webkit-backdrop-filter:blur(14px))){
-.sitehead{background:linear-gradient(105deg,rgb(234 221 252 / .68),rgb(218 237 251 / .58) 72%,rgb(247 249 255 / .57));-webkit-backdrop-filter:blur(20px) saturate(156%);backdrop-filter:blur(20px) saturate(156%);box-shadow:inset 0 1px 0 var(--glass-highlight),0 8px 30px -17px var(--glass-shadow)}
-.game-caption{background:#eeedf7;box-shadow:inset 0 1px 0 var(--glass-highlight)}
-.game-caption::before{content:"";position:absolute;inset:-25px;z-index:-2;pointer-events:none;background:var(--game-tint) center 62% / cover no-repeat;filter:blur(20px) saturate(148%);opacity:.66}
-.game-caption::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(115deg,rgb(249 247 255 / .79),rgb(236 241 254 / .66));box-shadow:inset 0 1px 0 var(--glass-highlight)}
-}
-@media (prefers-reduced-transparency:reduce),(prefers-contrast:more){
-.sitehead,.game-caption{background:#f3f2fa;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
-.game-caption::before,.game-caption::after{content:none}
-.gallery-arrows button{background:#faf9ff}
-}
-</style>
+<link rel="stylesheet" href="./site.css">
 </head>
 <body>
 <a class="skip" href="#main">跳到主要内容</a>
-<header class="sitehead"><nav class="container nav" aria-label="主导航"><a class="brand" href="./index.html"><span aria-hidden="true">✦</span>啊咿呀哇嘞</a><div class="navlinks"><a href="#projects">项目</a><a href="#games">游戏</a><a href="#music">音乐</a><a href="#edits">剪辑</a><a href="./delveforge/index.html" target="_blank" rel="noopener noreferrer">DelveForge ↗</a></div></nav></header>
+<header class="sitehead"><nav class="container nav" aria-label="主导航"><a class="brand" href="./index.html"><svg aria-hidden="true" class="brand-mark" viewBox="0 0 32 32" fill="none"><path d="M16 1.5c-1.6 8.5-6 12.9-14.5 14.5 8.5 1.6 12.9 6 14.5 14.5 1.6-8.5 6-12.9 14.5-14.5C22 14.4 17.6 10 16 1.5Z" fill="currentColor"/><circle cx="16" cy="16" r="3.1" fill="#f6eee2"/></svg>啊咿呀哇嘞</a><div class="navlinks"><a href="#projects">项目</a><a href="#games">游戏</a><a href="#music">音乐</a><a href="#edits">剪辑</a><a href="./delveforge/index.html" target="_blank" rel="noopener noreferrer">DelveForge ↗</a></div></nav></header>
 <main id="main">
 <section class="container hero" aria-labelledby="title">
-<div><div class="signal kicker">PERSONAL PORTFOLIO</div><h1 id="title">啊咿呀哇嘞</h1><p class="lead">我在做 Java 后端，也在做 Coding Agent。</p><p class="hint">贵州大学 · 软件工程 · 2028 届</p><a class="btn" href="#projects">看我做过的项目 <span aria-hidden="true">↓</span></a></div>
-<div class="specimen" aria-hidden="true"><span class="kicker">FIELD NOTES / 01</span><svg viewBox="0 0 480 320" preserveAspectRatio="xMidYMid slice"><defs><pattern id="grid" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0v18" fill="none" stroke="#a380a0" stroke-opacity=".25"/></pattern></defs><rect width="480" height="320" fill="url(#grid)"/><g stroke="#795785" fill="none" stroke-width="1.4"><circle cx="234" cy="152" r="87" stroke-opacity=".35"/><circle cx="234" cy="152" r="72" stroke-opacity=".5"/><circle cx="234" cy="152" r="8"/><path d="M147 152h174m-87-87v174M173 213 295 91M173 91l122 122" stroke-opacity=".46"/><path d="M212 152h44m-22-22v44M45 260v16m-8-8h16m373-220v16m-8-8h16"/></g></svg><div class="stamp"><span class="kicker">BUILD / VERIFY</span><strong>Works<br>in progress.</strong></div></div>
+<div class="hero-copy">
+<h1 id="title">啊咿呀哇嘞</h1>
+<p class="hero-role">个人作品集</p>
+<p class="lead">我在做 Java 后端，也在做 Coding Agent。</p>
+<p class="hint">贵州大学 · 软件工程 · 2028 届</p>
+<a class="btn" href="#projects">看我做过的项目 <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14m-5-5 5 5 5-5"/></svg></a>
+</div>
+<div class="hero-art" aria-hidden="true">
+<svg viewBox="0 0 480 460" preserveAspectRatio="xMidYMid slice" focusable="false">
+<g fill="none" stroke="#f9c89b" stroke-width="1.25" opacity=".68" transform="rotate(-20 240 230)">
+<ellipse cx="243" cy="241" rx="58" ry="245"/><ellipse cx="243" cy="241" rx="86" ry="241"/><ellipse cx="243" cy="241" rx="114" ry="236"/><ellipse cx="243" cy="241" rx="142" ry="231"/><ellipse cx="243" cy="241" rx="171" ry="223"/><ellipse cx="243" cy="241" rx="207" ry="219"/>
+</g>
+<path d="M399 57c-2 11-8 17-19 19 11 2 17 8 19 19 2-11 8-17 19-19-11-2-17-8-19-19Z" fill="#ffe5b6"/>
+<circle cx="71" cy="120" r="3" fill="#ffe5b6"/>
+</svg>
+<span class="hero-glyph">呀</span>
+<div class="hero-imprint"><span class="kicker">PERSONAL PORTFOLIO</span><span class="kicker">写代码之外</span></div>
+</div>
 </section>
-<section id="projects" class="container work" aria-labelledby="project-title"><div class="work-header"><div><div class="signal kicker">SELECTED PROJECTS</div><h2 id="project-title">我的项目</h2></div><p>从一个开发工作台，到一条秒杀链路。</p></div><div class="projects">
-<article class="project featured"><div class="kicker">01 / CODING AGENT</div><h3>DelveForge</h3><p>Windows 上的本地开发工作台。让 Agent 在项目副本里读代码、改文件和跑测试，你可以边执行边补充要求，最后检查改动和日志。</p><a class="link" href="./delveforge/index.html" target="_blank" rel="noopener noreferrer">进入 DelveForge 产品页 <span aria-hidden="true">↗</span></a></article>
-<article class="project"><div class="kicker">02 / JAVA BACKEND</div><h3>本地生活平台</h3><p>围绕优惠券秒杀和热点商铺查询，实践 Redis 库存预扣、RocketMQ 异步落库，以及消费幂等和库存对账补偿。</p></article>
-</div></section>
+<section id="projects" class="container work" aria-labelledby="project-title">
+<div class="work-header"><h2 id="project-title">我的项目</h2><p>从一个开发工作台，到一条秒杀链路。</p></div>
+<div class="projects">
+<article class="project featured" data-reveal>
+<div class="project-id"><span class="project-number">01</span><span class="project-kind">CODING AGENT</span></div>
+<div><h3>DelveForge</h3><p>Windows 上的本地开发工作台。让 Agent 在项目副本里读代码、改文件和跑测试，你可以边执行边补充要求，最后检查改动和日志。</p></div>
+<a class="link" href="./delveforge/index.html" target="_blank" rel="noopener noreferrer">进入 DelveForge 产品页 <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></a>
+</article>
+<article class="project" data-reveal>
+<div class="project-id"><span class="project-number">02</span><span class="project-kind">JAVA BACKEND</span></div>
+<div><h3>本地生活平台</h3><p>围绕优惠券秒杀和热点商铺查询，实践 Redis 库存预扣、RocketMQ 异步落库，以及消费幂等和库存对账补偿。</p></div>
+</article>
+</div>
+</section>
 <section id="games" class="container personal-section games" aria-labelledby="gallery-label">
 <div class="personal-heading"><h2 id="gallery-label">游戏</h2></div>
 <div class="game-board">
@@ -161,10 +57,10 @@ body{background:radial-gradient(ellipse 90% 640px at 12% 0%,#e5ddfa 0%,transpare
 <button type="button" data-game="最终幻想 XV" data-images="./images/ff15-1.jpg ./images/ff15-2.jpg" aria-pressed="false">最终幻想 XV</button>
 <button type="button" data-game="荒野大镖客" data-images="./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-1.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-2.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-3.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-4.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-5.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-6.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5-7.jpg ./images/%E5%A4%A7%E8%A1%A8%E5%93%A5%3D9.jpg" aria-pressed="false">荒野大镖客</button>
 </div>
-<p class="game-other">也喜欢：只狼 · 尼尔：机械纪元</p>
-<p class="game-tip" id="game-tip">手动翻图后暂停轮播。</p>
+<div class="game-notes"><p class="game-other">也喜欢：只狼 · 尼尔：机械纪元</p>
+<p class="game-tip" id="game-tip">手动翻图后暂停轮播。</p></div>
 </div>
-<figure class="game-viewer" aria-labelledby="gallery-label">
+<figure class="game-viewer" data-reveal aria-labelledby="gallery-label">
 <div class="game-stage">
 <img id="game-photo" src="./images/zzz-1.png" width="2560" height="1600" alt="《绝区零》游戏截图 1" loading="lazy" decoding="async">
 <p id="game-error" hidden>这张截图未能加载，可以切换到另一张。</p>
@@ -184,6 +80,9 @@ body{background:radial-gradient(ellipse 90% 640px at 12% 0%,#e5ddfa 0%,transpare
 <section id="music" class="container personal-section music" aria-labelledby="music-title">
 <div class="personal-heading"><h2 id="music-title">K-pop / 音乐</h2></div>
 <div class="music-feature">
+<figure class="music-photo" data-reveal><svg class="foil-lines" aria-hidden="true" viewBox="0 0 120 220" preserveAspectRatio="xMidYMid slice" focusable="false"><g stroke="currentColor" stroke-linecap="butt" fill="none"><path opacity="0.2" stroke-width="0.46" d="M4 23v2M4 63v2M4 73v2M4 113v2M4 123v2M12 63v2M12 73v2M12 113v2M12 123v2M12 163v2M20 113v2M20 153v2M20 163v2M28 153v2M28 163v2M28 203v2M28 213v2M36 3v2M36 13v2M36 193v2M36 203v2M36 213v2M44 3v2M44 13v2M44 53v2M44 203v2M52 3v2M52 43v2M52 53v2M52 93v2M60 43v2M60 53v2M60 93v2M60 103v2M68 83v2M68 93v2M68 103v2M68 133v2M68 143v2M76 93v2M76 133v2M76 143v2M76 183v2M84 133v2M84 173v2M84 183v2M84 193v2M92 173v2M92 183v2M100 23v2M100 33v2M108 23v2M108 33v2M108 73v2"/><path opacity="0.38" stroke-width="0.9" d="M4 13v4M4 33v4M4 53v4M4 83v4M4 103v4M4 133v4M4 163v4M4 173v4M12 23v4M12 83v4M12 103v4M12 133v4M12 153v4M12 173v4M12 213v4M20 63v4M20 73v4M20 103v4M20 123v4M20 143v4M20 173v4M20 193v4M20 203v4M20 213v4M28 3v4M28 13v4M28 103v4M28 113v4M28 143v4M28 173v4M28 183v4M28 193v4M36 53v4M36 63v4M36 153v4M36 163v4M44 23v4M44 43v4M44 63v4M44 103v4M44 153v4M44 193v4M44 213v4M52 13v4M52 33v4M52 63v4M52 83v4M52 103v4M52 143v4M52 193v4M60 3v4M60 33v4M60 63v4M60 73v4M60 83v4M60 133v4M60 143v4M60 193v4M68 43v4M68 53v4M68 113v4M68 123v4M68 153v4M68 183v4M68 193v4M76 43v4M76 83v4M76 103v4M76 123v4M76 153v4M76 173v4M76 193v4M84 33v4M84 83v4M84 123v4M84 143v4M84 163v4M84 213v4M92 23v4M92 33v4M92 133v4M92 193v4M92 213v4M100 3v4M100 13v4M100 43v4M100 73v4M100 83v4M100 173v4M100 183v4M100 213v4M108 13v4M108 43v4M108 63v4M108 83v4M108 123v4M108 173v4M108 213v4"/><path opacity="0.66" stroke-width="1.4" d="M4 43v6M4 93v6M4 153v6M4 213v6M12 13v6M12 33v6M12 53v6M12 93v6M12 143v6M12 183v6M12 203v6M20 3v6M20 13v6M20 23v6M20 53v6M20 83v6M20 93v6M20 133v6M20 183v6M28 23v6M28 53v6M28 63v6M28 123v6M28 133v6M36 23v6M36 43v6M36 103v6M36 113v6M36 143v6M36 173v6M36 183v6M44 33v6M44 73v6M44 93v6M44 113v6M44 143v6M44 163v6M44 183v6M52 23v6M52 73v6M52 113v6M52 133v6M52 153v6M52 183v6M52 203v6M60 13v6M60 23v6M60 113v6M60 123v6M60 153v6M60 183v6M60 203v6M68 3v6M68 33v6M68 63v6M68 73v6M68 163v6M68 173v6M76 3v6M76 33v6M76 53v6M76 73v6M76 113v6M76 163v6M76 203v6M84 3v6M84 23v6M84 43v6M84 73v6M84 93v6M84 153v6M84 203v6M92 3v6M92 13v6M92 43v6M92 73v6M92 83v6M92 93v6M92 123v6M92 143v6M92 163v6M92 203v6M100 53v6M100 63v6M100 123v6M100 133v6M100 163v6M100 193v6M100 203v6M108 3v6M108 53v6M108 93v6M108 103v6M108 113v6M108 133v6M108 163v6M108 183v6"/><path opacity="0.9" stroke-width="2" d="M4 3v8M4 143v8M4 183v8M4 193v8M4 203v8M12 3v8M12 43v8M12 193v8M20 33v8M20 43v8M28 33v8M28 43v8M28 73v8M28 83v8M28 93v8M36 33v8M36 73v8M36 83v8M36 93v8M36 123v8M36 133v8M44 83v8M44 123v8M44 133v8M44 173v8M52 123v8M52 163v8M52 173v8M52 213v8M60 163v8M60 173v8M60 213v8M68 13v8M68 23v8M68 203v8M68 213v8M76 13v8M76 23v8M76 63v8M76 213v8M84 13v8M84 53v8M84 63v8M84 103v8M84 113v8M92 53v8M92 63v8M92 103v8M92 113v8M92 153v8M100 93v8M100 103v8M100 113v8M100 143v8M100 153v8M108 143v8M108 153v8M108 193v8M108 203v8"/></g></svg>
+<img src="./images/yena-1.jpg" width="690" height="920" alt="崔叡娜（YENA）身穿红色礼服、比出 V 字手势" loading="lazy" decoding="async">
+</figure>
 <div class="music-copy"><h3>歌单常客：YENA</h3><p>喜欢听 K-pop，喜欢的爱豆是<strong>崔叡娜（YENA）</strong>。</p>
 <div class="music-shelf" aria-label="歌单片段">
 <div><h4>英文</h4>
@@ -195,22 +94,20 @@ body{background:radial-gradient(ellipse 90% 640px at 12% 0%,#e5ddfa 0%,transpare
 <li><a class="track-card" href="https://music.apple.com/us/song/1569286889" target="_blank" rel="noopener noreferrer"><img class="track-art" src="./images/music/panorama.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Panorama</span><span class="track-artist">IZ*ONE</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li>
 <li><a class="track-card" href="https://music.apple.com/us/song/1698640827" target="_blank" rel="noopener noreferrer"><img class="track-art" src="./images/music/jewelry.jpg" width="480" height="480" alt="" loading="lazy" decoding="async"><span class="track-text"><span class="track-title">Jewelry (Prod. imase)</span><span class="track-artist">LE SSERAFIM</span></span><span class="track-play" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg></span><span class="sr-only">（在 Apple Music 收听）</span></a></li></ul></div>
 </div></div>
-<figure class="music-photo">
-<img src="./images/yena-1.jpg" width="690" height="920" alt="崔叡娜（YENA）身穿红色礼服、比出 V 字手势" loading="lazy" decoding="async">
-</figure>
+
 </div>
 </section>
 
 <section id="edits" class="container personal-section edits" aria-labelledby="edits-title">
 <div class="personal-heading"><h2 id="edits-title">剪辑作品</h2><a class="external-link" href="https://space.bilibili.com/297531329" target="_blank" rel="noopener noreferrer">我的 B 站主页 <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></a></div>
 <ol class="video-list" role="list">
-<li><a class="video-work" href="https://www.bilibili.com/video/BV1SFEg6ZE7E/" target="_blank" rel="noopener noreferrer">
+<li data-reveal><a class="video-work" href="https://www.bilibili.com/video/BV1SFEg6ZE7E/" target="_blank" rel="noopener noreferrer">
 <span class="video-cover"><img src="./images/edits/BV1SFEg6ZE7E.jpg" width="1920" height="1080" alt="" loading="lazy" decoding="async"><span class="video-duration"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg><span>0:47</span></span></span>
 <span class="video-title"><strong>这 是 啥 博 弈</strong><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></span></a></li>
-<li><a class="video-work" href="https://www.bilibili.com/video/BV1uB4y1t712/" target="_blank" rel="noopener noreferrer">
+<li data-reveal><a class="video-work" href="https://www.bilibili.com/video/BV1uB4y1t712/" target="_blank" rel="noopener noreferrer">
 <span class="video-cover"><img src="./images/edits/BV1uB4y1t712.jpg" width="1024" height="576" alt="" loading="lazy" decoding="async"><span class="video-duration"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg><span>0:30</span></span></span>
 <span class="video-title"><strong>友利奈绪[What is love?]</strong><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></span></a></li>
-<li><a class="video-work" href="https://www.bilibili.com/video/BV12Q4y127Ay/" target="_blank" rel="noopener noreferrer">
+<li data-reveal><a class="video-work" href="https://www.bilibili.com/video/BV12Q4y127Ay/" target="_blank" rel="noopener noreferrer">
 <span class="video-cover"><img src="./images/edits/BV12Q4y127Ay.jpg" width="1004" height="627" alt="" loading="lazy" decoding="async"><span class="video-duration"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.8a.8.8 0 0 1 1.2-.7l8.1 5.2a.8.8 0 0 1 0 1.4l-8.1 5.2a.8.8 0 0 1-1.2-.7z"/></svg><span>0:21</span></span></span>
 <span class="video-title"><strong>SAY LESS</strong><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></span></a></li>
 </ol>
@@ -230,7 +127,6 @@ body{background:radial-gradient(ellipse 90% 640px at 12% 0%,#e5ddfa 0%,transpare
   const error = document.getElementById('game-error');
   const viewer = gallery.querySelector('.game-viewer');
   const stage = gallery.querySelector('.game-stage');
-  const caption = gallery.querySelector('.game-caption');
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const rotationInterval = 6500;
   let game = 0;
@@ -262,7 +158,6 @@ body{background:radial-gradient(ellipse 90% 640px at 12% 0%,#e5ddfa 0%,transpare
         }).catch(() => {});
       }
     }
-    caption.style.setProperty('--game-tint', 'url("' + src + '")');
     photo.alt = '《' + name + '》游戏截图 ' + frame;
     title.textContent = name;
     count.textContent = (shot + 1) + ' / ' + items.length;
@@ -336,6 +231,37 @@ body{background:radial-gradient(ellipse 90% 640px at 12% 0%,#e5ddfa 0%,transpare
   gallery.querySelector('.gallery-arrows').hidden = false;
   viewer.tabIndex = 0;
   select(0, false);
+})();
+
+(() => {
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motion.matches || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+  const running = new Set();
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      const element = entry.target;
+      observer.unobserve(element);
+      if (motion.matches || element.contains(document.activeElement) ||
+          document.getElementById(location.hash.slice(1))?.contains(element)) continue;
+      element.dataset.revealed = 'true';
+      const animation = element.animate(
+        [{ opacity:.68, transform:'translateY(10px)' }, { opacity:1, transform:'translateY(0)' }],
+        { duration:290, easing:'cubic-bezier(.2,.72,.16,1)' }
+      );
+      running.add(animation);
+      animation.finished.then(() => running.delete(animation), () => running.delete(animation));
+      element.addEventListener('focusin', () => {
+        if (animation.playState === 'running') animation.finish();
+      }, {once:true});
+    }
+  }, {threshold:.16});
+  document.querySelectorAll('[data-reveal]').forEach(element => observer.observe(element));
+  motion.addEventListener('change', () => {
+    if (!motion.matches) return;
+    observer.disconnect();
+    running.forEach(animation => animation.finish());
+  });
 })();
 </script>
 </body>
