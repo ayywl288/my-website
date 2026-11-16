@@ -560,7 +560,12 @@
       panel.style.setProperty('--glass-settled',shade.toFixed(3));
       previousShade = shade;
     }
-    const enter = Math.max(0,Math.min(1,(scrollY + innerHeight - startAt)/100));
+    // Leave the first glimpse of Games clear, then ease the glass in with scroll.
+    const entered = scrollY + innerHeight - startAt;
+    const delay = innerHeight * .11;
+    const distance = Math.max(100,Math.min(180,innerHeight * .18));
+    const progress = Math.max(0,Math.min(1,(entered-delay)/distance));
+    const enter = progress * progress * (3 - 2 * progress);
     const exit = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/185));
     const presence = Math.min(enter,1-exit);
     if (presence !== lastPresence) {
