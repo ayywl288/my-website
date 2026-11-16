@@ -564,7 +564,8 @@
     const entered = scrollY + innerHeight - startAt;
     const distance = Math.max(112,Math.min(192,innerHeight * .20));
     const entry = Math.max(0,Math.min(1,entered/distance));
-    const glide = Math.max(30,Math.min(64,innerHeight * .061)) * (1-entry) ** 1.5;
+    // Start with the section edge cutting through the pane at 60% of its width.
+    const glide = panel.offsetHeight * .56 * (1-entry) ** 1.5;
     const exit = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/185));
     const presence = entered > 0 ? 1-exit : 0;
     if (presence !== lastPresence) {
