@@ -540,11 +540,6 @@ section[id],main { scroll-margin-top:85px; }
   .track-play svg { transition:translate 200ms ease-out; }
   .track-card:hover .track-play svg { translate:2px 0; }
 
-  .games .game-track img { transition:filter 220ms ease-out; }
-  .games .game-stage:has(.game-panel[data-slot="0"] img:hover) .game-panel[aria-hidden="true"] img {
-    filter:brightness(.89) saturate(.94);
-  }
-  .games .game-panel[data-slot="0"] img:hover { filter:brightness(1.05); }
   .games .gallery-arrows button svg { transition:translate 200ms ease-out; }
   #game-prev:hover svg { translate:-2px 0; }
   #game-next:hover svg { translate:2px 0; }
@@ -579,15 +574,29 @@ section[id],main { scroll-margin-top:85px; }
   .gallery-dots button[aria-current="true"]:hover::after { width:15px; }
 }
 
-/* Keep the raised image inside the stage even when height limits the reel. */
-.games .game-stage {
-  --photo-rise:clamp(4px,.55vw,8px);
-  --photo-far:translate(-50%,-50%) translateY(2px) scale(.975);
-  --photo-near:translate(-50%,-50%) translateY(calc(-1 * var(--photo-rise))) scale(1);
+/* Depth is perpendicular to the page: photos keep the same vertical center. */
+@property --photo-focus {
+  syntax:"<number>"; inherits:true; initial-value:0;
 }
-.games .game-panel img { max-height:calc(100% - 2 * var(--photo-rise)); transform:var(--photo-far); }
-.games .game-panel[data-slot="0"] img { transform:var(--photo-near); }
-.games .game-stage .gallery-arrows { top:calc(50% - var(--photo-rise)); }
+.games .game-stage {
+  --photo-perspective:600px;
+  --photo-rear-depth:-49px;
+  --photo-focus:0;
+  --photo-far:translate(-50%,-50%) perspective(var(--photo-perspective)) translateZ(var(--photo-rear-depth));
+  --photo-near:translate(-50%,-50%) perspective(var(--photo-perspective)) translateZ(calc(24px * var(--photo-focus)));
+  --photo-light:brightness(calc(1 + .075 * var(--photo-focus)));
+}
+.games .game-panel img { transform:var(--photo-far); }
+.games .game-panel[data-slot="0"] img { transform:var(--photo-near); filter:var(--photo-light); }
+@media(max-width:760px) {
+  .games .game-stage { --photo-rear-depth:-27px; }
+}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .games .game-stage { transition:--photo-focus 210ms cubic-bezier(.2,.7,.3,1); }
+  .games .game-stage[data-photo-hover] { --photo-focus:1; }
+  /* Reserve just the space that the focused image projects into. */
+  .games .game-panel img { max-width:96%; max-height:96%; }
+}
 
 /* The native controls allocate only this strip's fixed horizontal space. */
 @media (min-width:761px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {

@@ -133,6 +133,7 @@
   const slots = [...track.querySelectorAll('.game-panel')];
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const rotationInterval = 6500;
+  const fineHover = matchMedia('(hover:hover) and (pointer:fine)');
   let shot = 0, inView = false, stopped = false;
   let timer, moving, queued;
   const wrap = i => (i % items.length + items.length) % items.length;
@@ -249,10 +250,10 @@
     const effects = [incoming.animate([{opacity:.78},{opacity:1}],timing),
       outgoing.animate([{opacity:1},{opacity:.78}],timing),
       incoming.querySelector('img').animate([
-        {transform:'var(--photo-far)'},{transform:'var(--photo-near)'}
+        {transform:'var(--photo-far)',filter:'none'},{transform:'var(--photo-near)',filter:'var(--photo-light)'}
       ],timing),
       photo.animate([
-        {transform:'var(--photo-near)'},{transform:'var(--photo-far)'}
+        {transform:'var(--photo-near)',filter:'var(--photo-light)'},{transform:'var(--photo-far)',filter:'none'}
       ],timing)];
     const newWidth = incoming.querySelector('img').offsetWidth;
     if (newWidth && photo.offsetWidth) effects.push(arrows.animate(
@@ -271,6 +272,22 @@
     step(event.key === 'ArrowLeft' ? -1 : 1, true);
   });
   for (const slot of slots) slot.querySelector('img').addEventListener('load', event => { if (event.currentTarget === photo) measureArrows(); });
+  function clearPhotoHover() { delete stage.dataset.photoHover; }
+  stage.addEventListener('pointermove', event => {
+    if (!fineHover.matches || motion.matches || event.pointerType === 'touch' || event.target.closest('button')) {
+      clearPhotoHover();
+      return;
+    }
+    const bounds = stage.getBoundingClientRect();
+    const hovered = stage.hasAttribute('data-photo-hover');
+    const margin = hovered ? 1.04 : 1;
+    const inside = Math.abs(event.clientX - (bounds.left + bounds.width/2)) <= photo.offsetWidth/2 * margin &&
+      Math.abs(event.clientY - (bounds.top + bounds.height/2)) <= photo.offsetHeight/2 * margin;
+    if (inside !== hovered) stage.toggleAttribute('data-photo-hover', inside);
+  }, {passive:true});
+  stage.addEventListener('pointerleave', clearPhotoHover);
+  fineHover.addEventListener('change', clearPhotoHover);
+  motion.addEventListener('change', clearPhotoHover);
   window.addEventListener('resize', measureArrows, {passive:true});
   for (const slot of slots) slot.querySelector('img').addEventListener('error', event => {
     if (event.currentTarget === photo) { photo.hidden = true; error.hidden = false; }
