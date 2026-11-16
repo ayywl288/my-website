@@ -14,12 +14,12 @@
 <main id="main">
 <section class="container hero" aria-labelledby="title">
 <div class="hero-copy">
-<p class="hero-role">个人作品集</p>
 <h1 id="title">啊咿呀哇嘞</h1>
 </div>
 <div class="hero-context">
 <p class="lead">我在做 Java 后端，也在做 Coding Agent。</p>
-<p class="hint">贵州大学 · 软件工程 · 2028 届</p>
+<div class="hero-meta"><p class="hero-role">个人作品集</p>
+<p class="hint">贵州大学 · 软件工程 · 2028 届</p></div>
 </div>
 </section>
 <section id="projects" class="work" aria-labelledby="project-title">
@@ -28,14 +28,14 @@
 <div class="projects">
 <article class="project featured" data-reveal="1">
 <div class="project-feature-copy">
-<div class="project-id"><span class="project-number" aria-hidden="true">01</span><div><h3>DelveForge</h3><span class="project-kind">Coding Agent</span></div></div>
+<div class="project-id"><div><h3>DelveForge</h3><span class="project-kind">Coding Agent</span></div></div>
 <div class="project-detail"><p>Windows 上的本地开发工作台。让 Agent 在项目副本里读代码、改文件和跑测试，你可以边执行边补充要求，最后检查改动和日志。</p>
 <a class="link" href="./delveforge/index.html" target="_blank" rel="noopener noreferrer">进入 DelveForge 产品页 <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></a></div>
 </div>
-<figure class="project-preview"><img src="./delveforge/workbench.png" width="1280" height="820" decoding="async" alt="DelveForge 测试工作区，左侧是项目列表，右侧是 Agent 任务输入区"><figcaption>DelveForge 测试工作区</figcaption></figure>
+<figure class="project-preview"><img src="./delveforge/workbench.png" width="1280" height="820" decoding="async" fetchpriority="high" alt="DelveForge 测试工作区，左侧是项目列表，右侧是 Agent 任务输入区"><figcaption>DelveForge 测试工作区</figcaption></figure>
 </article>
 <article class="project project-secondary" data-reveal="2">
-<div class="project-id"><span class="project-number" aria-hidden="true">02</span><div><h3>本地生活平台</h3><span class="project-kind">Java 后端</span></div></div>
+<div class="project-id"><div><h3>本地生活平台</h3><span class="project-kind">Java 后端</span></div></div>
 <div class="project-detail"><p>围绕优惠券秒杀和热点商铺查询，实践 Redis 库存预扣、RocketMQ 异步落库，以及消费幂等和库存对账补偿。</p></div>
 </article>
 </div>
