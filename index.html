@@ -560,19 +560,19 @@
       panel.style.setProperty('--glass-settled',shade.toFixed(3));
       previousShade = shade;
     }
-    // Leave the first glimpse of Games clear, then ease the glass in with scroll.
+    // The section edge uncovers a prepared pane; ease it from the heading into its sweep.
     const entered = scrollY + innerHeight - startAt;
-    const delay = innerHeight * .11;
-    const distance = Math.max(100,Math.min(180,innerHeight * .18));
-    const progress = Math.max(0,Math.min(1,(entered-delay)/distance));
-    const enter = progress * progress * (3 - 2 * progress);
+    const distance = Math.max(112,Math.min(192,innerHeight * .20));
+    const entry = Math.max(0,Math.min(1,entered/distance));
+    const glide = Math.max(30,Math.min(64,innerHeight * .061)) * (1-entry) ** 1.5;
     const exit = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/185));
-    const presence = Math.min(enter,1-exit);
+    const presence = entered > 0 ? 1-exit : 0;
     if (presence !== lastPresence) {
       games.style.setProperty('--ribbon-presence',presence.toFixed(3));
       lastPresence = presence;
     }
     if (presence === 0) { lens.hidden = true; return; }
+    panel.style.setProperty('--ribbon-entry-lift',-glide+'px');
     const glass = panel.getBoundingClientRect();
     const offset = startAt - scrollY - glass.top;
     panel.style.setProperty('--field-offset',offset+'px');
