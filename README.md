@@ -17,9 +17,9 @@ py -m http.server 8080 --bind 127.0.0.1
 
 浏览器访问 [个人首页](http://127.0.0.1:8080/) 或 [DelveForge](http://127.0.0.1:8080/delveforge/)。也可以双击 `index.html` 查看；内部链接使用相对路径。
 
-## 以后部署
+## 部署
 
-将 `index.html`、`site.css`、`delveforge/` 和首页引用的 `images/` 图片按原相对路径复制到静态站点的文档根目录。当前只做本地开发，没有部署。
+将 `index.html`、`site.css`、`delveforge/` 和首页引用的 `images/` 图片按原相对路径复制到静态站点的文档根目录。线上版本托管在 Cloudflare Workers；本机预览和本地提交不会更新线上版本。
 
 ## 本地版本记录
 
