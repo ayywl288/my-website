@@ -41,6 +41,8 @@
 </div>
 </div>
 </section>
+<div class="chapter-pair">
+<div class="chapter-glass-run" aria-hidden="true" hidden><div class="chapter-glass"></div></div>
 <section id="games" class="container personal-section games" aria-labelledby="gallery-label">
 <div class="personal-heading" data-reveal="0"><h2 id="gallery-label">游戏</h2></div>
 <div class="game-board">
@@ -60,6 +62,7 @@
 <figure class="game-viewer" aria-labelledby="gallery-label">
 <div class="game-stage" data-reveal="1">
 <div class="game-track"><span class="game-panel" data-slot="-2" aria-hidden="true" hidden><img src="./images/hide-1.jpg" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="-1" aria-hidden="true" hidden><img src="./images/outlast-1.jpg" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="0"><img id="game-photo" src="./images/ow-1.png" width="2560" height="1440" alt="《守望先锋》游戏截图" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="1" aria-hidden="true" hidden><img src="./images/zzz-1.png" alt="" loading="lazy" decoding="async"></span><span class="game-panel" data-slot="2" aria-hidden="true" hidden><img src="./images/isc-1.jpg" alt="" loading="lazy" decoding="async"></span></div>
+<div class="chapter-photo-lens" aria-hidden="true" hidden></div>
 <p id="game-error" hidden>这张截图未能加载，可以切换到另一张。</p>
 <div class="gallery-arrows" role="group" aria-label="切换截图" hidden>
 <button type="button" id="game-prev" aria-label="上一张截图"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
@@ -97,6 +100,7 @@
 </div>
 </section>
 
+</div>
 <section id="edits" class="container personal-section edits" aria-labelledby="edits-title">
 <div class="personal-heading" data-reveal="0"><h2 id="edits-title">剪辑作品</h2><a class="external-link" href="https://space.bilibili.com/297531329" target="_blank" rel="noopener noreferrer">我的 B 站主页 <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></a></div>
 <ol class="video-list" role="list">
@@ -523,6 +527,65 @@
     if (motion.matches) for (const element of pending.keys()) show(element);
   });
 })();
+(() => {
+  const pair = document.querySelector('.chapter-pair');
+  const path = pair.querySelector('.chapter-glass-run');
+  const panel = path.querySelector('.chapter-glass');
+  const heading = pair.querySelector('#music-title');
+  const music = heading.closest('section');
+  const stage = pair.querySelector('.game-stage');
+  const lens = stage.querySelector('.chapter-photo-lens');
+  let frame = 0;
+  let settleAt = 0;
+  let previousShade = -1;
+  let visible = typeof IntersectionObserver !== 'function';
+  const prefs = matchMedia('(prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active)');
+  if (!CSS.supports('backdrop-filter','blur(1px)')) return;
+  const shadePhoto = () => {
+    frame = 0;
+    if (path.hidden) { lens.hidden = true; return; }
+    const shade = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/230));
+    if (shade !== previousShade) {
+      panel.style.setProperty('--glass-settled',shade.toFixed(3));
+      previousShade = shade;
+    }
+    if (!visible) { lens.hidden = true; return; }
+    const glass = panel.getBoundingClientRect();
+    const bounds = stage.getBoundingClientRect();
+    const photo = stage.querySelector('#game-photo');
+    const minX = Math.max(glass.left, bounds.left + (bounds.width-photo.offsetWidth)/2, bounds.left);
+    const minY = Math.max(glass.top, bounds.top + (bounds.height-photo.offsetHeight)/2, bounds.top);
+    const maxX = Math.min(glass.right, bounds.right - (bounds.width-photo.offsetWidth)/2, bounds.right);
+    const maxY = Math.min(glass.bottom, bounds.bottom - (bounds.height-photo.offsetHeight)/2, bounds.bottom);
+    lens.hidden = maxX - minX < 16 || maxY - minY < 16;
+    if (!lens.hidden) {
+      lens.style.inset = (minY-bounds.top)+'px '+(bounds.right-maxX)+'px '+(bounds.bottom-maxY)+'px '+(minX-bounds.left)+'px';
+    }
+  };
+  const queue = () => { if (!frame) frame = requestAnimationFrame(shadePhoto); };
+  const place = () => {
+    path.hidden = prefs.matches;
+    if (path.hidden) lens.hidden = true;
+    if (path.hidden) return;
+    const titleTop = music.offsetTop + heading.parentElement.offsetTop + heading.offsetTop;
+    const pathHeight = Math.round(titleTop - path.offsetTop + (heading.offsetHeight + panel.offsetHeight)/2);
+    path.style.height = pathHeight + 'px';
+    settleAt = scrollY + path.getBoundingClientRect().top + pathHeight - panel.offsetHeight - parseFloat(getComputedStyle(panel).top);
+    queue();
+  };
+  if ('ResizeObserver' in window) new ResizeObserver(place).observe(pair);
+  if (typeof IntersectionObserver === 'function') new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    queue();
+  }).observe(stage);
+  new MutationObserver(queue).observe(stage.querySelector('.game-track'),{subtree:true,attributes:true,attributeFilter:['id','src']});
+  stage.addEventListener('load',queue,true);
+  window.addEventListener('scroll',() => { if (!path.hidden) queue(); },{passive:true});
+  window.addEventListener('resize',place,{passive:true});
+  prefs.addEventListener('change',place);
+  place();
+})();
+
 </script>
 </body>
 </html>
