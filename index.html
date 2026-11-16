@@ -547,6 +547,8 @@
   let frame = 0;
   let settleAt = 0;
   let startAt = 0;
+  let guide = 0;
+  let paneHeight = 0;
   let previousShade = -1;
   let lastPresence = -1;
   let visible = typeof IntersectionObserver !== 'function';
@@ -562,10 +564,15 @@
     }
     // The section edge uncovers a prepared pane; ease it from the heading into its sweep.
     const entered = scrollY + innerHeight - startAt;
-    const distance = Math.max(112,Math.min(192,innerHeight * .20));
+    // The top edge cuts across the pane at 60% width, without reversing as it uncovers.
+    const lift = paneHeight * .56;
+    const distance = Math.max(112,lift * 1.85);
     const entry = Math.max(0,Math.min(1,entered/distance));
-    // Start with the section edge cutting through the pane at 60% of its width.
-    const glide = panel.offsetHeight * .56 * (1-entry) ** 1.5;
+    const glide = lift * (1-entry) ** 1.5;
+    // Blend from fast entry to a steady sweep instead of pinning at the guide.
+    const bend = scrollY - startAt + guide;
+    const radius = Math.min(80,innerHeight * .10);
+    const easing = bend < -radius ? 0 : bend > radius ? bend : (bend+radius) ** 2/(4*radius);
     const exit = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/185));
     const presence = entered > 0 ? 1-exit : 0;
     if (presence !== lastPresence) {
@@ -573,7 +580,7 @@
       lastPresence = presence;
     }
     if (presence === 0) { lens.hidden = true; return; }
-    panel.style.setProperty('--ribbon-entry-lift',-glide+'px');
+    panel.style.setProperty('--ribbon-travel',(.89*easing-guide-glide)+'px');
     const glass = panel.getBoundingClientRect();
     const offset = startAt - scrollY - glass.top;
     panel.style.setProperty('--field-offset',offset+'px');
@@ -633,7 +640,9 @@
     path.style.height = pathHeight + 'px';
     panel.style.setProperty('--field-height',games.offsetHeight+'px');
     startAt = scrollY + games.getBoundingClientRect().top;
-    settleAt = scrollY + path.getBoundingClientRect().top + pathHeight - panel.offsetHeight - parseFloat(getComputedStyle(panel).top);
+    guide = parseFloat(getComputedStyle(panel).top);
+    paneHeight = panel.offsetHeight;
+    settleAt = scrollY + path.getBoundingClientRect().top + pathHeight - paneHeight - guide;
     queue();
   };
   if ('ResizeObserver' in window) new ResizeObserver(place).observe(games);

@@ -659,9 +659,9 @@ section[id],main { scroll-margin-top:85px; }
     rgb(215 227 237 / var(--ribbon-tint)));
 }
 .chapter-glass {
-  position:sticky; inset-block-start:clamp(110px,21vh,240px);
+  position:absolute; inset-block-start:clamp(110px,21vh,240px);
   width:100%; height:clamp(190px,24vw,370px);
-  overflow:clip; clip-path:var(--glass-rear); translate:0 var(--ribbon-entry-lift,0px);
+  overflow:clip; clip-path:var(--glass-rear); translate:0 var(--ribbon-travel,0px);
   --glass-settled:0;
   --ribbon-tint:.33;
   backdrop-filter:blur(29px) saturate(108%);
