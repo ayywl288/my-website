@@ -8,76 +8,101 @@
 <title>DelveForge · 本地 Coding Agent 工作台</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231c1c1c'/%3E%3Cpath d='m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5' stroke='%23ffffff' fill='none' stroke-width='1.5'/%3E%3C/svg%3E">
 <style>
-:root{color-scheme:light;--paper:#f9f8f6;--ink:#1c1c1c;--muted:#53514d;--line:#d9d5cf;--strong-line:#77736c;--sans:"PingFang SC","Microsoft YaHei UI","Microsoft YaHei","Noto Sans CJK SC",sans-serif;--serif:"Noto Serif SC","Songti SC",SimSun,Georgia,serif;--mono:"Cascadia Code",Consolas,monospace}
-*{box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);margin:0;font:16px/1.7 var(--sans)}
-::selection{background:#dedbd4;color:var(--ink)}
-a{color:inherit;text-decoration:none}
-a:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
-@media(hover:hover) and (pointer:fine){
-a{transition:color 150ms ease,background-color 150ms ease}
-a:not(.primary):hover{color:#746a5b}
-a .icon{transition:transform 160ms ease}
-a:hover .icon{transform:translate(2px,-2px)}
+/* Hallmark-informed redesign: modern-minimal / real product performs. */
+/* Critique: generic opening and undersized UI; retain anchored flow, authentic proof and external destinations. */
+:root {
+  color-scheme:light;
+  --paper:#f9f8f6;--ink:#242129;--muted:#59525d;--line:#dcd5d9;
+  --surface:#eae5ec;--image:#fff;--accent:#51416c;--accent-hover:#39304c;
+  --night:#27222e;--night-ink:#faf6fa;--night-muted:#d3c9da;--night-line:#655b6c;
+  --select:#ded6e7;
+  --sans:"PingFang SC","Microsoft YaHei UI","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  --serif:"Noto Serif SC","Songti SC",SimSun,Georgia,serif;
 }
-@media(prefers-reduced-motion:reduce){a,a .icon{transition:none!important}a:hover .icon{transform:none!important}}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{background:var(--paper);color:var(--ink);margin:0;font:16px/1.65 var(--sans)}
+::selection{background:var(--select);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 h1,h2,h3,p,figure,dl,dd{margin:0}
-h1,h2{font-family:var(--serif);letter-spacing:-.032em;line-height:1.16;font-weight:700;text-wrap:balance}
+h1,h2{min-width:0;overflow-wrap:break-word;font-family:var(--serif);letter-spacing:-.032em;line-height:1.13;font-weight:700;text-wrap:balance}
 svg,img{display:block}img{max-width:100%;height:auto}
-.wrap{width:min(100% - 96px,1096px);margin-inline:auto}
-[id]{scroll-margin-top:22px}
-.skip{position:absolute;inset:12px auto auto 12px;transform:translateY(-200%);z-index:2;padding:10px 14px;background:var(--paper);border:1px solid var(--ink)}
+.wrap{width:min(calc(100% - 96px),1140px);margin-inline:auto}
+[id]{scroll-margin-top:28px}
+.skip{position:absolute;inset:12px auto auto 12px;transform:translateY(-200%);z-index:2;padding:10px 14px;background:var(--paper)}
 .skip:focus{transform:none}
 .navbar{border-bottom:1px solid var(--line)}
 .nav{min-height:60px;display:flex;justify-content:space-between;align-items:center;gap:18px}
-.wordmark{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:750;letter-spacing:-.025em;font-size:20px;min-height:44px}
-.wordmark svg{width:24px;height:24px;flex:none}
+.wordmark{display:inline-flex;align-items:center;gap:9px;font-weight:750;letter-spacing:-.025em;font-size:20px;min-height:44px}
+.wordmark svg{width:24px;height:24px;flex:none;color:var(--accent)}
+.wordmark rect{fill:currentColor}.wordmark path{stroke:var(--image)}
 .nav-links{display:flex;align-items:center;gap:clamp(14px,2.8vw,34px);font-size:14px}
 .nav-links a,.foot a{display:inline-flex;min-height:44px;align-items:center}
-
-.hero{padding-top:clamp(42px,6.5vw,86px)}
-h1{font-size:clamp(38px,5.45vw,72px);max-width:16em}
-.hero-copy,.section-intro{max-width:34em;color:var(--muted)}
-.hero-copy{font-size:clamp(16px,1.5vw,19px);margin-top:16px}
-.hero-actions{display:flex;align-items:center;gap:8px 21px;flex-wrap:wrap;margin-top:19px}
-.primary,.quiet-action{min-height:44px;display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:650}
-.primary{background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:2px;text-decoration:none}
-@media(hover:hover) and (pointer:fine){.primary:hover{background:#383631}}
-.quiet-action{color:var(--ink)}
+.hero{padding-block:clamp(40px,6.3vw,80px) 0}
+h1{font-size:clamp(37px,5.1vw,70px);margin-bottom:18px}
+.keep{white-space:nowrap}
+.intro-row{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:12px 30px;align-items:end}
+.hero-copy,.section-intro{max-width:36em;color:var(--muted)}
+.hero-copy{font-size:clamp(16px,1.45vw,19px)}
+.hero-actions,.next-actions{display:flex;align-items:center;gap:4px 19px;flex-wrap:wrap}
+.hero-actions{justify-content:flex-end}
+.primary,.quiet-action{min-height:44px;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:670}
+.primary{background:var(--accent);color:var(--image);padding:8px 15px;border-radius:5px}
 .icon{width:15px;height:15px;flex:none}
-.preview{margin-top:clamp(29px,4vw,46px)}
-.preview img{width:100%;background:#fff}
-.caption{display:flex;justify-content:space-between;align-items:baseline;gap:5px 16px;flex-wrap:wrap;padding-block:10px;border-bottom:1px solid var(--line);color:var(--muted);font-size:13px}
-.caption strong{color:var(--ink);font-weight:650}
-.section{margin-top:clamp(54px,7.5vw,88px);border-top:1px solid var(--line);padding-top:clamp(25px,4.2vw,46px)}
-.section h2{font-size:clamp(31px,4.15vw,54px);max-width:17em}
-.section-intro{margin-top:12px}
-.workflow{list-style:none;padding:0;margin:23px 0 0;border-top:1px solid var(--strong-line)}
-.workflow li{display:grid;grid-template-columns:1fr 3fr 8fr;align-items:baseline;gap:10px 15px;min-width:0;padding:17px 0 19px;border-bottom:1px solid var(--line)}
-.step-no{font:13px var(--mono);color:var(--muted)}
-.workflow h3{font-size:18px;font-weight:720;line-height:1.4}
-.workflow p{font-size:15px;color:var(--muted);max-width:38em}
-.proof-layout{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,6vw,78px);align-items:start}
-.proof-copy p{margin-top:15px;color:var(--muted);max-width:34em}
+.preview{margin-top:clamp(24px,3.5vw,40px);min-width:0}
+.preview-frame{display:block;background:var(--surface);padding:clamp(14px,2.9vw,37px) clamp(14px,5.2vw,66px) 0;overflow:clip}
+.preview-frame img{width:100%;height:auto;aspect-ratio:2.1;object-fit:cover;object-position:50% 3%;background:var(--image)}
+.caption{display:flex;justify-content:space-between;align-items:center;gap:0 16px;flex-wrap:wrap;padding:8px 0;color:var(--muted);font-size:13px}
+.caption strong{color:var(--ink);font-weight:640}
+.shot-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:670;color:var(--accent)}
+.section{padding-block:clamp(49px,7.6vw,91px)}
+.section h2{font-size:clamp(31px,4.1vw,54px);margin-bottom:13px}
+.flow-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:35px clamp(34px,7.2vw,106px);align-items:start}
+.flow-aside .section-intro{max-width:30em}
+.workflow{margin:0;padding:0;list-style:none}
+.workflow li{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;min-width:0;padding:17px 0;border-top:1px solid var(--line)}
+.workflow li:last-child{border-bottom:1px solid var(--line)}
+.workflow h3{font-size:19px;font-weight:720;line-height:1.4}
+.workflow p{font-size:16px;color:var(--muted);max-width:39em}
+.work-detail{font-size:14px;color:var(--muted);margin-top:20px;max-width:385px}
+.work-detail summary{display:list-item;min-height:44px;padding:10px 0;cursor:pointer;color:var(--accent);font-weight:650}
+.work-detail img{width:210px;margin:0 0 8px;background:var(--surface)}
+.proof-band{background:var(--night);color:var(--night-ink)}
+.proof-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:25px clamp(32px,7vw,88px);align-items:end}
+.proof-copy p{color:var(--night-muted);max-width:36em}
 .case{min-width:0}
-.case-head{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;align-items:baseline;padding:0 0 11px;border-bottom:1px solid var(--strong-line);color:var(--muted);font-size:12px}
-.case-head code{font:12px var(--mono);color:var(--ink)}
-.case-body div{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line)}
-.case-body dt{font-size:14px;color:var(--muted)}
-.case-body dd{font-size:15px;font-weight:730;text-align:right}
-.next{padding-bottom:clamp(46px,6vw,74px)}
-.next-actions{display:flex;gap:8px 21px;flex-wrap:wrap;margin-top:18px}
+.case-head{display:flex;flex-wrap:wrap;gap:2px 12px;justify-content:space-between;align-items:baseline;padding:0 0 8px;color:var(--night-muted);font-size:13px}
+.case-head strong{color:var(--night-ink);font-weight:650}
+.case-body div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:12px 0;border-block-start:1px solid var(--night-line)}
+.case-body dt{font-size:14px;color:var(--night-muted)}
+.case-body dd{font-size:16px;font-weight:690;text-align:right;font-variant-numeric:tabular-nums}
+.next{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:14px 30px;align-items:end}
+.next-actions{justify-content:flex-end}
 footer{border-top:1px solid var(--line)}
 .foot{min-height:62px;display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:13px}
-@media(max-width:720px){
-.wrap{width:calc(100% - 44px)}
-.nav{min-height:58px;gap:10px}.wordmark{font-size:18px;gap:7px}.wordmark svg{width:23px;height:23px}
-.nav-links{gap:14px;font-size:13px}.nav-workflow{display:none!important}
-.hero-copy{margin-top:13px}.hero-actions{margin-top:17px}
-.workflow li{grid-template-columns:27px minmax(0,1fr);gap:4px 11px;padding-block:14px}.workflow li p{grid-column:2}
-.proof-layout{grid-template-columns:1fr}
+@media(hover:hover) and (pointer:fine){
+  a,summary{transition:color 150ms ease,background-color 150ms ease}
+  a:not(.primary):hover,summary:hover{color:var(--accent-hover)}
+  .primary:hover{background:var(--accent-hover)}
+  a .icon{transition:transform 160ms ease}
+  a:hover .icon{transform:translate(2px,-2px)}
 }
-@media(max-width:360px){.wrap{width:calc(100% - 34px)}.nav-links{gap:10px}.hero-actions,.next-actions{gap:8px 15px}.case-head{gap:5px}}
+@media(prefers-reduced-motion:reduce){a,a .icon,summary{transition:none!important}a:hover .icon{transform:none!important}}
+@media(max-width:780px){
+  .wrap{width:calc(100% - 44px)}
+  .nav{min-height:58px;gap:10px}.wordmark{font-size:18px;gap:7px}.wordmark svg{width:23px;height:23px}
+  .nav-links{gap:14px;font-size:13px}.nav-workflow{display:none!important}
+  .intro-row,.next{grid-template-columns:1fr}.hero-actions,.next-actions{justify-content:flex-start}
+  .flow-layout,.proof-layout{grid-template-columns:1fr;gap:20px}
+  .preview-frame{padding:13px 13px 0}
+  .preview-frame img{aspect-ratio:1.51;object-position:59% 5%}
+}
+@media(max-width:360px){
+  .wrap{width:calc(100% - 34px)}.nav-links{gap:10px}
+  h1{font-size:32px}
+  .hero-actions,.next-actions{gap:4px 14px}
+}
 </style>
 </head>
 <body>
@@ -85,7 +110,7 @@ footer{border-top:1px solid var(--line)}
 <header class="navbar">
 <nav class="wrap nav" aria-label="产品导航">
 <a class="wordmark" href="#main">
-<svg width="29" height="29" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1c1c1c"/><path fill="none" stroke="#fff" stroke-width="1.5" d="m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5"/></svg>
+<svg width="29" height="29" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="1.5" d="m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5"/></svg>
 DelveForge
 </a>
 <div class="nav-links"><a href="../index.html">个人主页</a><a class="nav-workflow" href="#workflow">工作流程</a><a href="https://github.com/ayywl288/DelveForge" target="_blank" rel="noopener noreferrer">GitHub</a></div>
@@ -93,39 +118,50 @@ DelveForge
 </header>
 <main id="main">
 <section class="wrap hero" aria-labelledby="title">
-<h1 id="title">让 Agent 在你的仓库里工作。</h1>
-<p class="hero-copy">DelveForge 是 Windows 上的本地 Coding Agent 工作台。导入项目后，Agent 在工作副本里读代码、改文件、跑测试。你可以随时调整方向，也能回来查看实际改动与执行日志。</p>
+<h1 id="title">让 Agent 在<span class="keep">项目副本</span>里改代码</h1>
+<div class="intro-row">
+<p class="hero-copy">DelveForge 是 Windows 上的本地 Coding Agent 工作台。导入仓库后，Agent 在工作副本里读代码、改文件、跑测试；你可以随时补充要求，也能回来查看改动和日志。</p>
 <div class="hero-actions">
-<a class="primary" href="https://github.com/ayywl288/DelveForge/blob/main/docs/LOCAL_SETUP.md" target="_blank" rel="noopener noreferrer">在本机运行<svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
-<a class="quiet-action" href="#workflow">看工作流程</a></div>
+<a class="primary" href="https://github.com/ayywl288/DelveForge/blob/main/docs/LOCAL_SETUP.md" target="_blank" rel="noopener noreferrer">查看本地安装指南<svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
+<a class="quiet-action" href="#workflow">看工作流程</a>
+</div>
+</div>
 <figure id="workbench" class="preview">
-<img src="workbench.png" width="1280" height="820" alt="DelveForge 工作台：左边是项目、会话与运行状态，右边是提交任务的对话输入区。">
-<figcaption class="caption"><strong>DelveForge 工作台</strong><span>测试工作区实机截图</span></figcaption>
+<div class="preview-frame"><img src="workbench.png" width="1280" height="820" decoding="async" alt="DelveForge 测试工作区。左侧显示多个项目及其对话，右侧可以输入 Agent 任务。"></div>
+<figcaption class="caption"><strong>DelveForge 测试工作区实机截图</strong><a class="shot-link" href="workbench.png" target="_blank" rel="noopener noreferrer">打开完整截图<svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></a></figcaption>
 </figure>
 </section>
-<section id="workflow" class="wrap section" aria-labelledby="workflow-title">
-<h2 id="workflow-title">从一个任务，到一份改动。</h2>
-<p class="section-intro">不用把代码来回复制进聊天框。导入项目后，你和 Agent 都能在同一份工作副本里继续工作。</p>
-<ol class="workflow">
-<li><span class="step-no" aria-hidden="true">01</span><h3>打开项目</h3><p>导入本地仓库或创建项目；日常修改不会直接覆盖原目录。</p></li>
-<li><span class="step-no" aria-hidden="true">02</span><h3>下达任务</h3><p>在对话里说明目标。Agent 在项目的 Linux 环境里执行工具；你也能追加要求或停止运行。</p></li>
-<li><span class="step-no" aria-hidden="true">03</span><h3>检查结果</h3><p>在工作台看改动、工具输出和测试日志，也可以在 Windows 编辑器里打开工作副本。</p></li>
+<section id="workflow" class="wrap section flow-layout" aria-labelledby="workflow-title">
+<div class="flow-aside">
+<h2 id="workflow-title">从导入仓库到查看改动</h2>
+<p class="section-intro">不用把代码来回复制进聊天框。导入项目后，和 Agent 在同一份工作副本上继续任务。</p>
+<details class="work-detail">
+<summary>查看项目列表实拍</summary>
+<figure><img src="project-list.png" width="210" height="208" alt="实机截图局部：设备台账和报表服务各自显示运行中的任务。" loading="lazy" decoding="async"><figcaption>实机局部：设备台账和报表服务分别显示运行状态。</figcaption></figure>
+</details>
+</div>
+<ol class="workflow" role="list">
+<li><h3>选项目</h3><p>导入本地仓库或创建项目，日常修改不会直接覆盖原目录。</p></li>
+<li><h3>下达任务</h3><p>告诉 Agent 要做什么。它在项目的 Linux 环境里执行工具，你也能追加要求或停止运行。</p></li>
+<li><h3>检查结果</h3><p>在工作台查看改动、新增文件和测试日志；也可以从 Windows 编辑器打开工作副本。</p></li>
 </ol>
 </section>
-<section class="wrap section proof-layout" aria-labelledby="proof-title">
+<section class="proof-band" aria-labelledby="proof-title">
+<div class="wrap section proof-layout">
 <div class="proof-copy">
-<h2 id="proof-title">一次真实任务：给会议室预约加上改约。</h2>
-<p>在独立的 Java 预约项目中，Agent 一次运行完成了整段时间的空闲查询与原子改约。结束后，在独立检出的项目上重新构建，另用 HTTP 检查核对了空闲查询、冲突与并发行为。</p>
+<h2 id="proof-title">实测：会议室预约改签</h2>
+<p>在独立的 Java 预约项目里，Agent 一轮补了可用时间窗口查询和原子改签。之后在单独的环境重跑测试，并通过 HTTP 核对查询、冲突和并发行为。</p>
 </div>
 <div class="case">
-<div class="case-head"><code>roomdesk / verify</code><span>2026 年 11 月 16 日验收</span></div>
-<dl class="case-body"><div><dt>Agent 运行</dt><dd>1 次</dd></div><div><dt>Maven 测试</dt><dd>原有 8 项 + 新增 24 项通过</dd></div><div><dt>独立 HTTP 检查</dt><dd>8 组通过</dd></div></dl>
+<div class="case-head"><strong>Room Desk 验证记录</strong><span>2026 年 11 月 16 日</span></div>
+<dl class="case-body"><div><dt>Agent 执行</dt><dd>1 轮</dd></div><div><dt>Maven 测试</dt><dd>原有 8 项 + 新增 24 项通过</dd></div><div><dt>独立 HTTP 验证</dt><dd>8 项通过</dd></div></dl>
+</div>
 </div>
 </section>
 <section class="wrap section next" aria-labelledby="next-title">
-<h2 id="next-title">拿自己的项目试试。</h2>
-<p class="section-intro">从 Windows 本机安装说明开始，准备开发环境后再导入仓库。</p>
-<div class="next-actions"><a class="primary" href="https://github.com/ayywl288/DelveForge/blob/main/docs/LOCAL_SETUP.md" target="_blank" rel="noopener noreferrer">查看安装说明</a><a class="quiet-action" href="https://github.com/ayywl288/DelveForge" target="_blank" rel="noopener noreferrer">在 GitHub 看源码</a></div>
+<div><h2 id="next-title">导入自己的项目试试</h2>
+<p class="section-intro">从 Windows 本地安装指南开始，准备运行环境，再导入仓库。</p></div>
+<div class="next-actions"><a class="primary" href="https://github.com/ayywl288/DelveForge/blob/main/docs/LOCAL_SETUP.md" target="_blank" rel="noopener noreferrer">查看安装指南</a><a class="quiet-action" href="https://github.com/ayywl288/DelveForge" target="_blank" rel="noopener noreferrer">在 GitHub 看源码</a></div>
 </section>
 </main>
 <footer><div class="wrap foot"><a href="../index.html">回到个人主页</a><a href="#main">回到顶部</a></div></footer>
