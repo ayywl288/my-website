@@ -164,7 +164,7 @@ section[id],main { scroll-margin-top:85px; }
   border-radius:3px 24px 3px 3px; border:1px solid #d1baaa;
   background:#e8d6c6;
   background:
-    linear-gradient(141deg, #fff3e4 0%, #d9d6ef 23%, #e8adb9 44%, #f4c389 65%, #e7dced 80%, #f2e3c7 100%);
+    var(--foil-optical,linear-gradient(141deg, #fff3e4 0%, #d9d6ef 23%, #e8adb9 44%, #f4c389 65%, #e7dced 80%, #f2e3c7 100%));
 }
 .music-photo::before {
   content:""; position:absolute; inset:0; pointer-events:none; z-index:-1;
