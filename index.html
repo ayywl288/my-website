@@ -567,8 +567,12 @@
       games.style.setProperty('--ribbon-presence',presence.toFixed(3));
       lastPresence = presence;
     }
-    if (!visible || presence === 0) { lens.hidden = true; return; }
+    if (presence === 0) { lens.hidden = true; return; }
     const glass = panel.getBoundingClientRect();
+    const offset = startAt - scrollY - glass.top;
+    panel.style.setProperty('--field-offset',offset+'px');
+    panel.style.setProperty('--field-focus',(glass.height/2-offset)+'px');
+    if (!visible) { lens.hidden = true; return; }
     const bounds = stage.getBoundingClientRect();
     if (glass.bottom <= bounds.top || glass.top >= bounds.bottom) { lens.hidden = true; return; }
     const visibleMirrors = [];
@@ -611,6 +615,7 @@
     if (path.hidden) return;
     const pathHeight = Math.max(0,games.clientHeight - path.offsetTop - 1);
     path.style.height = pathHeight + 'px';
+    panel.style.setProperty('--field-height',games.offsetHeight+'px');
     startAt = scrollY + games.getBoundingClientRect().top;
     settleAt = scrollY + path.getBoundingClientRect().top + pathHeight - panel.offsetHeight - parseFloat(getComputedStyle(panel).top);
     queue();
