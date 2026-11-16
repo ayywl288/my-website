@@ -507,3 +507,19 @@ section[id],main { scroll-margin-top:85px; }
   .work { background:#eeeae5; }
   .work::before { background:#e7e1d9; }
 }
+
+/* Chapter atmosphere: cool paper for games, then warm paper around the edit covers. */
+#games {
+  background:linear-gradient(180deg,#eeedf4 0%,#f5f4f7 48%,var(--paper) 100%);
+}
+#edits { position:relative; isolation:isolate; }
+#edits::before {
+  content:""; position:absolute; z-index:-1; inset:0;
+  pointer-events:none;
+  border-image:fill 0 linear-gradient(180deg,#f3ece6 0%,#f7f2ed 56%,var(--paper) 100%);
+  border-image-outset:0 100vmax;
+}
+@media (prefers-contrast:more), (forced-colors:active) {
+  #games { background:var(--paper); }
+  #edits::before { display:none; }
+}
