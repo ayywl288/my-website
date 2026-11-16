@@ -48,52 +48,29 @@ section[id],main { scroll-margin-top:85px; }
 .navlinks { gap:clamp(12px, 2.3vw, 27px); }
 .navlinks a { display:inline-flex; gap:4px; align-items:center; min-height:44px; font-size:13px; font-weight:650; white-space:nowrap; }
 .hero {
-  position:relative; display:grid; align-items:end; min-height:clamp(580px,83svh,940px);
-  padding-block:clamp(78px,12vh,145px) clamp(64px,13vh,158px);
-  background:#111e2d; color:#fff;
+  display:grid; grid-template-columns:minmax(0,7fr) minmax(0,4fr);
+  min-height:min(510px,70svh); align-items:center; gap:clamp(24px,6vw,88px);
+  padding-block:clamp(48px,7vw,94px) clamp(48px,7.75vw,102px);
 }
-.hero-copy { position:relative; z-index:5; min-width:0; }
-.hero h1 {
-  max-width:10em; margin:0; font:760 clamp(52px,8.85vw,118px)/1.05 var(--serif);
-  letter-spacing:-.04em; text-wrap:balance;
+.hero-copy { min-width:0; }
+.hero h1 { font:730 clamp(45px,6.1vw,80px)/1.04 var(--serif); letter-spacing:-.035em; margin:0; text-wrap:balance; }
+.hero-role { margin:16px 0 0; color:var(--muted); font-weight:620; font-size:13px; }
+.hero .lead { margin:20px 0 2px; font-size:clamp(18px,2.55vw,27px); font-weight:560; line-height:1.54; text-wrap:pretty; }
+.hero .hint { color:var(--muted); margin:0; }
+.btn {
+  display:inline-flex; align-items:center; gap:10px; min-height:44px;
+  margin-top:24px; color:var(--ink); font-weight:690; font-size:14px;
 }
-.hero-role { margin:0; color:#ecf1f4; font-weight:630; font-size:13px; }
-.hero .lead { margin:15px 0 1px; max-width:33em; color:#fff; font-size:clamp(17px,2vw,25px); line-height:1.5; text-wrap:pretty; }
-.hero .hint { color:#ebeff4; margin:0; font-size:14px; }
-.hero .btn {
-  display:inline-flex; align-items:center; gap:10px; min-height:44px; margin-top:16px;
-  color:#fff; font-weight:690; font-size:14px;
+.btn svg { width:16px; height:16px; }
+.hero-art {
+  position:relative; display:grid; justify-items:end; align-content:center;
+  aspect-ratio:1.32; width:min(100%,385px); justify-self:end;
 }
-.hero .btn svg { width:16px; height:16px; }
-.hero .btn:focus-visible { outline-color:#fff; }
-.opening-art { position:absolute; z-index:4; inset:0; overflow:hidden; pointer-events:none; }
-.opening-art img {
-  position:absolute; left:50%; top:50%; width:100%; height:100%; max-width:none;
-  object-fit:cover; transform:translate(-50%,-50%) scale(1.14);
+.hero-glyph {
+  font:670 clamp(88px,14vw,184px)/1 var(--serif);
+  color:var(--paper); -webkit-text-stroke:1px #816d70;
+  padding-inline-end:.22em;
 }
-.opening-art::after {
-  content:""; position:absolute; inset:0; opacity:var(--flight-shade,1);
-  background:linear-gradient(90deg,rgb(8 20 35 / .86) 0%,rgb(8 20 35 / .70) 27%,rgb(8 20 35 / .18) 64%,transparent 83%),
-    linear-gradient(0deg,rgb(6 13 25 / .56),transparent 61%);
-}
-.hero[data-opening="flight"], .hero[data-opening-rest] { background:transparent; }
-.hero[data-opening-rest]:not(:focus-within) .opening-art,
-.hero[data-opening-rest]:not(:focus-within) .hero-copy { opacity:0; }
-.hero[data-opening-rest]:focus-within { background:#111e2d; }
-.hero[data-opening="flight"] .hero-copy { opacity:var(--opening-copy-alpha,1); }
-.hero[data-opening="flight"] .opening-art {
-  position:fixed; inset:0 auto auto 0; width:var(--flight-w); height:var(--flight-h);
-  transform:translate3d(var(--flight-x),var(--flight-y),0); border-radius:var(--flight-radius);
-}
-.hero[data-opening="flight"] .opening-art img {
-  width:var(--flight-img-w); height:var(--flight-img-h); transform:translate(-50%,-50%);
-}
-.game-stage[data-arrival] [data-slot="0"] img { opacity:0; }
-.games[data-arrival] :is(.personal-heading,.game-menu,.game-caption),
-.games[data-arrival] .gallery-arrows { opacity:var(--arrival-nav,1)!important; }
-.games[data-arrival] .game-track { opacity:var(--arrival-sides,1); }
-.games[data-arrival="moving"] :is(.gallery-arrows,.gallery-games) { pointer-events:none; }
-
 .work,.personal-section { border-block-start:1px solid var(--rule); padding-block:var(--space); }
 .work-header,.personal-heading {
   display:flex; justify-content:space-between; gap:14px 20px;
@@ -270,6 +247,12 @@ section[id],main { scroll-margin-top:85px; }
   .nav { min-height:62px; gap:11px; }
   .navlinks { gap:10px; }
   .navlinks a { font-size:12px; }
+  .hero { min-height:0; grid-template-columns:1fr; gap:0; padding-block:31px 41px; }
+  .hero h1 { font-size:clamp(42px,11.8vw,76px); }
+  .hero-role { margin-top:13px; }
+  .hero .lead { margin-top:13px; text-wrap:wrap; }
+  .hero-art { width:auto; justify-self:end; aspect-ratio:auto; }
+  .hero-glyph { font-size:clamp(60px,16vw,102px); }
   .work-header,.personal-heading { margin-bottom:24px; }
   .work-header { flex-wrap:wrap; }
   .project { grid-template-columns:minmax(0,1fr); gap:13px; }
@@ -477,6 +460,7 @@ section[id],main { scroll-margin-top:85px; }
   section[id],main { scroll-margin-top:92px; }
 }
 @media(forced-colors:active) {
+  .hero-glyph { color:CanvasText; -webkit-text-stroke:0; }
 }
 
 /* Shared headings stay on their grid line; each chapter sets its own pace and measure. */
@@ -493,6 +477,7 @@ section[id],main { scroll-margin-top:85px; }
 }
 @media(max-width:760px) {
   .project-detail { margin-inline-start:calc(2.25rem + clamp(9px,2.3vw,34px)); }
+  .hero-art { margin-top:-.2rem; }
 }
 @media(max-width:580px) {
   .brand { min-height:44px; }
@@ -523,24 +508,4 @@ section[id],main { scroll-margin-top:85px; }
   :is(.hero .btn,.project .link,.external-link):hover svg,.video-work:hover .video-watch svg {
     translate:none;
   }
-}
-
-/* The opening uses one photograph and hands that composition back to the gallery. */
-#games { border-block-start:none; padding-block-start:clamp(27px,4.25vw,58px); }
-#games .personal-heading h2 { font-size:clamp(29px,4.6vw,58px); }
-.hero-copy { display:flex; flex-direction:column; align-items:flex-start; }
-.hero .hero-role { order:-1; margin-bottom:.7rem; }
-@media (hover:hover) and (pointer:fine) {
-  .hero .btn:hover { color:#dfeef8; }
-}
-@media(max-width:760px) {
-  .hero { min-height:clamp(440px,72svh,630px); padding-block:42px 39px; }
-  .hero h1 { font-size:clamp(42px,12vw,68px); }
-  .opening-art::after {
-    background:linear-gradient(0deg,rgb(5 15 27 / .93) 0%,rgb(5 15 27 / .63) 33%,transparent 79%);
-  }
-}
-@media(max-width:360px) {
-  .hero h1 { font-size:clamp(35px,11.4vw,42px); }
-  .hero .lead { font-size:16px; }
 }
