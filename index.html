@@ -325,6 +325,10 @@
   dots.replaceChildren(...items.map(({name}, i) => {
     const dot = document.createElement('button');
     dot.type = 'button';
+    const mark = document.createElement('span');
+    mark.className = 'gallery-dot-mark';
+    mark.setAttribute('aria-hidden','true');
+    dot.append(mark);
     dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 张：' + name);
     dot.addEventListener('click', () => goTo(i));
     return dot;
@@ -586,6 +590,103 @@
     heading.style.removeProperty('clip-path');
   };
   const titleClipSupported = CSS.supports('clip-path','polygon(evenodd,0 0,100% 0,100% 100%)');
+  // Refract only painted artwork: the real buttons, focus rings and hit areas never move or clip.
+  const caption = games.querySelector('.game-caption');
+  const controlLens = document.createElement('div');
+  controlLens.className = 'chapter-control-lens';
+  controlLens.setAttribute('aria-hidden','true');
+  controlLens.hidden = true;
+  games.append(controlLens);
+  const arrowButtons = [...stage.querySelectorAll('.gallery-arrows button')];
+  const captionPaint = [caption.querySelector('#game-title'),caption.querySelector('#gallery-count')];
+  const activeArt = new Map();
+  const resetControls = () => {
+    for (const [source, entry] of activeArt) {
+      source.style.removeProperty('clip-path');
+      entry.sample.hidden = true;
+    }
+    controlLens.hidden = true;
+  };
+  const sampleFor = (source, kind) => {
+    let entry = activeArt.get(source);
+    if (entry) return entry;
+    const sample = document.createElement('span');
+    const copy = kind === 'arrow' ? source.cloneNode(true) : document.createElement('span');
+    sample.className = 'chapter-control-sample chapter-control-' + kind;
+    copy.classList.add('chapter-control-copy');
+    sample.hidden = true;
+    sample.append(copy);
+    controlLens.append(sample);
+    entry = { sample, copy };
+    activeArt.set(source,entry);
+    return entry;
+  };
+  const refractControls = (glass, presence) => {
+    if (!titleClipSupported || !presence || !glass.width) return resetControls();
+    const slope = .60 * glass.height / glass.width;
+    const angle = Math.atan(slope);
+    const section = games.getBoundingClientRect();
+    const paints = [
+      ...arrowButtons.map(source => ({source,kind:'face',button:source})),
+      ...arrowButtons.map(b => ({source:b.querySelector('svg'),kind:'arrow',button:b})),
+      ...captionPaint.map(source => ({source,kind:'text'})),
+      ...[...caption.querySelectorAll('.gallery-dot-mark')].map(source => ({source,kind:'dot'}))
+    ];
+    const seen = new Set(), decorations = [];
+    for (const {source,kind,button} of paints) {
+      if (!source) continue;
+      const box = source.getBoundingClientRect();
+      const inkBox = kind === 'text' ? (() => {
+        const range = document.createRange();
+        range.selectNodeContents(source);
+        return range.getBoundingClientRect();
+      })() : box;
+      if (!box.width || !box.height || box.bottom < 0 || box.top > innerHeight) continue;
+      const onPhoto = kind === 'arrow' || kind === 'face';
+      const y0 = (onPhoto ? .0775 : .1025) * glass.height;
+      const band = (onPhoto ? .245 : .195) * glass.height;
+      const top = glass.top + y0 + slope * (box.left-glass.left) - box.top;
+      const bottom = top+band;
+      const inkTop = inkBox.top-box.top, inkBottom = inkBox.bottom-box.top;
+      if (bottom + slope*(inkBox.right-box.left) <= inkTop ||
+          top + slope*(inkBox.left-box.left) >= inkBottom) continue;
+      const pad = 16, right = box.width+pad;
+      const a = -pad+'px '+(top-slope*pad)+'px';
+      const slice = a+','+right+'px '+(top+slope*right)+'px,'+
+        right+'px '+(bottom+slope*right)+'px,'+-pad+'px '+(bottom-slope*pad)+'px';
+      const full = '-16px -16px,calc(100% + 16px) -16px,calc(100% + 16px) calc(100% + 16px),-16px calc(100% + 16px),-16px -16px';
+      const read = getComputedStyle(source);
+      const opacity = button ? getComputedStyle(button).opacity : 1;
+      const originX = (inkBox.left+inkBox.right)/2-box.left;
+      const originY = Math.max(0,Math.min(box.height,(top+bottom)/2+slope*originX));
+      seen.add(source);
+      decorations.push({source,kind,box,slice,cut:'polygon(evenodd,'+full+','+slice+','+a+',-16px -16px)',
+        type:kind==='text' ? Object.fromEntries(['fontFamily','fontSize','fontWeight','fontStyle',
+          'lineHeight','fontVariantNumeric','letterSpacing','textAlign','whiteSpace'].map(k=>[k,read[k]])) : null,
+        color:read.color,
+        text:kind==='text' ? source.textContent : '',originX,originY,opacity});
+    }
+    for (const [source,entry] of activeArt) if (!seen.has(source) && !entry.sample.hidden) {
+      source.style.removeProperty('clip-path');
+      entry.sample.hidden = true;
+    }
+    controlLens.hidden = !decorations.length;
+    for (const d of decorations) {
+      const {source,kind,box,slice,cut,originX,originY,opacity} = d;
+      const {sample,copy} = sampleFor(source,kind);
+      if (kind !== 'face') source.style.clipPath = cut;
+      sample.hidden = false;
+      sample.style.cssText = 'left:'+(box.left-section.left)+'px;top:'+(box.top-section.top)+
+        'px;width:'+box.width+'px;height:'+box.height+'px;clip-path:polygon('+slice+');opacity:'+opacity+
+        ';--ink-angle:'+angle+'rad;--ink-origin:'+originX+'px '+originY+'px;color:'+d.color;
+      if (kind === 'text') {
+        if (copy.textContent !== d.text) copy.textContent = d.text;
+        Object.assign(copy.style,d.type);
+      }
+    }
+    if (paints.some(({source}) => source?.getAnimations().some(a=>a.playState==='running')) ||
+        [...stage.getAnimations(),...caption.getAnimations()].some(a=>a.playState==='running')) queue();
+  };
   const refractTitle = (glass, presence) => {
     if (!titleClipSupported || presence < .98) return clearTitleLens();
     const box = heading.getBoundingClientRect();
@@ -612,7 +713,7 @@
   };
   const shadePhoto = () => {
     frame = 0;
-    if (path.hidden) { lens.hidden = true; clearTitleLens(); return; }
+    if (path.hidden) { lens.hidden = true; clearTitleLens(); resetControls(); return; }
     const entered = scrollY + innerHeight - startAt;
     // The top edge cuts across the pane at 60% width, without reversing as it uncovers.
     const lift = paneHeight * .56;
@@ -633,9 +734,10 @@
       games.style.setProperty('--ribbon-presence',presence.toFixed(3));
       lastPresence = presence;
     }
-    if (presence === 0) { lens.hidden = true; clearTitleLens(); return; }
+    if (presence === 0) { lens.hidden = true; clearTitleLens(); resetControls(); return; }
     const glass = panel.getBoundingClientRect();
     refractTitle(glass,presence);
+    refractControls(glass,presence);
     const offset = startAt - scrollY - glass.top;
     panel.style.setProperty('--field-offset',offset+'px');
     panel.style.setProperty('--field-focus',(glass.height/2-offset)+'px');
@@ -687,8 +789,7 @@
   const queue = () => { if (!frame) frame = requestAnimationFrame(shadePhoto); };
   const place = () => {
     path.hidden = prefs.matches;
-    if (path.hidden) { lens.hidden = true; clearTitleLens(); }
-    if (path.hidden) return;
+    if (path.hidden) { lens.hidden = true; clearTitleLens(); resetControls(); return; }
     const pathHeight = Math.max(0,games.clientHeight - path.offsetTop - 1);
     path.style.height = pathHeight + 'px';
     panel.style.setProperty('--field-height',games.offsetHeight+'px');
@@ -705,6 +806,16 @@
   }).observe(stage);
   new MutationObserver(queue).observe(stage.querySelector('.game-track'),{subtree:true,attributes:true,attributeFilter:['id','src']});
   new MutationObserver(queue).observe(heading.parentElement,{attributes:true,attributeFilter:['data-reveal-state']});
+  new MutationObserver(queue).observe(caption,{subtree:true,childList:true,attributes:true,
+    attributeFilter:['aria-current','data-reveal-state']});
+  for (const node of [caption,stage]) {
+    node.addEventListener('pointerover',queue,{passive:true});
+    node.addEventListener('pointerout',queue,{passive:true});
+    node.addEventListener('focusin',queue);
+    node.addEventListener('focusout',queue);
+    node.addEventListener('transitionrun',queue);
+    node.addEventListener('transitionend',queue);
+  }
   stage.addEventListener('load',queue,true);
   stage.addEventListener('gallery:motion',queue);
   stage.addEventListener('pointermove',queue,{passive:true});

@@ -320,19 +320,19 @@ section[id],main { scroll-margin-top:85px; }
   display:grid; place-items:center; padding:0; border:0; border-radius:11px;
   background:transparent; color:#897465; cursor:pointer;
 }
-.gallery-dots button::after {
-  content:""; width:7px; height:7px; border-radius:1em; background:currentColor;
+.gallery-dots .gallery-dot-mark {
+  width:7px; height:7px; border-radius:1em; background:currentColor;
   transition:width 180ms ease-out,color 180ms ease-out;
 }
 .gallery-dots button[aria-current="true"] { color:#4d315f; }
-.gallery-dots button[aria-current="true"]::after { width:15px; }
+.gallery-dots button[aria-current="true"] .gallery-dot-mark { width:15px; }
 .gallery-dots button:focus-visible { color:#655369; }
 @media(hover:hover) and (pointer:fine) {
   .gallery-dots button:not([aria-current]):hover { color:#594438; }
-  .gallery-dots button:hover::after { width:17px; }
-  .gallery-dots button[aria-current="true"]:hover::after { width:21px; }
+  .gallery-dots button:hover .gallery-dot-mark { width:17px; }
+  .gallery-dots button[aria-current="true"]:hover .gallery-dot-mark { width:21px; }
 }
-@media(prefers-reduced-motion:reduce) { .gallery-dots button::after { transition:none; } }
+@media(prefers-reduced-motion:reduce) { .gallery-dots .gallery-dot-mark { transition:none; } }
 @media (max-width:760px) {
   .track-print { grid-template-columns:minmax(0,1fr) clamp(11px,10%,18px); }
   .game-caption { display:grid; grid-template-columns:minmax(0,1fr) auto auto; }
@@ -626,8 +626,8 @@ section[id],main { scroll-margin-top:85px; }
 }
 
 @media (prefers-reduced-motion:reduce) {
-  .gallery-dots button:hover::after { width:7px; }
-  .gallery-dots button[aria-current="true"]:hover::after { width:15px; }
+  .gallery-dots button:hover .gallery-dot-mark { width:7px; }
+  .gallery-dots button[aria-current="true"]:hover .gallery-dot-mark { width:15px; }
 }
 
 /* Depth is perpendicular to the page: photos keep the same vertical center. */
@@ -662,8 +662,8 @@ section[id],main { scroll-margin-top:85px; }
   }
   .gallery-dots button { flex:1 1 0; min-width:0; width:auto; transition:flex-grow 220ms cubic-bezier(.2,.7,.3,1); }
   .gallery-dots button:hover { flex-grow:var(--dot-hover-grow); }
-  .gallery-dots button:hover::after,
-  .gallery-dots button[aria-current="true"]:hover::after { width:96%; }
+  .gallery-dots button:hover .gallery-dot-mark,
+  .gallery-dots button[aria-current="true"]:hover .gallery-dot-mark { width:96%; }
 }
 
 /* Cool game paper releases into an unruled, warm music opening. */
@@ -769,4 +769,28 @@ section[id],main { scroll-margin-top:85px; }
 @media (prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active) {
   .chapter-glass-run,.chapter-photo-lens,.chapter-heading-lens { display:none!important; }
   #gallery-label { clip-path:none!important; }
+}
+
+/* Match the moving pane's local optical cut on the gallery controls; visual samples never take input. */
+.chapter-control-lens { position:absolute; inset:0; z-index:3; pointer-events:none; overflow:clip; }
+.chapter-control-sample { position:absolute; display:block; pointer-events:none; }
+.chapter-control-copy {
+  position:absolute; display:block; inset:0; width:100%; height:100%; margin:0;
+  transform-origin:var(--ink-origin);
+  transform:rotate(var(--ink-angle)) translateY(var(--ink-drift,3px))
+    scale(var(--ink-sx,1.27),var(--ink-sy,1.13)) rotate(calc(-1 * var(--ink-angle)));
+  filter:blur(.28px);
+}
+.chapter-control-text .chapter-control-copy { color:color-mix(in srgb,currentColor 82%,#273c60); }
+.chapter-control-face .chapter-control-copy {
+  inset:1px; width:auto; height:auto; border-radius:50%; transform:none; filter:none;
+  background:linear-gradient(120deg,rgb(209 230 255 / .55),rgb(247 245 255 / .68) 49%,rgb(211 222 242 / .52));
+  box-shadow:inset 0 1px 2px rgb(255 255 255 / .8);
+}
+.chapter-control-arrow { --ink-drift:4px; --ink-sx:1.34; --ink-sy:1.19; }
+.chapter-control-dot { --ink-drift:2px; --ink-sx:1.45; --ink-sy:1.19; }
+.chapter-control-dot .chapter-control-copy { background:currentColor; border-radius:1em; }
+@media (prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active) {
+  .chapter-control-lens { display:none!important; }
+  .games :is(.gallery-arrows svg,.gallery-dot-mark,#game-title,#gallery-count) { clip-path:none!important; }
 }
