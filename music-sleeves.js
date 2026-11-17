@@ -11,18 +11,19 @@
   function place(item, original) {
     const slot = item.getBoundingClientRect();
     const viewport = document.documentElement.clientWidth;
-    const limit = 12;
+    const limit = 14;
     const cover = Math.round(original.width * .93);
-    const height = Math.round(original.height * .93);
-    const detail = Math.max(110, Math.min(viewport - cover - 34, Math.round(Math.max(172, Math.min(250, original.width * 1.43)))));
-    const base = Math.min(viewport - limit - cover - 10 - detail, Math.max(limit, original.left + 12));
+    const gap = Math.round(Math.max(16, Math.min(36, cover * .20)));
+    const detail = Math.max(110, Math.min(viewport - cover - gap - limit * 2, Math.round(Math.max(176, Math.min(318, cover * 1.92)))));
+    const base = Math.min(viewport - limit - cover - gap - detail, Math.max(limit, original.left + 12));
     const left = Math.floor(base - slot.left);
     const header = document.querySelector('.sitehead')?.getBoundingClientRect().bottom ?? 0;
     const top = Math.max(10, Math.round(header + 8 - slot.top));
     for (const [key, val] of Object.entries({
       'slot-height': Math.ceil(slot.height), 'sleeve-offset':left, 'sleeve-top':top,
-      'sleeve-cover':cover, 'sleeve-height':height, 'sleeve-detail':detail,
-      'sleeve-arc':Math.round(Math.max(6, (height - 106) * .34))
+      'sleeve-cover':cover, 'sleeve-height':cover, 'sleeve-detail':detail,
+      'sleeve-gap':gap, 'sleeve-detail-min':Math.max(91, Math.round(detail / 2.55)),
+      'sleeve-detail-top':top
     })) item.style.setProperty('--' + key, val + 'px');
   }
 
@@ -39,7 +40,7 @@
     const dx = start.left - finish.left, dy = start.top - finish.top;
     const sx = start.width / finish.width, sy = start.height / finish.height;
     const shadow = getComputedStyle(card).boxShadow;
-    const travel = Math.max(0, Math.min(22, Math.floor(document.documentElement.clientWidth - panel.getBoundingClientRect().right - 2)));
+    const travel = Math.max(0, Math.min(22, Math.floor(document.documentElement.clientWidth - panel.getBoundingClientRect().right - 8)));
     const cardFrames = [{transform:'translate('+dx+'px,'+dy+'px) scale('+sx+','+sy+')', boxShadow:'0 0 0 transparent'}];
     if (fine.matches && dx > 25) {
       // Even at the right edge, begin with the same forward nudge before making room.
@@ -70,6 +71,9 @@
       const from = open.querySelector('.track-card').getBoundingClientRect();
       place(open, from);
       open.setAttribute('data-track-open','');
+      const card = open.querySelector('.track-card');
+      const panel = open.querySelector('.song-sleeve');
+      open.style.setProperty('--sleeve-detail-top', Math.round(card.offsetTop + (card.offsetHeight - panel.offsetHeight) / 2) + 'px');
       open.querySelector('.track-disclose').setAttribute('aria-expanded','true');
       if (!skipAnimation) animate(open, from);
     }
