@@ -234,7 +234,7 @@ section[id],main { scroll-margin-top:85px; }
     var(--foil-optical,linear-gradient(153deg,#c6c3cc,#eeeaf0 40%,#b3aab9 72%,#e4dfe9));
 }
 .track-text { display:grid; gap:3px; min-width:0; padding-left:3px; }
-.track-title { font-size:clamp(12px,1.1vw,15px); font-weight:760; line-height:1.18; overflow-wrap:anywhere; }
+.track-title { font-size:clamp(12px,1vw,14px); font-weight:760; line-height:1.18; overflow-wrap:anywhere; }
 .track-artist { color:var(--muted); font-size:11px; line-height:1.2; overflow-wrap:anywhere; }
 .track-play {
   display:grid; place-items:center; align-self:start; width:22px; height:22px; border-radius:50%;
@@ -536,14 +536,63 @@ section[id],main { scroll-margin-top:85px; }
   }
 }
 
+/* A lifted sleeve opens into an arc; the album grid never moves under the pointer. */
+.track-item { position:relative; perspective:820px; min-width:0; }
+.track-item:is(:focus-within,[data-track-open]) { z-index:4; }
+.track-body { position:relative; height:100%; transform-origin:50% 66%; }
+.track-body>.track-card { position:relative; z-index:1; }
+.track-disclose {
+  position:absolute; z-index:2; inset:2px 3px auto auto; width:44px; height:44px;
+  display:grid; place-items:center; border:0; border-radius:50%; padding:0;
+  color:#59445d; background:transparent; cursor:pointer; -webkit-tap-highlight-color:transparent;
+}
+.track-disclose[hidden] { display:none; }
+.track-disclose svg {
+  width:24px; height:24px; padding:4px; border-radius:50%;
+  background:#fff8ee; box-shadow:0 1px 5px #3020292c;
+}
+.track-disclose:focus-visible { outline-offset:-3px; }
+.track-details {
+  position:absolute; z-index:0; inset:auto 0 calc(100% - 6px); display:grid;
+  align-content:end; gap:4px; min-height:70px; padding:19px 8px 12px;
+  border:1px solid #ba9cae; border-radius:50% 50% 6px 6px / 24px 24px 6px 6px;
+  color:#322638; text-align:center; overflow-wrap:anywhere; cursor:default;
+  background:radial-gradient(ellipse at 50% 0%,#fff8ef,transparent 80%),linear-gradient(105deg,#e8d8e5,#f6ede6 54%,#e6dde9);
+  box-shadow:inset 0 2px 0 #fff9f5bc,0 -7px 22px #4d2b4020;
+  clip-path:inset(100% 0 0 round 24px 24px 0 0);
+  opacity:0; visibility:hidden; pointer-events:none;
+}
+.track-release { font-size:clamp(11px,1.02vw,14px); font-weight:760; line-height:1.2; }
+.track-edition { font-size:10px; line-height:1.25; color:#5b495d; }
+.track-item[data-track-open] .track-card {
+  border-color:#a7869b; background:#fff7ed; box-shadow:0 10px 22px #38263a26;
+}
+.track-item[data-track-open] .track-details {
+  opacity:1; visibility:visible; clip-path:inset(0); pointer-events:auto;
+}
+.track-item[data-track-open] .track-disclose svg { transform:rotate(180deg); }
+@media (prefers-reduced-motion:no-preference) {
+  .track-body { transition:transform 310ms cubic-bezier(.22,.72,.23,1); }
+  .track-details {
+    transform-origin:50% 100%; transform:translateY(11px) scaleX(.82) rotateX(-20deg);
+    transition:transform 330ms cubic-bezier(.22,.72,.23,1),clip-path 300ms ease,opacity 170ms ease,visibility 0s linear 300ms;
+  }
+  .track-item[data-track-open] .track-details { transform:none; transition-delay:0s; }
+  .track-disclose svg { transition:transform 220ms ease-out; }
+}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .track-item[data-track-open] .track-body { transform:translateZ(36px) rotateX(5deg); }
+}
+@media (forced-colors:active) {
+  .track-details,.track-disclose svg { background:Canvas; color:CanvasText; border:1px solid CanvasText; }
+  .track-edition { color:CanvasText; }
+}
+
 /* Hover changes the emphasis, not the order or the row's footprint. */
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
   .gallery-dots:has(button:hover) button:not(:hover):not([aria-current])::after { width:5px; }
   .gallery-dots:has(button:hover) button[aria-current]:not(:hover)::after { width:13px; }
 
-  .track-print { transition:scale 220ms cubic-bezier(.2,.7,.3,1); }
-  .music-shelf ul:has(.track-card:hover) .track-card:not(:hover) .track-print { scale:.973; }
-  .track-card:hover .track-print { scale:1.026; }
   .track-play svg { transition:translate 200ms ease-out; }
   .track-card:hover .track-play svg { translate:2px 0; }
 
