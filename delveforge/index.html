@@ -14,7 +14,7 @@
   color-scheme:light;
   --paper:#f9f8f6;--ink:#242129;--muted:#59525d;--line:#dcd5d9;
   --surface:#eae5ec;--image:#fff;--accent:#51416c;--accent-hover:#39304c;
-  --night:#27222e;--night-ink:#faf6fa;--night-muted:#d3c9da;--night-line:#655b6c;
+  --night:#27222e;--night-ink:#faf6fa;--night-muted:#d3c9da;
   --select:#ded6e7;
   --sans:"PingFang SC","Microsoft YaHei UI","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
   --serif:"Noto Serif SC","Songti SC",SimSun,Georgia,serif;
@@ -69,14 +69,12 @@ h1{font-size:clamp(37px,5.1vw,70px);margin-bottom:18px}
 .work-detail summary{display:list-item;min-height:44px;padding:10px 0;cursor:pointer;color:var(--accent);font-weight:650}
 .work-detail img{width:210px;margin:0 0 8px;background:var(--surface)}
 .proof-band{background:var(--night);color:var(--night-ink)}
-.proof-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:25px clamp(32px,7vw,88px);align-items:end}
-.proof-copy p{color:var(--night-muted);max-width:36em}
-.case{min-width:0}
-.case-head{display:flex;flex-wrap:wrap;gap:2px 12px;justify-content:space-between;align-items:baseline;padding:0 0 8px;color:var(--night-muted);font-size:13px}
-.case-head strong{color:var(--night-ink);font-weight:650}
-.case-body div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:12px 0;border-block-start:1px solid var(--night-line)}
-.case-body dt{font-size:14px;color:var(--night-muted)}
-.case-body dd{font-size:16px;font-weight:690;text-align:right;font-variant-numeric:tabular-nums}
+.proof-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:25px clamp(32px,7vw,88px);align-items:center}
+.proof-copy p{color:var(--night-muted);max-width:34em}
+.proof-copy blockquote{margin:16px 0 13px;color:var(--night-ink);font-size:clamp(17px,1.7vw,22px);line-height:1.55;max-width:24em}
+.todo-preview{min-width:0;margin:0}
+.todo-preview img{width:100%;height:auto;background:var(--image)}
+.todo-preview figcaption{margin-top:8px;color:var(--night-muted);font-size:13px}
 .next{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:14px 30px;align-items:end}
 .next-actions{justify-content:flex-end}
 footer{border-top:1px solid var(--line)}
@@ -149,13 +147,14 @@ DelveForge
 <section class="proof-band" aria-labelledby="proof-title">
 <div class="wrap section proof-layout">
 <div class="proof-copy">
-<h2 id="proof-title">实测：会议室预约改签</h2>
-<p>在独立的 Java 预约项目里，Agent 一轮补了可用时间窗口查询和原子改签。之后在单独的环境重跑测试，并通过 HTTP 核对查询、冲突和并发行为。</p>
+<h2 id="proof-title">从一句话到任务清单</h2>
+<blockquote>“帮我开发一个简单的网页任务清单，可以添加、编辑、完成和删除任务。”</blockquote>
+<p>把这句话交给 Agent，等它写好网页，再打开预览。可以加一条「买咖啡豆」并勾选完成，把「取快递」改成「下班取快递」，也可以删掉不用的任务。</p>
 </div>
-<div class="case">
-<div class="case-head"><strong>Room Desk 验证记录</strong><span>2026 年 11 月 16 日</span></div>
-<dl class="case-body"><div><dt>Agent 执行</dt><dd>1 轮</dd></div><div><dt>Maven 测试</dt><dd>原有 8 项 + 新增 24 项通过</dd></div><div><dt>独立 HTTP 验证</dt><dd>8 项通过</dd></div></dl>
-</div>
+<figure class="todo-preview">
+<img src="todo-checklist.png" width="1384" height="952" alt="生成的任务清单界面：买咖啡豆已勾选，取快递待完成；页面提供添加、编辑和删除操作。" loading="lazy" decoding="async">
+<figcaption>任务清单演示实机截图，来自 Agent 生成的网页预览</figcaption>
+</figure>
 </div>
 </section>
 <section class="wrap section next" aria-labelledby="next-title">
