@@ -559,7 +559,6 @@
   let startAt = 0;
   let guide = 0;
   let paneHeight = 0;
-  let previousShade = -1;
   let lastPresence = -1;
   let visible = typeof IntersectionObserver !== 'function';
   const prefs = matchMedia('(prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active)');
@@ -607,23 +606,17 @@
     const bend = scrollY - startAt + guide + Math.min(90,innerHeight * .105);
     const radius = Math.min(140,innerHeight * .17);
     const easing = bend < -radius ? 0 : bend > radius ? bend : (bend+radius) ** 2/(4*radius);
-    const localY = .66 * easing-glide;
-    // Fade only once the diagonal reaches the bottom of Games; its clip never enters Music.
-    const tail = localY + .8975 * paneHeight - gamesHeight;
-    const phase = Math.max(0,Math.min(1,(tail-4)/Math.max(52,paneHeight*.30)));
-    const exit = phase * phase * (3 - 2 * phase);
-    const shade = exit;
-    if (shade !== previousShade) {
-      panel.style.setProperty('--glass-settled',shade.toFixed(3));
-      previousShade = shade;
-    }
-    const presence = entered > 0 ? 1-exit : 0;
+    const travel = .66 * easing-glide;
+    // Ease toward the seam as a single pane, then glide under the section clip.
+    const nearSeam = Math.max(0,(travel + 1.1775 * paneHeight - gamesHeight)/.66);
+    const localY = travel + .21 * nearSeam**2/(nearSeam+32);
+    const presence = entered > 0 && localY + .1025 * paneHeight < gamesHeight ? 1 : 0;
+    panel.style.setProperty('--ribbon-travel',(localY-guide)+'px');
     if (presence !== lastPresence) {
       games.style.setProperty('--ribbon-presence',presence.toFixed(3));
       lastPresence = presence;
     }
     if (presence === 0) { lens.hidden = true; clearTitleLens(); return; }
-    panel.style.setProperty('--ribbon-travel',(localY-guide)+'px');
     const glass = panel.getBoundingClientRect();
     refractTitle(glass,presence);
     const offset = startAt - scrollY - glass.top;
@@ -652,7 +645,6 @@
       lens.style.height = glass.height+'px';
       lens.style.setProperty('--pane-width',glass.width+'px');
       lens.style.setProperty('--pane-height',glass.height+'px');
-      lens.style.setProperty('--glass-settled',shade.toFixed(3));
       for (const {m,box,opacity,src} of visibleMirrors) {
         m.frame.hidden = !box;
         if (!box) continue;
