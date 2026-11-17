@@ -1,17 +1,20 @@
 /* Stationary slot targets; the overlapping prints have their own visual motion. */
 .yena-stack {
   --step:clamp(24px,2.8vw,31px);
-  --print-radius:12px;
+  --print-radius:10px;
+  --rest-angle:-2.25deg;
+  container-type:inline-size;
   display:grid; position:relative; isolation:isolate;
   grid-template-columns:minmax(0,1fr) repeat(4,var(--step));
   width:min(100%,475px); max-width:100%; min-width:0;
-  padding-block-start:19px;
+  padding-block-start:24px;
 }
 .yena-stack .yena-print {
   grid-area:1 / 1 / 2 / 2;
   position:relative; width:100%; min-width:0; margin:0;
   aspect-ratio:3/4; overflow:hidden; border-radius:var(--print-radius);
-  transform:translate(var(--stack-x,0px),var(--stack-y,0px)) rotate(var(--stack-angle,-2deg));
+  transform:translateY(var(--fan-rise)) rotate(var(--stack-angle));
+  transform-origin:0 100%;
   pointer-events:none;
   z-index:var(--stack-layer,5);
 }
@@ -34,35 +37,37 @@
 }
 .yena-print-2 { --foil-direction:151deg; --foil-cool:#aabdc7; --foil-warm:#dccadd; }
 .yena-print-3 { --foil-direction:165deg; --foil-cool:#bccad7; --foil-warm:#d9cacc; }
-.yena-stack .yena-print[data-slot="2"] { --stack-x:var(--step); --stack-y:-5px; --stack-angle:-2.6deg; --stack-layer:4; }
-.yena-stack .yena-print[data-slot="3"] { --stack-x:calc(2 * var(--step)); --stack-y:-9px; --stack-angle:-3deg; --stack-layer:3; }
+.yena-stack :is(.yena-print,.yena-hit) {
+  --angle-step:atan2(calc(.90 * var(--step)),calc((100cqw - 4 * var(--step)) * 4 / 3));
+  --fan-turn:calc(var(--fan-index,0) * var(--angle-step));
+  --stack-angle:calc(var(--rest-angle) + var(--fan-turn));
+  --fan-rise:calc(-4px * var(--fan-index,0));
+}
+.yena-stack [data-slot="2"] { --fan-index:1; --stack-layer:4; }
+.yena-stack [data-slot="3"] { --fan-index:2; --stack-layer:3; }
+.yena-stack [data-slot="4"] { --fan-index:3; --stack-layer:2; }
+.yena-stack [data-slot="5"] { --fan-index:4; --stack-layer:1; }
 
-.yena-stack .yena-print[data-slot="4"] { --stack-x:calc(3 * var(--step)); --stack-y:-12px; --stack-angle:-3.2deg; --stack-layer:2; }
-.yena-stack .yena-print[data-slot="5"] { --stack-x:calc(4 * var(--step)); --stack-y:-15px; --stack-angle:-3.5deg; --stack-layer:1; }
+/* Tuck the rear corners behind the lead print's lower edge: only top/right peeks are exposed. */
+.yena-stack :is(.yena-print,.yena-hit):not([data-slot="1"]) {
+  --tuck:calc(tan(var(--fan-turn)) * (100cqw - 4 * var(--step)) + 3px);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - var(--tuck)),0 calc(100% - 3px));
+}
 
-
+/* Each stationary click target has the same hinge as its print, including the exposed wedge. */
 .yena-stack .yena-hit {
-  display:block; position:relative; grid-row:1; z-index:6; min-width:0;
+  grid-area:1 / 1 / 2 / 2; display:block; position:relative; min-width:0;
+  z-index:calc(5 + var(--stack-layer,5));
   border:0; padding:0; background:transparent; border-radius:var(--print-radius);
+  transform:translateY(var(--fan-rise)) rotate(var(--stack-angle)); transform-origin:0 100%;
   cursor:pointer; touch-action:manipulation;
 }
 .yena-stack .yena-hit[aria-pressed="true"] { cursor:default; }
-.yena-hit[data-slot="1"] { grid-column:1; }
-.yena-hit[data-slot="2"] { grid-column:2; margin-block-start:-5px; margin-block-end:5px; }
-.yena-hit[data-slot="3"] { grid-column:3; margin-block-start:-9px; margin-block-end:9px; }
-.yena-hit[data-slot="4"] { grid-column:4; margin-block-start:-12px; margin-block-end:12px; }
-.yena-hit[data-slot="5"] { grid-column:5; margin-block-start:-15px; margin-block-end:15px; }
-.yena-hit:not([data-slot="1"])::after {
-  content:""; position:absolute; inset:12px calc((100% - 16px)/2) auto auto; width:16px; height:16px;
-  border-radius:50%; background-color:rgb(27 23 29 / .72);
-  background-position:center; background-repeat:no-repeat; background-size:11px;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23fff' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 8V5.5h9v9H12m-6-2.5 2 2-2 2m-2-2h4'/%3E%3C/svg%3E");
-}
 
-.yena-stack [data-pop] { --pop-x:8px; --pop-y:-8px; }
+.yena-stack [data-pop] { --pop-x:6px; --pop-y:-7px; }
 @media (prefers-reduced-motion:no-preference) {
   .yena-stack .yena-print {
-    transform:translate(calc(var(--stack-x,0px) + var(--pop-x,0px)),calc(var(--stack-y,0px) + var(--pop-y,0px))) rotate(var(--stack-angle,-2deg));
+    transform:translate(var(--pop-x,0px),calc(var(--fan-rise) + var(--pop-y,0px))) rotate(var(--stack-angle));
     transition:transform 230ms cubic-bezier(.22,.75,.30,1);
   }
 }
