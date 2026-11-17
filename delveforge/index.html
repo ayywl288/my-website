@@ -6,7 +6,7 @@
 <meta name="description" content="DelveForge 是 Windows 上的本地 Coding Agent 工作台。在项目工作副本里读代码、改文件、跑测试，再查看日志和结果。">
 <meta name="theme-color" content="#f9f8f6">
 <title>DelveForge · 本地 Coding Agent 工作台</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231c1c1c'/%3E%3Cpath d='m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5' stroke='%23ffffff' fill='none' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <style>
 /* Hallmark-informed redesign: modern-minimal / real product performs. */
 /* Critique: generic opening and undersized UI; retain anchored flow, authentic proof and external destinations. */
@@ -35,8 +35,7 @@ svg,img{display:block}img{max-width:100%;height:auto}
 .navbar{border-bottom:1px solid var(--line)}
 .nav{min-height:60px;display:flex;justify-content:space-between;align-items:center;gap:18px}
 .wordmark{display:inline-flex;align-items:center;gap:9px;font-weight:750;letter-spacing:-.025em;font-size:20px;min-height:44px}
-.wordmark svg{width:24px;height:24px;flex:none;color:var(--accent)}
-.wordmark rect{fill:currentColor}.wordmark path{stroke:var(--image)}
+.wordmark img{width:24px;height:24px;flex:none}
 .nav-links{display:flex;align-items:center;gap:clamp(14px,2.8vw,34px);font-size:14px}
 .nav-links a,.foot a{display:inline-flex;min-height:44px;align-items:center}
 .hero{padding-block:clamp(40px,6.3vw,80px) 0}
@@ -108,7 +107,7 @@ footer{border-top:1px solid var(--line)}
 <header class="navbar">
 <nav class="wrap nav" aria-label="产品导航">
 <a class="wordmark" href="#main">
-<svg width="29" height="29" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="currentColor"/><path fill="none" stroke="currentColor" stroke-width="1.5" d="m16 6 9 5v10l-9 5-9-5V11Zm0 0v20M7 11l9 5 9-5"/></svg>
+<img src="./favicon.svg" width="24" height="24" alt="" aria-hidden="true" decoding="async">
 DelveForge
 </a>
 <div class="nav-links"><a href="../index.html">个人主页</a><a class="nav-workflow" href="#workflow">工作流程</a><a href="https://github.com/ayywl288/DelveForge" target="_blank" rel="noopener noreferrer">GitHub</a></div>

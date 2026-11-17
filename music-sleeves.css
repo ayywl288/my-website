@@ -1,53 +1,107 @@
-/* The existing track stays intact. Its sibling carries release metadata only. */
+/* Keep the trigger and album grid fixed while the two faces form a shallow arc. */
 #music:has(.track-item[data-track-open]) { z-index:3; }
 .music-shelf .track-item { position:relative; perspective:none; min-width:0; }
 .music-shelf .track-body {
-  position:relative; height:100%; perspective:820px; perspective-origin:50% 50%;
+  position:relative; height:100%; perspective:820px; perspective-origin:center;
   transform:none; transition:none;
+  --sleeve-ease:cubic-bezier(.22,.72,.23,1);
 }
 .music-shelf .track-body>.track-card {
-  transform-origin:15% 45%;
-  transition:transform 290ms cubic-bezier(.2,.72,.25,1),box-shadow 290ms cubic-bezier(.2,.72,.25,1);
+  transform-origin:center; scale:1; translate:0 0;
+  transition:translate 300ms var(--sleeve-ease),transform 300ms var(--sleeve-ease),box-shadow 280ms var(--sleeve-ease),scale 230ms var(--sleeve-ease);
 }
 .music-shelf .track-item[data-track-open] { z-index:5; }
 .music-shelf .track-item[data-track-open] .track-body { transform:none; }
 .music-shelf .track-item[data-track-open] .track-card {
-  transform:translate3d(-9px,8px,24px) scale(.905);
+  translate:var(--sleeve-shift,0px) var(--sleeve-lift,0px);
+  transform:translateZ(var(--sleeve-depth,0px)) rotate(var(--sleeve-song-tilt,0deg));
+  scale:var(--sleeve-scale,1);
+  transition:translate 325ms cubic-bezier(.16,.84,.25,1),transform 325ms cubic-bezier(.16,.84,.25,1),box-shadow 310ms var(--sleeve-ease),scale 325ms cubic-bezier(.16,.84,.25,1);
   background:#fff8ec; border-color:#cbb6a6;
-  box-shadow:0 14px 22px #3a27343d,0 2px 5px #3a273420;
+  box-shadow:0 30px 40px -14px #3a27345c,0 7px 13px #3a273425;
 }
-.music-shelf .track-disclose { z-index:3; }
+.music-shelf .track-item[data-sleeve-side] { --sleeve-song-tilt:-3.2deg; --sleeve-profile-tilt:4deg; }
+.music-shelf .track-disclose { z-index:3; transition:transform 310ms var(--sleeve-ease); }
+@media(prefers-reduced-motion:no-preference) and (hover:hover) and (pointer:fine) {
+  .music-shelf .track-item[data-track-open][data-sleeve-side] .track-disclose {
+    transform:translate(var(--sleeve-button-x),var(--sleeve-button-y));
+  }
+}
 .music-shelf .track-card:focus-visible { outline-offset:3px; }
+
+/* Floor shadow and a transparent pointer bridge share the settled panel position. */
+.music-shelf .track-body::before,.music-shelf .track-body::after {
+  position:absolute; content:""; pointer-events:none; opacity:0; visibility:hidden;
+}
+.music-shelf .track-item[data-sleeve-side] .track-body::before {
+  z-index:0; left:var(--sleeve-shadow-left); top:var(--sleeve-shadow-top); width:var(--sleeve-shadow-width); height:34px;
+  background:radial-gradient(ellipse,#5737453b 0%,#57374528 26%,transparent 70%);
+}
+.music-shelf .track-item[data-sleeve-side] .track-body::after {
+  left:calc(var(--sleeve-left) - 14px); top:calc(var(--sleeve-top) + 8px);
+  width:24px; height:132px; z-index:1;
+}
+.music-shelf .track-item[data-track-open][data-sleeve-side] .track-body::before,
+.music-shelf .track-item[data-track-open][data-sleeve-side] .track-body::after { opacity:1; visibility:visible; }
+.music-shelf .track-item[data-track-open][data-sleeve-side] .track-body::after { pointer-events:auto; }
+
 .music-shelf .song-sleeve {
-  position:absolute; z-index:2; display:none; min-width:0;
-  left:var(--sleeve-left); top:var(--sleeve-top);
-  width:var(--sleeve-width); padding:10px 13px;
-  border:1px solid #d5c6cb; border-radius:7px;
-  background:#fffaf6; color:#30272f;
-  box-shadow:0 9px 17px #39273026;
+  position:absolute; z-index:2; display:grid; grid-template-columns:1fr; align-items:center; gap:12px; min-width:0;
+  left:var(--sleeve-left,0px); top:var(--sleeve-top,100%); width:var(--sleeve-width,100%);
+  padding:12px 24px 12px 13px; border:1px solid #d7c6cf; border-radius:13px;
+  background:radial-gradient(ellipse at 10% 0%,#fffefd 0%,transparent 67%),linear-gradient(142deg,#faf1f3,#f0e5ed);
+  color:#30272f; box-shadow:inset 0 1px 0 #fff,0 12px 20px #39273024;
+  cursor:default; transform-origin:0 45%; opacity:0; visibility:hidden; pointer-events:none;
+  transform:translate(var(--sleeve-travel,0px),var(--sleeve-rise,0px)) rotate(0deg);
+  transition:opacity 160ms ease-out,transform 230ms var(--sleeve-ease),visibility 0s 230ms;
 }
-.music-shelf .track-item[data-track-open] .song-sleeve { display:block; }
-.music-shelf .song-sleeve-heading { display:block; font-size:12px; line-height:1.35; font-weight:760; }
+.music-shelf .track-item[data-track-open] .song-sleeve {
+  opacity:1; visibility:visible; pointer-events:auto;
+  transform:translate(0,0) rotate(var(--sleeve-profile-tilt,0deg));
+  transition:opacity 230ms var(--sleeve-ease) 120ms,transform 330ms var(--sleeve-ease) 120ms,visibility 0s;
+}
+
+.music-shelf .track-item[data-sleeve-side] .song-sleeve { z-index:1; }
+.music-shelf .song-sleeve:has(.song-sleeve-portrait) { grid-template-columns:minmax(60px,.83fr) minmax(0,1.17fr); }
+.music-shelf .song-sleeve-portrait {
+  width:100%; height:auto; aspect-ratio:4 / 5; display:block; align-self:center;
+  object-fit:cover; object-position:var(--artist-photo-position,center); border-radius:7px;
+}
+#track-detail-brain-dead { --artist-photo-position:45% center; }
+#track-detail-know-about-me { --artist-photo-position:55% center; }
+#track-detail-panorama { --artist-photo-position:center 76%; }
+#track-detail-jewelry { --artist-photo-position:62% center; }
+.music-shelf .song-sleeve-heading { display:block; font-size:10px; letter-spacing:.055em; color:#6b5364; line-height:1.25; font-weight:760; }
+.music-shelf .song-sleeve-name { display:block; margin-top:3px; font-size:clamp(15px,1.42vw,19px); line-height:1.16; text-wrap:balance; overflow-wrap:normal; }
 .music-shelf .song-sleeve p {
-  margin:5px 0 0; color:#5a4e55; font-size:12px; line-height:1.42;
-  overflow-wrap:anywhere;
+  margin:5px 0 0; color:#55474f; font-size:12.5px; line-height:1.42; text-wrap:pretty; overflow-wrap:break-word;
 }
-.music-shelf .song-sleeve p.song-sleeve-tracks { font-size:11px; }
-.music-shelf .song-sleeve-tracks span { color:#6b5364; font-weight:680; margin-right:5px; }
-@media(prefers-reduced-motion:no-preference) {
-  .music-shelf .track-item[data-track-open]:not([data-sleeve-instant]) .song-sleeve {
-    animation:track-data-in 250ms cubic-bezier(.2,.72,.25,1) 105ms backwards;
-  }
-  @keyframes track-data-in {
-    from { opacity:0; transform:translateX(var(--sleeve-travel,12px)); }
-    to { opacity:1; transform:none; }
-  }
-}
+.music-shelf .song-sleeve p.song-sleeve-tracks { padding-top:4px; border-top:1px solid #8a667b29; font-size:11px; }
+.music-shelf .song-sleeve-tracks-label { white-space:nowrap; color:#6b5364; font-weight:680; }
+.music-shelf .song-sleeve-track-list { display:inline; }
+.music-shelf .song-sleeve-track-list > span { white-space:nowrap; }
+.music-shelf .song-sleeve-credit { display:block; margin-top:5px; color:#6b5364; font-size:9px; line-height:1.3; }
 @media(prefers-reduced-motion:reduce) {
-  .music-shelf .track-body>.track-card,.music-shelf .track-disclose svg { transition:none; }
-  .music-shelf .track-item[data-track-open] .track-card { transform:none; }
+  .music-shelf .track-body>.track-card,.music-shelf .track-disclose svg,.music-shelf .song-sleeve,
+  .music-shelf .track-item[data-track-open] .song-sleeve { transition:none; transform:none; }
+  .music-shelf .track-item[data-track-open] .track-card { transform:none; translate:none; scale:1; transition:none; }
 }
 @media(forced-colors:active) {
   .music-shelf .song-sleeve { background:Canvas; border-color:CanvasText; color:CanvasText; }
   .music-shelf .song-sleeve :is(p,.song-sleeve-tracks span) { color:CanvasText; }
+}
+
+/* Foil accents frame the outside edges of the pair, leaving the seam clean. */
+.music-shelf .track-card .track-print { grid-template-columns:clamp(13px,11%,24px) minmax(0,1fr); }
+.music-shelf .track-card .track-art { grid-row:1; grid-column:2; border-radius:1px 5px 5px 1px; }
+.music-shelf .track-card .track-foil { grid-row:1; grid-column:1; border-radius:5px 1px 1px 5px; }
+.music-shelf .song-sleeve .song-sleeve-foil {
+  position:absolute; inset:8px 7px 8px auto; width:12px; pointer-events:none;
+}
+@media(max-width:760px) {
+  .music-shelf .track-card .track-print { grid-template-columns:clamp(11px,10%,18px) minmax(0,1fr); }
+}
+
+@media(max-width:550px) {
+  .music-shelf .song-sleeve:has(.song-sleeve-portrait) { grid-template-columns:minmax(54px,.78fr) minmax(0,1.22fr); }
 }
