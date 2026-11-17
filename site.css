@@ -7,10 +7,15 @@
   --muted: #595554;
   --rule: #d8d4d0;
   --signal: #6c586e;
-  --work-ground: #2b2730;
-  --work-ink: #f9f6f4;
-  --work-muted: #ded4df;
-  --work-accent: #e9cdeb;
+  --fold-lavender: #ddd7e6;
+  --fold-rose: #ebdfdf;
+  --fold-blue: #d9e3e9;
+  --paper-lavender: #eeeaf0;
+  --paper-rose: #f1ebea;
+  --paper-blue: #eaf0f1;
+  --work-ink: var(--ink);
+  --work-muted: var(--muted);
+  --work-accent: var(--signal);
   --studio: #28221e;
   --film: #181411;
   --film-ink: #fff5e9;
@@ -67,8 +72,37 @@ section[id],main { scroll-margin-top:85px; }
 .hero-role,.hero .hint { margin:0; color:var(--muted); font-size:12px; }
 .hero-role { color:var(--signal); font-weight:700; }
 .work {
-  color:var(--work-ink); background:var(--work-ground);
+  position:relative; isolation:isolate; background:#eeeae5;
+  background:linear-gradient(106deg,var(--paper-lavender) 0%,var(--paper-rose) 54%,var(--paper-blue) 100%);
+  color:var(--work-ink);
   padding-block:clamp(34px,4.5vw,67px) clamp(41px,5.5vw,80px);
+  perspective:840px; perspective-origin:50% 0;
+}
+.work::before {
+  content:""; position:absolute; pointer-events:none; z-index:-1;
+  inset:calc(-1 * clamp(21px,3.9vw,55px)) 0 auto;
+  height:clamp(21px,3.9vw,55px);
+  background:#e7e1d9;
+  background:linear-gradient(106deg,var(--fold-lavender) 0%,var(--fold-rose) 54%,var(--fold-blue) 100%);
+  clip-path:polygon(8% 0,92% 0,100% 100%,0 100%);
+  transform-origin:50% 100%;
+}
+@media (prefers-reduced-motion:no-preference) {
+  @supports (animation-timeline:scroll()) {
+    .work::before {
+      animation:paper-plane linear both;
+      animation-timeline:scroll(root block);
+      animation-range:0px 210px;
+    }
+    @keyframes paper-plane {
+      from { transform:rotateX(50deg) scaleX(.96); opacity:.63; }
+      to { transform:none; opacity:1; }
+    }
+  }
+}
+@media (prefers-contrast:more), (forced-colors:active) {
+  .work { background:#eeeae5; }
+  .work::before { background:#e7e1d9; }
 }
 .work :focus-visible { outline-color:var(--work-accent); }
 @media (hover:hover) and (pointer:fine) { .project.featured .link:hover { color:var(--work-ink); } }
@@ -79,7 +113,7 @@ section[id],main { scroll-margin-top:85px; }
   align-items:baseline; margin-bottom:clamp(24px, 4.5vw, 50px);
 }
 .work-header { justify-content:flex-start; gap:12px clamp(22px,5.1vw,73px); margin-bottom:clamp(18px,2.65vw,39px); }
-.work-header h2,.personal-heading h2 {
+.work-header h2,.personal-heading :is(h2,.chapter-heading-copy) {
   font:760 clamp(37px,6.7vw,80px)/1.03 var(--serif);
   letter-spacing:-.04em; margin:0; max-width:100%;
 }
@@ -114,7 +148,7 @@ section[id],main { scroll-margin-top:85px; }
 
 .games,.edits { padding-block:clamp(42px, 5vw, 74px); }
 .games .personal-heading,.edits .personal-heading { margin-bottom:clamp(20px,2.6vw,32px); }
-.games .personal-heading h2,.edits .personal-heading h2 { font-size:clamp(37px,5.8vw,64px); }
+.games .personal-heading :is(h2,.chapter-heading-copy),.edits .personal-heading h2 { font-size:clamp(37px,5.8vw,64px); }
 .game-board {
   color:var(--film-ink); background:var(--studio);
   border-radius:14px; overflow:hidden;
@@ -662,6 +696,17 @@ section[id],main { scroll-margin-top:85px; }
   .chapter-photo-lens { --pane-frost:1.35px; }
 }
 
+/* The heading remains an ordinary h2; the pane replaces only its painted diagonal slice. */
+.chapter-heading-lens {
+  position:absolute; display:block; pointer-events:none; z-index:1;
+}
+.chapter-heading-copy {
+  display:block; width:100%;
+  transform:translate(1px,2.25px) scale(1.125,1.085);
+  transform-origin:var(--title-origin);
+  filter:blur(.55px);
+}
+
 /* The film planes sample the same painted game image in each visible carousel slot. */
 .chapter-photo-lens {
   position:absolute; z-index:2; pointer-events:none;
@@ -687,5 +732,6 @@ section[id],main { scroll-margin-top:85px; }
 }
 .games .game-stage #game-error { z-index:4; }
 @media (prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active) {
-  .chapter-glass-run,.chapter-photo-lens { display:none!important; }
+  .chapter-glass-run,.chapter-photo-lens,.chapter-heading-lens { display:none!important; }
+  #gallery-label { clip-path:none!important; }
 }

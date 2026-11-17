@@ -530,6 +530,16 @@
   const games = document.getElementById('games');
   const path = games.querySelector('.chapter-glass-run');
   const panel = path.querySelector('.chapter-glass');
+  const heading = games.querySelector('#gallery-label');
+  const titleLens = document.createElement('span');
+  const titleLight = document.createElement('span');
+  titleLens.className = 'chapter-heading-lens';
+  titleLight.className = 'chapter-heading-copy';
+  titleLight.textContent = heading.textContent;
+  titleLens.hidden = true;
+  titleLens.setAttribute('aria-hidden','true');
+  titleLens.append(titleLight);
+  heading.after(titleLens);
   const stage = games.querySelector('.game-stage');
   const lens = stage.querySelector('.chapter-photo-lens');
   const track = stage.querySelector('.game-track');
@@ -545,7 +555,7 @@
     return {original, frame, image};
   });
   let frame = 0;
-  let settleAt = 0;
+  let gamesHeight = 0;
   let startAt = 0;
   let guide = 0;
   let paneHeight = 0;
@@ -554,15 +564,39 @@
   let visible = typeof IntersectionObserver !== 'function';
   const prefs = matchMedia('(prefers-reduced-motion:reduce), (prefers-reduced-transparency:reduce), (prefers-contrast:more), (forced-colors:active)');
   if (!CSS.supports('backdrop-filter','blur(1px)')) return;
+  const clearTitleLens = () => {
+    if (titleLens.hidden) return;
+    titleLens.hidden = true;
+    heading.style.removeProperty('clip-path');
+  };
+  const titleClipSupported = CSS.supports('clip-path','polygon(evenodd,0 0,100% 0,100% 100%)');
+  const refractTitle = (glass, presence) => {
+    if (!titleClipSupported || presence < .98) return clearTitleLens();
+    const box = heading.getBoundingClientRect();
+    if (box.bottom <= 0 || box.top >= innerHeight || !box.width || !glass.width) return clearTitleLens();
+    const slope = .60 * glass.height/glass.width;
+    const top = glass.top + .1025*glass.height - box.top + slope*(box.left-glass.left);
+    const bottom = top + .195*glass.height;
+    if (bottom + slope*box.width <= 0 || top >= box.height) return clearTitleLens();
+
+    // Use the same diagonal as the pane. Replace its slice of the painted title, not the title's semantics.
+    const pad = 18, right = box.width+pad;
+    const a = -pad+'px '+(top-slope*pad)+'px';
+    const cut = a+','+right+'px '+(top+slope*right)+'px,'+
+      right+'px '+(bottom+slope*right)+'px,'+-pad+'px '+(bottom-slope*pad)+'px';
+    const full = '-18px -18px,calc(100% + 18px) -18px,calc(100% + 18px) calc(100% + 18px),-18px calc(100% + 18px),-18px -18px';
+    heading.style.clipPath = 'polygon(evenodd,'+full+','+cut+','+a+',-18px -18px)';
+
+    const parent = heading.parentElement.getBoundingClientRect();
+    titleLens.hidden = false;
+    titleLens.style.cssText = 'left:'+(box.left-parent.left)+'px;top:'+(box.top-parent.top)+
+      'px;width:'+box.width+'px;height:'+box.height+'px;opacity:'+presence+';clip-path:polygon('+cut+
+      ');--title-origin:50% '+Math.min(box.height,Math.max(0,(top+bottom+slope*box.width)/2))+'px';
+    if (heading.parentElement.getAnimations().some(a=>a.playState === 'running')) queue();
+  };
   const shadePhoto = () => {
     frame = 0;
-    if (path.hidden) { lens.hidden = true; return; }
-    const shade = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/230));
-    if (shade !== previousShade) {
-      panel.style.setProperty('--glass-settled',shade.toFixed(3));
-      previousShade = shade;
-    }
-    // The section edge uncovers a prepared pane; ease it from the heading into its sweep.
+    if (path.hidden) { lens.hidden = true; clearTitleLens(); return; }
     const entered = scrollY + innerHeight - startAt;
     // The top edge cuts across the pane at 60% width, without reversing as it uncovers.
     const lift = paneHeight * .56;
@@ -573,15 +607,25 @@
     const bend = scrollY - startAt + guide + Math.min(90,innerHeight * .105);
     const radius = Math.min(140,innerHeight * .17);
     const easing = bend < -radius ? 0 : bend > radius ? bend : (bend+radius) ** 2/(4*radius);
-    const exit = Math.max(0,Math.min(1,(scrollY - settleAt + 145)/185));
+    const localY = .66 * easing-glide;
+    // Fade only once the diagonal reaches the bottom of Games; its clip never enters Music.
+    const tail = localY + .8975 * paneHeight - gamesHeight;
+    const phase = Math.max(0,Math.min(1,(tail-4)/Math.max(52,paneHeight*.30)));
+    const exit = phase * phase * (3 - 2 * phase);
+    const shade = exit;
+    if (shade !== previousShade) {
+      panel.style.setProperty('--glass-settled',shade.toFixed(3));
+      previousShade = shade;
+    }
     const presence = entered > 0 ? 1-exit : 0;
     if (presence !== lastPresence) {
       games.style.setProperty('--ribbon-presence',presence.toFixed(3));
       lastPresence = presence;
     }
-    if (presence === 0) { lens.hidden = true; return; }
-    panel.style.setProperty('--ribbon-travel',(.66 * easing-guide-glide)+'px');
+    if (presence === 0) { lens.hidden = true; clearTitleLens(); return; }
+    panel.style.setProperty('--ribbon-travel',(localY-guide)+'px');
     const glass = panel.getBoundingClientRect();
+    refractTitle(glass,presence);
     const offset = startAt - scrollY - glass.top;
     panel.style.setProperty('--field-offset',offset+'px');
     panel.style.setProperty('--field-focus',(glass.height/2-offset)+'px');
@@ -634,7 +678,7 @@
   const queue = () => { if (!frame) frame = requestAnimationFrame(shadePhoto); };
   const place = () => {
     path.hidden = prefs.matches;
-    if (path.hidden) lens.hidden = true;
+    if (path.hidden) { lens.hidden = true; clearTitleLens(); }
     if (path.hidden) return;
     const pathHeight = Math.max(0,games.clientHeight - path.offsetTop - 1);
     path.style.height = pathHeight + 'px';
@@ -642,7 +686,7 @@
     startAt = scrollY + games.getBoundingClientRect().top;
     guide = parseFloat(getComputedStyle(panel).top);
     paneHeight = panel.offsetHeight;
-    settleAt = scrollY + path.getBoundingClientRect().top + pathHeight - paneHeight - guide;
+    gamesHeight = pathHeight;
     queue();
   };
   if ('ResizeObserver' in window) new ResizeObserver(place).observe(games);
@@ -651,6 +695,7 @@
     queue();
   }).observe(stage);
   new MutationObserver(queue).observe(stage.querySelector('.game-track'),{subtree:true,attributes:true,attributeFilter:['id','src']});
+  new MutationObserver(queue).observe(heading.parentElement,{attributes:true,attributeFilter:['data-reveal-state']});
   stage.addEventListener('load',queue,true);
   stage.addEventListener('gallery:motion',queue);
   stage.addEventListener('pointermove',queue,{passive:true});
