@@ -50,8 +50,6 @@ h1{font-size:clamp(37px,5.1vw,70px);margin-bottom:18px}
 .primary{background:var(--accent);color:var(--image);padding:8px 15px;border-radius:5px}
 .icon{width:15px;height:15px;flex:none}
 .preview{margin-top:clamp(24px,3.5vw,40px);min-width:0}
-.preview-frame{display:block;background:var(--surface);padding:clamp(14px,2.9vw,37px) clamp(14px,5.2vw,66px) 0;overflow:clip}
-.preview-frame img{width:100%;height:auto;aspect-ratio:2.1;object-fit:cover;object-position:50% 3%;background:var(--image)}
 .caption{display:flex;justify-content:space-between;align-items:center;gap:0 16px;flex-wrap:wrap;padding:8px 0;color:var(--muted);font-size:13px}
 .caption strong{color:var(--ink);font-weight:640}
 .shot-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:670;color:var(--accent)}
@@ -92,8 +90,6 @@ footer{border-top:1px solid var(--line)}
   .nav-links{gap:14px;font-size:13px}.nav-workflow{display:none!important}
   .intro-row,.next{grid-template-columns:1fr}.hero-actions,.next-actions{justify-content:flex-start}
   .flow-layout,.proof-layout{grid-template-columns:1fr;gap:20px}
-  .preview-frame{padding:13px 13px 0}
-  .preview-frame img{aspect-ratio:1.51;object-position:59% 5%}
 }
 @media(max-width:360px){
   .wrap{width:calc(100% - 34px)}.nav-links{gap:10px}
@@ -101,6 +97,8 @@ footer{border-top:1px solid var(--line)}
   .hero-actions,.next-actions{gap:4px 14px}
 }
 </style>
+<link rel="stylesheet" href="./demo-player.css">
+<script src="./demo-player.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">跳到主要内容</a>
@@ -123,9 +121,14 @@ DelveForge
 <a class="quiet-action" href="#workflow">看工作流程</a>
 </div>
 </div>
-<figure id="workbench" class="preview">
-<div class="preview-frame"><img src="workbench.png" width="1280" height="820" decoding="async" alt="DelveForge 测试工作区。左侧显示多个项目及其对话，右侧可以输入 Agent 任务。"></div>
-<figcaption class="caption"><strong>DelveForge 测试工作区实机截图</strong><a class="shot-link" href="workbench.png" target="_blank" rel="noopener noreferrer">打开完整截图<svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></a></figcaption>
+<figure id="workbench" class="preview demo-player" data-demo-player>
+<a class="demo-launch" href="https://delveforge-media.pages.dev/media/delveforge/delveforge-promo-full-v2-2.mp4" data-demo-label="DelveForge 完整演示">
+<img src="https://delveforge-media.pages.dev/media/delveforge/delveforge-cover-v2.png" width="1920" height="1080" loading="eager" decoding="async" alt="">
+<span class="demo-cta"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M5 2.9a.7.7 0 0 1 1.04-.6l7 4.7a.7.7 0 0 1 0 1.16l-7 4.72A.7.7 0 0 1 5 12.3z"/></svg>播放完整演示<span class="demo-time">1:06</span></span>
+</a>
+<div class="demo-screen" hidden><button class="demo-close" type="button" aria-label="关闭演示"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
+<p class="demo-status" role="status"></p>
+<figcaption class="caption"><strong>实机演示：提出需求、开发、验证、打开应用</strong><a class="shot-link" href="workbench.png" target="_blank" rel="noopener noreferrer">查看工作台实机截图<svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7"/></svg></a></figcaption>
 </figure>
 </section>
 <section id="workflow" class="wrap section flow-layout" aria-labelledby="workflow-title">

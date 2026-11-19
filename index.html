@@ -11,6 +11,8 @@
 <script defer src="./music-sleeves.js"></script>
 <link rel="stylesheet" href="./yena-stack.css">
 <script src="./yena-stack.js" defer></script>
+<link rel="stylesheet" href="./delveforge/demo-player.css">
+<script src="./delveforge/demo-player.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">跳到主要内容</a>
@@ -36,7 +38,14 @@
 <div class="project-detail"><p>Windows 上的本地开发工作台。让 Agent 在项目副本里读代码、改文件和跑测试，你可以边执行边补充要求，最后检查改动和日志。</p>
 <a class="link" href="./delveforge/index.html" target="_blank" rel="noopener noreferrer">进入 DelveForge 产品页 <svg aria-hidden="true" class="surface-foil surface-foil-link" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg></a></div>
 </div>
-<figure class="project-preview"><img src="./delveforge/workbench.png" width="1280" height="820" decoding="async" fetchpriority="high" alt="DelveForge 测试工作区，左侧是项目列表，右侧是 Agent 任务输入区"></figure>
+<figure class="project-preview demo-player" data-demo-player>
+<a class="demo-launch" href="https://delveforge-media.pages.dev/media/delveforge/delveforge-promo-short-v2.mp4" data-demo-label="DelveForge 24 秒演示">
+<img src="https://delveforge-media.pages.dev/media/delveforge/delveforge-cover-v2.png" width="1920" height="1080" loading="lazy" decoding="async" alt="">
+<span class="demo-cta"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M5 2.9a.7.7 0 0 1 1.04-.6l7 4.7a.7.7 0 0 1 0 1.16l-7 4.72A.7.7 0 0 1 5 12.3z"/></svg>看 24 秒演示</span>
+</a>
+<div class="demo-screen" hidden><button class="demo-close" type="button" aria-label="关闭演示"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
+<p class="demo-status" role="status"></p>
+</figure>
 </article>
 <article class="project project-secondary" data-reveal="2">
 <div class="project-id"><div><h3>本地生活平台</h3><span class="project-kind">Java 后端</span></div></div>

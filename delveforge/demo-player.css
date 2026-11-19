@@ -1,0 +1,36 @@
+/* DelveForge video: a normal media link unless inline playback is available. */
+.demo-player { min-width:0; }
+.demo-player [hidden] { display:none !important; }
+.demo-launch,.demo-screen {
+  position:relative; display:block; width:100%; aspect-ratio:16/9;
+  overflow:hidden; border-radius:10px; background:#26222e;
+}
+.demo-launch:focus-visible,.demo-close:focus-visible,.demo-screen video:focus-visible {
+  outline:2px solid #765699; outline-offset:3px;
+}
+.demo-player .demo-launch img {
+  display:block; width:100%; height:100%; max-width:none; object-fit:cover; object-position:center;
+}
+.demo-launch::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg,transparent 55%,rgba(21,16,29,.38));
+}
+.demo-launch:hover .demo-cta { background:#3c304c; color:white; }
+.demo-cta {
+  position:absolute; z-index:1; inset:auto auto clamp(8px,2.8%,26px) clamp(8px,2.8%,26px);
+  display:inline-flex; align-items:center; gap:8px; min-height:44px; max-width:calc(100% - 16px);
+  padding:6px clamp(10px,1.5vw,17px); border:1px solid rgba(255,255,255,.35); border-radius:6px;
+  background:#25212d; color:#fff; font:650 clamp(12px,1.2vw,15px)/1.25 var(--sans,sans-serif);
+}
+.demo-cta svg { display:block; flex:none; }
+.demo-cta .demo-time { color:#eee0f7; white-space:nowrap; font-weight:500; font-variant-numeric:tabular-nums; }
+.demo-screen video { display:block; width:100%; height:100%; background:#17141e; }
+.demo-screen video:focus-visible { outline-offset:-4px; }
+.demo-close {
+  position:absolute; z-index:2; inset:6px 6px auto auto; display:grid; place-items:center;
+  width:44px; height:44px; padding:0; border:1px solid #bfb5cc; border-radius:6px;
+  background:#25212d; color:#fff; cursor:pointer;
+}
+.demo-close:hover { background:#3c304c; }
+.demo-status { margin:6px 0 0; color:var(--work-muted,var(--muted,#59525d)); font-size:13px; }
+.demo-status:empty { display:none; }
