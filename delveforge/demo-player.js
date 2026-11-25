@@ -6,6 +6,10 @@
     const status = player.querySelector('.demo-status');
     if (!launch || !screen || !close || !status) return;
 
+    if (['ayywl.top', 'www.ayywl.top'].includes(location.hostname) && launch.dataset.demoLocalSrc) {
+      launch.href = launch.dataset.demoLocalSrc;
+    }
+
     let activeVideo;
 
     const restore = (message = '') => {

@@ -24,6 +24,7 @@ html,body{overflow-x:clip}
 body{background:var(--paper);color:var(--ink);margin:0;font:16px/1.65 var(--sans)}
 ::selection{background:var(--select);color:var(--ink)}
 a{color:inherit;text-decoration:none}
+:where(a,button,summary,[role='button']){-webkit-tap-highlight-color:transparent}
 :focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 h1,h2,h3,p,figure,dl,dd{margin:0}
 h1,h2{min-width:0;overflow-wrap:break-word;font-family:var(--serif);letter-spacing:-.032em;line-height:1.13;font-weight:700;text-wrap:balance}
@@ -98,7 +99,7 @@ footer{border-top:1px solid var(--line)}
 }
 </style>
 <link rel="stylesheet" href="./demo-player.css">
-<script src="./demo-player.js" defer></script>
+<script src="./demo-player.js?v=20261125" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">跳到主要内容</a>
@@ -122,8 +123,8 @@ DelveForge
 </div>
 </div>
 <figure id="workbench" class="preview demo-player" data-demo-player>
-<a class="demo-launch" href="https://delveforge-media.pages.dev/media/delveforge/delveforge-promo-full-v2-2.mp4" data-demo-label="DelveForge 完整演示">
-<img src="https://delveforge-media.pages.dev/media/delveforge/delveforge-cover-v2.png" width="1920" height="1080" loading="eager" decoding="async" alt="">
+<a class="demo-launch" href="https://delveforge-media.pages.dev/media/delveforge/delveforge-promo-full-v2-2.mp4" data-demo-local-src="/media/delveforge/delveforge-promo-full-v2-2.mp4" data-demo-label="DelveForge 完整演示">
+<img src="../images/delveforge-demo-cover.webp" width="1920" height="1080" loading="eager" decoding="async" alt="">
 <span class="demo-cta"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M5 2.9a.7.7 0 0 1 1.04-.6l7 4.7a.7.7 0 0 1 0 1.16l-7 4.72A.7.7 0 0 1 5 12.3z"/></svg>播放完整演示<span class="demo-time">1:06</span></span>
 </a>
 <div class="demo-screen" hidden><button class="demo-close" type="button" aria-label="关闭演示"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
