@@ -2,7 +2,7 @@
 
 静态网站，不需要构建、安装依赖或启动后端。
 
-[在线预览](https://ayywl.ayywl2828.workers.dev/)（已发布版本；未推送的本地改动不会出现在这里。）
+**在线预览：** [主站 · ayywl.top](https://ayywl.top/) ｜ [副站 · Cloudflare](https://ayywl.ayywl2828.workers.dev/)
 
 - `index.html`：个人主页，包含开发项目、游戏、音乐、剪辑作品四个独立区块。游戏轮播的顺序和图片维护在首页的 `game-shots` 清单中；剪辑封面存放在 `images/edits/`，点击作品进入 B 站原视频。
 - `delveforge/index.html`：DelveForge 独立产品页。展示真实测试工作区截图，并用 Agent 实际生成的任务清单演示打开预览、添加、编辑、勾选和删除任务。
@@ -19,7 +19,7 @@ py -m http.server 8080 --bind 127.0.0.1
 
 ## 部署
 
-将 `index.html`、`site.css`、`music-sleeves.css`、`music-sleeves.js`、`yena-stack.css`、`yena-stack.js`、`delveforge/` 和首页引用的 `images/` 图片按原相对路径复制到静态站点的文档根目录。线上版本托管在 Cloudflare Workers；本机预览和本地提交不会更新线上版本。
+将 `index.html`、`site.css`、`music-sleeves.css`、`music-sleeves.js`、`yena-stack.css`、`yena-stack.js`、`delveforge/` 和首页引用的 `images/` 图片按原相对路径复制到静态站点的文档根目录。主站由腾讯云服务器上的 Nginx 提供服务，副站部署在 Cloudflare Workers。本机预览和本地提交不会更新线上版本。
 
 ## 本地版本记录
 
